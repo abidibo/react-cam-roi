@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import * as fabric from 'fabric'
+import { FabricEvent, Shape, ToolEnum } from './Types'
+import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -47,4 +50,70 @@ export const useCanvasSize = (imageUrl: string) => {
   }, [imageSize, wrapperRef.current]) // eslint-disable-line
 
   return { imageSize, canvasSize, wrapperRef, isDone }
+}
+
+export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
+  const [isDrawing, setIsDrawing] = useState(false)
+  const [shape, setShape] = useState<Shape>(null)
+  const [originX, setOriginX] = useState(0)
+  const [originY, setOriginY] = useState(0)
+  const [startPos] = useState({ x: 0, y: 0 })
+  console.log('TOOL', tool, canvas, ToolEnum.Rectangle) // eslint-disable-line
+
+  useEffect(() => {
+    if (!canvas) {
+      return
+    }
+    const handleMouseDown = (event: FabricEvent) => {
+      console.log('MOUSE DOWN DETECTED') // eslint-disable-line
+      switch (tool) {
+        case ToolEnum.Rectangle:
+          console.log('MOUSE DOWN ADDED') // eslint-disable-line
+          handleMouseDownRect(event, canvas, setOriginX, setOriginY, setShape, setIsDrawing)
+          break
+        default:
+          break
+      }
+    }
+
+    const handleMouseMove = (event: FabricEvent) => {
+      switch (tool) {
+        case ToolEnum.Rectangle:
+          handleMouseMoveRect(event, canvas, originX, originY, shape, isDrawing)
+          break
+        default:
+          break
+      }
+    }
+
+    const handleMouseUp = () => {
+      switch (tool) {
+        case ToolEnum.Rectangle:
+          handleMouseUpRect(setIsDrawing, setShape, canvas)
+          break
+        default:
+          break
+      }
+    }
+
+    const handleDoubleClick = () => {
+      switch (tool) {
+        default:
+          break
+      }
+    }
+
+    console.log('ADDING EVENTS') // eslint-disable-line
+    canvas.on('mouse:down', handleMouseDown)
+    canvas.on('mouse:move', handleMouseMove)
+    canvas.on('mouse:up', handleMouseUp)
+    canvas.on('mouse:dblclick', handleDoubleClick)
+
+    return () => {
+        canvas.off('mouse:down', handleMouseDown)
+        canvas.off('mouse:move', handleMouseMove)
+        canvas.off('mouse:up', handleMouseUp)
+        canvas.off('mouse:dblclick', handleDoubleClick)
+    }
+  }, [tool, isDrawing, shape, originX, originY, startPos, canvas])
 }

@@ -1,13 +1,14 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
-import { useCanvasSize, useImageSize } from './Hooks'
+import { useCanvasSize } from './Hooks'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
 import { ToolEnum } from './Types'
+import Canvas from './Canvas'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -27,7 +28,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
 
   if (!isDone) {
-    return <Loader themeMode={themeMode} />
+    return <Loader />
   }
   return (
     <EditorProvider activeTool={activeTool} setActiveTool={setActiveTool}>
@@ -41,7 +42,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
             backgroundImage: `url(${imageUrl})`,
           }}
         >
-          <canvas style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }} />
+          <Canvas canvasSize={canvasSize} />
         </div>
       </div>
     </EditorProvider>

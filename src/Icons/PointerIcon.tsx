@@ -5,8 +5,11 @@ type PointerIconProps = {
 
 const PointerIcon: React.FC<PointerIconProps> = ({ color = 'black', style = { height: '32px' } }) => {
   return (
-    <svg style={style} fill={color} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960">
-      <path d="m320-410 79-110h170L320-716v306ZM551-80 406-392 240-160v-720l560 440H516l144 309-109 51ZM399-520Z" />
+    <svg style={style} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12.5768 18.3268">
+      <path
+        fill={color}
+        d="M7.2557,18.3268l-3.4807-7.4922-3.775,5.2713V0l12.5768,9.8845h-6.4942l3.4463,7.379s-2.273,1.0632-2.273,1.0632Z"
+      />
     </svg>
   )
 }
