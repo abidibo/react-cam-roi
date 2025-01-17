@@ -1,0 +1,13 @@
+.toolbar {
+  align-items: center;
+  display: flex;
+  padding: .5rem;
+}
+
+.toolbar-light {
+  background-color: #eee;;
+}
+
+.toolbar-dark {
+  background-color: #333;
+}
