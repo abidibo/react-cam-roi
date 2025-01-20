@@ -1,6 +1,8 @@
 # React Cam ROI
 
-This is a react component which lets you draw a region of interest (ROI) over images, manage metadata and import/export everything.
+> Still in development!
+
+This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.
 
 ## Installation
 
@@ -63,15 +65,18 @@ type IconButtonProps = {
 }
 ```
 
-##### Classes
-- `react-cam-roi-toolbar`
-- `react-cam-roi-toolbar-light`
-- `react-cam-roi-toolbar-dark`
-
 ### Styles
 
 There are components that cannot be overridden. But still you can use classes to style them.
 
+#### Wrapper
+
 - `react-cam-roi-editor-wrapper`
 - `react-cam-roi-editor-wrapper-light`
 - `react-cam-roi-editor-wrapper-dark`
+
+#### Toolbar
+
+- `react-cam-roi-toolbar`
+- `react-cam-roi-toolbar-light`
+- `react-cam-roi-toolbar-dark`
