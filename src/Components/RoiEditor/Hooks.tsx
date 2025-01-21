@@ -87,8 +87,7 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
           handleMouseDownRect(event, canvas, setOriginX, setOriginY, setShape, setIsDrawing)
           break
         case ToolEnum.Polygon:
-          console.log('SI') // eslint-disable-line
-          handleMouseDownPolygon(event, canvas, setIsDrawing, setPolygonPoints, setLines)
+          handleMouseDownPolygon(event, canvas, setIsDrawing, polygonPoints, setPolygonPoints, lines, setLines)
           break
         default:
           break
@@ -121,7 +120,7 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
     const handleDoubleClick = () => {
       switch (tool) {
         case ToolEnum.Polygon:
-          handleDoubleClickPolygon(canvas, setIsDrawing, polygonPoints, setPolygonPoints, setLines)
+          handleDoubleClickPolygon(canvas, setIsDrawing, polygonPoints, setPolygonPoints, lines, setLines)
           break
         default:
           break
