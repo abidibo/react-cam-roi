@@ -64,6 +64,8 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
     if (!canvas) {
       return
     }
+    canvas.selection = tool === ToolEnum.Pointer
+
     const handleMouseDown = (event: FabricEvent) => {
       console.log('MOUSE DOWN DETECTED') // eslint-disable-line
       switch (tool) {
@@ -89,7 +91,7 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
     const handleMouseUp = () => {
       switch (tool) {
         case ToolEnum.Rectangle:
-          handleMouseUpRect(setIsDrawing, setShape, canvas)
+          handleMouseUpRect(canvas, setIsDrawing, shape, setShape)
           break
         default:
           break

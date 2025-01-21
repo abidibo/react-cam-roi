@@ -1,5 +1,6 @@
 import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
+
 import { FabricEvent, Shape } from './Types'
 
 export const handleMouseDownRect = (
@@ -8,7 +9,7 @@ export const handleMouseDownRect = (
   setOriginX: (v: number) => void,
   setOriginY: (v: number) => void,
   setShape: (v: Shape) => void,
-  setIsDrawing: (v: boolean) => void
+  setIsDrawing: (v: boolean) => void,
 ) => {
   const id = uuidv4()
   const pointer = canvas.getScenePoint(event.e)
@@ -21,9 +22,9 @@ export const handleMouseDownRect = (
     originY: 'top',
     width: 0,
     height: 0,
-    fill: 'blue',
+    fill: 'transparent',
     stroke: 'black',
-    strokeWidth: 2,
+    strokeWidth: 1,
     selectable: true,
     hasControls: true,
     id,
@@ -58,13 +59,13 @@ export const handleMouseMoveRect = (
 }
 
 export const handleMouseUpRect = (
+  canvas: fabric.Canvas,
   setIsDrawing: (v: boolean) => void,
+  shape: Shape,
   setShape: (v: Shape) => void,
-  canvas: fabric.Canvas
 ) => {
   setIsDrawing(false)
+  shape?.setCoords()
   setShape(null)
-  if (canvas) {
-    canvas.defaultCursor = 'default'
-  }
+  canvas.defaultCursor = 'default'
 }
