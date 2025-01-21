@@ -1,9 +1,12 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 import { ToolEnum } from '../Components/RoiEditor/Types'
+import * as fabric from 'fabric'
 
 type EditorContextType = {
   activeTool: ToolEnum
   setActiveTool: (tool: ToolEnum) => void
+  selectedShapes: fabric.Object[] | null
+  setSelectedShapes: (shapes: fabric.Object[] | null) => void
 }
 
 export const EditorContext = createContext<EditorContextType | undefined>(undefined) // eslint-disable-line
@@ -17,8 +20,8 @@ export function useEditorContext() { // eslint-disable-line
   return context
 }
 
-const EditorProvider = ({ children, activeTool, setActiveTool }: PropsWithChildren<EditorContextType>) => {
-  return <EditorContext.Provider value={{ activeTool, setActiveTool }}>{children}</EditorContext.Provider>
+const EditorProvider = ({ children, activeTool, setActiveTool, selectedShapes, setSelectedShapes }: PropsWithChildren<EditorContextType>) => {
+  return <EditorContext.Provider value={{ activeTool, setActiveTool, selectedShapes, setSelectedShapes }}>{children}</EditorContext.Provider>
 }
 
 export default EditorProvider

@@ -7,10 +7,10 @@ type CanvasProps = {
   canvasSize: { width: number; height: number }
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
-  const { activeTool } = useEditorContext()
+  const { activeTool, selectedShapes, setSelectedShapes } = useEditorContext()
   const canvasRef = useRef<fabric.Canvas>(null)
 
-  useTool(activeTool, canvasRef.current)
+  useTool(activeTool, selectedShapes, setSelectedShapes, canvasRef.current)
 
   useEffect(() => {
     canvasRef.current = new fabric.Canvas('react-cam-roi-canvas')

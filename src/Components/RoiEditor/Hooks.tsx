@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
 import * as fabric from 'fabric'
-import { FabricEvent, Shape, ToolEnum } from './Types'
-import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
+import { useCallback, useEffect, useRef, useState } from 'react'
+
 import { handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
+import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
+import { FabricEvent, FabricSelectionEvent, Shape, ToolEnum } from './Types'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -54,14 +55,26 @@ export const useCanvasSize = (imageUrl: string) => {
   return { imageSize, canvasSize, wrapperRef, isDone }
 }
 
-export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
+export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, setSelectedShapes: (shapes: fabric.Object[] | null) => void, canvas: fabric.Canvas | null) => {
   const [isDrawing, setIsDrawing] = useState(false)
   const [shape, setShape] = useState<Shape>(null)
   const [originX, setOriginX] = useState(0)
   const [originY, setOriginY] = useState(0)
   const [startPos] = useState({ x: 0, y: 0 })
-  const [points, setPoints] = useState<{x: number, y: number }[]>([]);
-  const [lines, setLines] = useState<fabric.Line[]>([]);
+  const [points, setPoints] = useState<{ x: number; y: number }[]>([])
+  const [lines, setLines] = useState<fabric.Line[]>([])
+
+  // Handler for object selected event to update style settings
+  const handleObjectSelected = useCallback ((event: FabricSelectionEvent) => {
+    setSelectedShapes(event.selected ?? null) // Update selected shapes state
+  }, [setSelectedShapes])
+
+  // Handler for selection cleared event to reset selected shapes state
+  const handleSelectionCleared = useCallback(() => {
+    setSelectedShapes(null) // Clear selected shapes state
+  }, [setSelectedShapes])
+
+  console.log('SELECTED SHAPE', selectedShapes) // eslint-disable-line
 
   useEffect(() => {
     if (!canvas) {
@@ -79,7 +92,7 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
       // disable selection
       canvas.selection = false
       canvas.discardActiveObject()
-      canvas.renderAll();
+      canvas.renderAll()
     }
 
     const handleMouseDown = (event: FabricEvent) => {
@@ -141,12 +154,18 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
     canvas.on('mouse:move', handleMouseMove)
     canvas.on('mouse:up', handleMouseUp)
     canvas.on('mouse:dblclick', handleDoubleClick)
+    canvas.on('selection:created', handleObjectSelected)
+    canvas.on('selection:updated', handleObjectSelected)
+    canvas.on('selection:cleared', handleSelectionCleared)
 
     return () => {
-        canvas.off('mouse:down', handleMouseDown)
-        canvas.off('mouse:move', handleMouseMove)
-        canvas.off('mouse:up', handleMouseUp)
-        canvas.off('mouse:dblclick', handleDoubleClick)
+      canvas.off('mouse:down', handleMouseDown)
+      canvas.off('mouse:move', handleMouseMove)
+      canvas.off('mouse:up', handleMouseUp)
+      canvas.off('mouse:dblclick', handleDoubleClick)
+      canvas.off('selection:created', handleObjectSelected)
+      canvas.off('selection:updated', handleObjectSelected )
+      canvas.off('selection:cleared', handleSelectionCleared)
     }
-  }, [tool, isDrawing, shape, originX, originY, startPos, lines, points, canvas])
+  }, [tool, isDrawing, shape, originX, originY, startPos, lines, points, canvas, handleObjectSelected, handleSelectionCleared])
 }

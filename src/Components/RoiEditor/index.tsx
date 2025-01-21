@@ -1,14 +1,15 @@
+import * as fabric from 'fabric'
 import { useContext, useState } from 'react'
 
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
+import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
 import { ToolEnum } from './Types'
-import Canvas from './Canvas'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -23,6 +24,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
 
   // const [isDrawing, setIsDrawing] = useState(false)
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
+  const [selectedShapes, setSelectedShapes] = useState<fabric.Object[] | null>(null)
   // const [shape, setShape] = useState(null)
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
@@ -32,7 +34,12 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
     return <Loader />
   }
   return (
-    <EditorProvider activeTool={activeTool} setActiveTool={setActiveTool}>
+    <EditorProvider
+      activeTool={activeTool}
+      setActiveTool={setActiveTool}
+      selectedShapes={selectedShapes}
+      setSelectedShapes={setSelectedShapes}
+    >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
         <div

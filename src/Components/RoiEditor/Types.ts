@@ -9,3 +9,4 @@ export const enum ToolEnum {
 
 export type Shape = fabric.Rect | fabric.Polygon | null
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>
+export type FabricSelectionEvent = Partial<fabric.TEvent> & { selected: fabric.Object[] }
