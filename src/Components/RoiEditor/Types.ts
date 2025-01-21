@@ -7,5 +7,5 @@ export const enum ToolEnum {
   Rectangle = 'rectangle',
 }
 
-export type Shape = fabric.Rect | null
+export type Shape = fabric.Rect | fabric.Polygon | null
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>

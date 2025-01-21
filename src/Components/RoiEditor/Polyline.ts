@@ -12,13 +12,13 @@ const addPoint = (
 ) => {
   const pointer = canvas.getScenePoint(event.e)
   const newPoint = { x: pointer.x, y: pointer.y }
-  const newPolygonPoints = [...points, newPoint]
-  setPoints(newPolygonPoints)
-  if (newPolygonPoints.length > 0) {
+  const newPolylinePoints = [...points, newPoint]
+  setPoints(newPolylinePoints)
+  if (newPolylinePoints.length > 0) {
     const line = new fabric.Line(
       [
-        newPolygonPoints[newPolygonPoints.length - 1].x,
-        newPolygonPoints[newPolygonPoints.length - 1].y,
+        newPolylinePoints[newPolylinePoints.length - 1].x,
+        newPolylinePoints[newPolylinePoints.length - 1].y,
         pointer.x,
         pointer.y,
       ],
@@ -34,7 +34,7 @@ const addPoint = (
   }
 }
 
-export const handleMouseDownPolygon = (
+export const handleMouseDownPolyline = (
   event: FabricEvent,
   canvas: fabric.Canvas,
   setIsDrawing: (v: boolean) => void,
@@ -47,7 +47,7 @@ export const handleMouseDownPolygon = (
   addPoint(event, canvas, points, setPoints, lines, setLines)
 }
 
-export const handleMouseMovePolygon = (
+export const handleMouseMovePolyline = (
   event: FabricEvent,
   canvas: fabric.Canvas,
   isDrawing: boolean,
@@ -60,7 +60,7 @@ export const handleMouseMovePolygon = (
   }
 }
 
-export const handleDoubleClickPolygon = (
+export const handleDoubleClickPolyline = (
   canvas: fabric.Canvas,
   setIsDrawing: (v: boolean) => void,
   points: { x: number; y: number }[],
@@ -69,15 +69,15 @@ export const handleDoubleClickPolygon = (
   setLines: (v: fabric.Line[]) => void,
 ) => {
   if (points.length > 2) {
-    const polygon = new fabric.Polygon(points, {
-      fill: 'transparent',
-      stroke: 'black',
-      strokeWidth: 1,
+    const polyline = new fabric.Polyline(points, {
+      fill: '#00000000',
+      stroke: '#000000',
+      strokeWidth: 2,
       selectable: false,
       hasControls: true,
-      hoverCursor: 'default',
+      lockRotation: false,
     })
-    canvas.add(polygon)
+    canvas.add(polyline)
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines
