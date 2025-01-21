@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import * as fabric from 'fabric'
 import { FabricEvent, Shape, ToolEnum } from './Types'
 import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
+import { handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -58,20 +59,36 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
   const [originX, setOriginX] = useState(0)
   const [originY, setOriginY] = useState(0)
   const [startPos] = useState({ x: 0, y: 0 })
-  console.log('TOOL', tool, canvas, ToolEnum.Rectangle) // eslint-disable-line
+  const [polygonPoints, setPolygonPoints] = useState<{x: number, y: number }[]>([]);
+  const [lines, setLines] = useState<fabric.Line[]>([]);
 
   useEffect(() => {
     if (!canvas) {
       return
     }
-    canvas.selection = tool === ToolEnum.Pointer
+
+    if (tool === ToolEnum.Pointer) {
+      // enable selection
+      canvas.selection = true
+      canvas.getObjects().forEach((object) => {
+        object.selectable = true
+      })
+      canvas.renderAll()
+    } else {
+      // disable selection
+      canvas.selection = false
+      canvas.discardActiveObject()
+      canvas.renderAll();
+    }
 
     const handleMouseDown = (event: FabricEvent) => {
-      console.log('MOUSE DOWN DETECTED') // eslint-disable-line
       switch (tool) {
         case ToolEnum.Rectangle:
-          console.log('MOUSE DOWN ADDED') // eslint-disable-line
           handleMouseDownRect(event, canvas, setOriginX, setOriginY, setShape, setIsDrawing)
+          break
+        case ToolEnum.Polygon:
+          console.log('SI') // eslint-disable-line
+          handleMouseDownPolygon(event, canvas, setIsDrawing, setPolygonPoints, setLines)
           break
         default:
           break
@@ -82,6 +99,9 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
       switch (tool) {
         case ToolEnum.Rectangle:
           handleMouseMoveRect(event, canvas, originX, originY, shape, isDrawing)
+          break
+        case ToolEnum.Polygon:
+          handleMouseMovePolygon(event, canvas, isDrawing, lines)
           break
         default:
           break
@@ -100,12 +120,14 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
 
     const handleDoubleClick = () => {
       switch (tool) {
+        case ToolEnum.Polygon:
+          handleDoubleClickPolygon(canvas, setIsDrawing, polygonPoints, setPolygonPoints, setLines)
+          break
         default:
           break
       }
     }
 
-    console.log('ADDING EVENTS') // eslint-disable-line
     canvas.on('mouse:down', handleMouseDown)
     canvas.on('mouse:move', handleMouseMove)
     canvas.on('mouse:up', handleMouseUp)
@@ -117,5 +139,5 @@ export const useTool = (tool: ToolEnum, canvas: fabric.Canvas | null) => {
         canvas.off('mouse:up', handleMouseUp)
         canvas.off('mouse:dblclick', handleDoubleClick)
     }
-  }, [tool, isDrawing, shape, originX, originY, startPos, canvas])
+  }, [tool, isDrawing, shape, originX, originY, startPos, lines, polygonPoints, canvas])
 }

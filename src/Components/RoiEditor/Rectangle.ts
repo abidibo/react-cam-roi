@@ -25,8 +25,9 @@ export const handleMouseDownRect = (
     fill: 'transparent',
     stroke: 'black',
     strokeWidth: 1,
-    selectable: true,
+    selectable: false,
     hasControls: true,
+    hoverCursor: 'default',
     id,
   })
   canvas.add(newRectangle)
