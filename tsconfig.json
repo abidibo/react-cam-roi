@@ -3,6 +3,9 @@
   "exclude": [
     "src/Stories",
     ".storybook",
+    ".github",
+    ".git",
+    ".npmrc",
     ".nvim.lua",
     ".prettierrc.json",
     "eslint.config.js",
