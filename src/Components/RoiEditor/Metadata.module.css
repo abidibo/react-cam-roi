@@ -18,10 +18,12 @@
 }
 
 .metadata-table-light {
+  background-color: #eee;
   color: #000;
 }
 
 .metadata-table-dark {
+  background-color: #333;
   color: #fff;
 }
 
