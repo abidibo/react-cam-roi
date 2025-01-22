@@ -1,5 +1,5 @@
 import * as fabric from 'fabric'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
@@ -9,7 +9,8 @@ import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
-import { ToolEnum } from './Types'
+import { Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import Metadata from './Metadata'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -25,6 +26,14 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [selectedShapes, setSelectedShapes] = useState<fabric.Object[] | null>(null)
 
+  const [shapes, setShapes] = useState<Shapes>({})
+  const addShape = useCallback((id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }), [shapes])
+  const removeShape = useCallback((id: string) => {
+    const newShapes = { ...shapes }
+    delete newShapes[id]
+    setShapes(newShapes)
+  }, [shapes])
+
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
 
@@ -37,6 +46,9 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
       setActiveTool={setActiveTool}
       selectedShapes={selectedShapes}
       setSelectedShapes={setSelectedShapes}
+      shapes={shapes}
+      addShape={addShape}
+      removeShape={removeShape}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
@@ -50,6 +62,9 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
         >
           <Canvas canvasSize={canvasSize} />
         </div>
+      </div>
+      <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }}>
+        <Metadata />
       </div>
     </EditorProvider>
   )

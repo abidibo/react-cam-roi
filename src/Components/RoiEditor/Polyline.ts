@@ -1,7 +1,7 @@
 import * as fabric from 'fabric';
 import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent } from './Types';
+import { FabricEvent, ShapeType, ToolEnum } from './Types';
 
 const addPoint = (
   event: FabricEvent,
@@ -69,6 +69,7 @@ export const handleDoubleClickPolyline = (
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
   setLines: (v: fabric.Line[]) => void,
+  addShape: (id: string, type: ShapeType, shape: fabric.Polyline) => void,
 ) => {
   if (points.length > 2) {
     const id = uuidv4()
@@ -82,6 +83,7 @@ export const handleDoubleClickPolyline = (
       id,
     })
     canvas.add(polyline)
+    addShape(id, ToolEnum.Polyline, polyline)
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines

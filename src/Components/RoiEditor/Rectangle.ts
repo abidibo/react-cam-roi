@@ -1,7 +1,7 @@
 import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent, Shape } from './Types'
+import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types'
 
 export const handleMouseDownRect = (
   event: FabricEvent,
@@ -65,9 +65,11 @@ export const handleMouseUpRect = (
   setIsDrawing: (v: boolean) => void,
   shape: Shape,
   setShape: (v: Shape | null) => void,
+  addShape: (id: string, type: ShapeType, shape: Shape) => void,
 ) => {
   setIsDrawing(false)
   shape.setCoords()
+  addShape(shape.id!, ToolEnum.Rectangle, shape)
   setShape(null)
   canvas.defaultCursor = 'default'
 }

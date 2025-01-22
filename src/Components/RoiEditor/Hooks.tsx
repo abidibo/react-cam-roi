@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import { FabricEvent, FabricSelectionEvent, Shape, ToolEnum } from './Types'
+import { FabricEvent, FabricSelectionEvent, Shape, ShapeType, ToolEnum } from './Types'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -59,6 +59,8 @@ export const useTool = (
   tool: ToolEnum,
   selectedShapes: fabric.Object[] | null,
   setSelectedShapes: (shapes: fabric.Object[] | null) => void,
+  addShape: (id: string, type: ShapeType, shape: Shape) => void,
+  removeShape: (id: string) => void,
   canvas: fabric.Canvas | null,
 ) => {
   const [isDrawing, setIsDrawing] = useState(false)
@@ -138,7 +140,7 @@ export const useTool = (
     const handleMouseUp = () => {
       switch (tool) {
         case ToolEnum.Rectangle:
-          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape)
+          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape, addShape)
           break
         default:
           break
@@ -148,10 +150,10 @@ export const useTool = (
     const handleDoubleClick = () => {
       switch (tool) {
         case ToolEnum.Polygon:
-          handleDoubleClickPolygon(canvas, setIsDrawing, points, setPoints, lines, setLines)
+          handleDoubleClickPolygon(canvas, setIsDrawing, points, setPoints, lines, setLines, addShape)
           break
         case ToolEnum.Polyline:
-          handleDoubleClickPolyline(canvas, setIsDrawing, points, setPoints, lines, setLines)
+          handleDoubleClickPolyline(canvas, setIsDrawing, points, setPoints, lines, setLines, addShape)
           break
         default:
           break
