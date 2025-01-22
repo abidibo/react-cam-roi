@@ -170,3 +170,11 @@ There are components that cannot be overridden. But still you can use classes to
 | `npm run storybook` | Run storybook |
 
 A github action pipeline is provided, it will publish the package to npm when a new tag is pushed. You need to add the `NPM_TOKEN` secret to your repository settings.
+
+Example of deployment:
+
+``` bash
+$ npm version patch
+$ git push
+$ git push --tags
+```
