@@ -11,3 +11,17 @@
 .toolbar-dark {
   background-color: #333;
 }
+
+.toolbar-helper {
+  padding: .5rem;
+}
+
+.toolbar-helper-light {
+  background-color: #f7f7f7;;
+  color: #000;
+}
+
+.toolbar-helper-dark {
+  background-color: #222;
+  color: #fff;
+}

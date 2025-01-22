@@ -19,9 +19,14 @@ type UiContextType = {
   pickerColors: string[]
   strings: {
     id: string
-    rectangle: string
     polygon: string
+    polygonHelpText: string
     polyline: string
+    polylineHelpText: string
+    rectangle: string
+    rectangleHelpText: string
+    pointer: string
+    pointerHelpText: string
     type: string
   }
 }
@@ -38,8 +43,13 @@ export const DefaultUiContext: UiContextType = {
   strings: {
     id: 'ID',
     polygon: 'Polygon',
+    polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',
+    polylineHelpText: 'click to draw all the polyline points, double click on the last point to stop drawing',
     rectangle: 'Rectangle',
+    rectangleHelpText: 'click and drag to draw the rectangle',
+    pointer: 'Selection',
+    pointerHelpText: 'click a shape to select it',
     type: 'Type',
   },
 }
