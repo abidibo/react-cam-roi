@@ -1,6 +1,6 @@
 {
     "name": "@abidibo/react-cam-roi",
-    "version": "0.1.0",
+    "version": "0.0.1",
     "description": "A react component for drawing ROI over images and managing metadata",
     "main": "dist/index.js",
     "type": "module",
