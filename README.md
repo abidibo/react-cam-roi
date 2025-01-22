@@ -18,7 +18,7 @@ TODO
 
 You can customize many aspects of this library by using the `UiProvider`.
 
-- You can customize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
+- You cancustomize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
 - You can override them by using the `UiProvider`. But you can also use the default ones and just add your styling.
 - You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling. 
 - You can define a primary color which is used for color or background of active elements.
@@ -160,3 +160,13 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-colorpicker-button-active`
 - `react-cam-roi-colorpicker-button-active-light`
 - `react-cam-roi-colorpicker-button-active-dark`
+
+## Development
+
+| Command | Description |
+| --- | --- |
+| `npm run clean` | Clean the dist folder |
+| `npm run build` | Build the library |
+| `npm run storybook` | Run storybook |
+
+A github action pipeline is provided, it will publish the package to npm when a new tag is pushed. You need to add the `NPM_TOKEN` secret to your repository settings.
