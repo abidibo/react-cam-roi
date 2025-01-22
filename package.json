@@ -1,5 +1,5 @@
 {
-    "name": "react-cam-roi",
+    "name": "@abidibo/react-cam-roi",
     "version": "0.1.0",
     "description": "A react component for drawing ROI over images and managing metadata",
     "main": "dist/index.js",

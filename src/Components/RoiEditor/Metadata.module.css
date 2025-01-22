@@ -1,0 +1,34 @@
+.metadata-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.metadata-table th {
+  padding: .8rem .3rem .3rem;
+  text-align: left;
+}
+
+.metadata-table td {
+  padding: 0 .3rem;
+}
+
+.metadata-table tr td:last-child,
+.metadata-table tr th:last-child {
+  text-align: right;
+}
+
+.metadata-table-light {
+  color: #000;
+}
+
+.metadata-table-dark {
+  color: #fff;
+}
+
+.metadata-row-selected-light {
+  background-color: #ccc;
+}
+
+.metadata-row-selected-dark {
+  background-color: #666;
+}

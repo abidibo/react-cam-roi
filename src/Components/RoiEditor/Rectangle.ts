@@ -1,19 +1,21 @@
 import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
-import { FabricEvent, Shape } from './Types'
+
+import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types'
 
 export const handleMouseDownRect = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  activeColor: string,
   setOriginX: (v: number) => void,
   setOriginY: (v: number) => void,
   setShape: (v: Shape) => void,
-  setIsDrawing: (v: boolean) => void
+  setIsDrawing: (v: boolean) => void,
 ) => {
-  const id = uuidv4()
   const pointer = canvas.getScenePoint(event.e)
   setOriginX(pointer.x)
   setOriginY(pointer.y)
+  const id = uuidv4()
   const newRectangle = new fabric.Rect({
     left: pointer.x,
     top: pointer.y,
@@ -21,11 +23,13 @@ export const handleMouseDownRect = (
     originY: 'top',
     width: 0,
     height: 0,
-    fill: 'blue',
-    stroke: 'black',
+    fill: 'transparent',
+    stroke: activeColor,
     strokeWidth: 2,
-    selectable: true,
+    strokeUniform: true,
+    selectable: false,
     hasControls: true,
+    hoverCursor: 'default',
     id,
   })
   canvas.add(newRectangle)
@@ -58,13 +62,15 @@ export const handleMouseMoveRect = (
 }
 
 export const handleMouseUpRect = (
+  canvas: fabric.Canvas,
   setIsDrawing: (v: boolean) => void,
-  setShape: (v: Shape) => void,
-  canvas: fabric.Canvas
+  shape: Shape,
+  setShape: (v: Shape | null) => void,
+  addShape: (id: string, type: ShapeType, shape: Shape) => void,
 ) => {
   setIsDrawing(false)
+  shape.setCoords()
+  addShape(shape.id!, ToolEnum.Rectangle, shape)
   setShape(null)
-  if (canvas) {
-    canvas.defaultCursor = 'default'
-  }
+  canvas.defaultCursor = 'default'
 }

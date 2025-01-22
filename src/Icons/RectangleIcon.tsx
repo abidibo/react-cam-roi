@@ -5,10 +5,10 @@ type RectangleIconProps = {
 
 const RectangleIcon: React.FC<RectangleIconProps> = ({ color = 'black', style = { height: '32px' } }) => {
   return (
-    <svg style={style} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.7123 18.284">
+    <svg style={style} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
       <path
         fill={color}
-        d="M18.284,3.4283h3.4283v2.2855h-3.4283v3.4283h-2.2855v-3.4283h-3.4283v-2.2855h3.4283V0h2.2855v3.4283M15.9985,15.9985v-3.4283h2.2855v5.7138H0V3.4283h9.142v2.2855H2.2855v10.2848h13.713Z"
+        d="M19.5541,7.0738h3.2558v2.1705h-3.2558v3.2558h-2.1705v-3.2558h-3.2558v-2.1705h3.2558v-3.2558h2.1705v3.2558M17.3836,19.0115v-3.2558h2.1705v5.4263H2.1901V7.0738h8.682v2.1705h-6.5115v9.7673h13.023,0Z"
       />
     </svg>
   )
