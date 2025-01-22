@@ -1,4 +1,3 @@
-import * as fabric from 'fabric'
 import { useCallback, useContext, useState } from 'react'
 
 import EditorProvider from '../../Providers/EditorProvider'
@@ -24,7 +23,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
-  const [selectedShapes, setSelectedShapes] = useState<fabric.Object[] | null>(null)
 
   const [shapes, setShapes] = useState<Shapes>({})
   const addShape = useCallback((id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }), [shapes])
@@ -44,8 +42,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
     <EditorProvider
       activeTool={activeTool}
       setActiveTool={setActiveTool}
-      selectedShapes={selectedShapes}
-      setSelectedShapes={setSelectedShapes}
       shapes={shapes}
       addShape={addShape}
       removeShape={removeShape}

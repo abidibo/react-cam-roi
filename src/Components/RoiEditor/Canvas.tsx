@@ -1,33 +1,17 @@
 import { useRef, useEffect } from 'react';
 import * as fabric from 'fabric';
 import { useEditorContext } from '../../Providers/EditorProvider';
-import { useTool } from './Hooks';
-import Dispatcher from '../../Utils/Dispatcher';
-import { Shape } from './Types';
+import { useDispatcherEvents, useTool } from './Hooks';
 
 type CanvasProps = {
   canvasSize: { width: number; height: number }
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
-  const { activeTool, selectedShapes, setSelectedShapes, addShape, removeShape } = useEditorContext()
+  const { activeTool, setActiveTool, addShape } = useEditorContext()
   const canvasRef = useRef<fabric.Canvas>(null)
 
-  useTool(activeTool, selectedShapes, setSelectedShapes, addShape, removeShape, canvasRef.current)
-
-  useEffect(() => {
-    const removeShape = (_: string, id: string) => {
-      const obj = canvasRef.current?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
-      if (obj) {
-        canvasRef.current?.remove(obj)
-      }
-    }
-
-    Dispatcher.register('canvas:removeShape', removeShape)
-
-    return () => {
-      Dispatcher.unregister('canvas:removeShape', removeShape)
-    }
-  }, [])
+  useTool(activeTool, addShape, canvasRef.current)
+  useDispatcherEvents(canvasRef.current, setActiveTool)
 
   useEffect(() => {
     canvasRef.current = new fabric.Canvas('react-cam-roi-canvas')

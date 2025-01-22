@@ -1,6 +1,7 @@
 import * as fabric from 'fabric'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import Dispatcher from '../../Utils/Dispatcher'
 import { handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
@@ -57,10 +58,7 @@ export const useCanvasSize = (imageUrl: string) => {
 
 export const useTool = (
   tool: ToolEnum,
-  selectedShapes: fabric.Object[] | null,
-  setSelectedShapes: (shapes: fabric.Object[] | null) => void,
   addShape: (id: string, type: ShapeType, shape: Shape) => void,
-  removeShape: (id: string) => void,
   canvas: fabric.Canvas | null,
 ) => {
   const [isDrawing, setIsDrawing] = useState(false)
@@ -72,19 +70,14 @@ export const useTool = (
   const [lines, setLines] = useState<fabric.Line[]>([])
 
   // Handler for object selected event to update style settings
-  const handleObjectSelected = useCallback(
-    (event: FabricSelectionEvent) => {
-      setSelectedShapes(event.selected ?? null) // Update selected shapes state
-    },
-    [setSelectedShapes],
-  )
+  const handleObjectSelected = useCallback((event: FabricSelectionEvent) => {
+    console.log('SELECtING POIN', event.selected ?? null) // Update selected shapes state
+  }, [])
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
-    setSelectedShapes(null) // Clear selected shapes state
-  }, [setSelectedShapes])
-
-  console.log('SELECTED SHAPE', selectedShapes)
+    console.log('clear selection point', null) // Clear selected shapes state
+  }, [])
 
   useEffect(() => {
     if (!canvas) {
@@ -187,7 +180,39 @@ export const useTool = (
     lines,
     points,
     canvas,
+    addShape,
     handleObjectSelected,
     handleSelectionCleared,
   ])
+}
+
+export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool: (tool: ToolEnum) => void) => {
+  useEffect(() => {
+    const removeShape = (_: string, id: string) => {
+      const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
+      if (obj) {
+        canvas?.remove(obj)
+      }
+    }
+
+    const selectShape = (_: string, id: string) => {
+      const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
+      console.log('SELECt', obj, canvas)
+      if (obj) {
+        canvas?.discardActiveObject()
+        console.log('SELECTING')
+        canvas?.setActiveObject(obj)
+        canvas?.requestRenderAll()
+        setActiveTool(ToolEnum.Pointer)
+      }
+    }
+
+    Dispatcher.register('canvas:removeShape', removeShape)
+    Dispatcher.register('canvas:selectShape', selectShape)
+
+    return () => {
+      Dispatcher.unregister('canvas:removeShape', removeShape)
+      Dispatcher.unregister('canvas:selectShape', selectShape)
+    }
+  }, [setActiveTool, canvas])
 }

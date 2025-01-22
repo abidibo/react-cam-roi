@@ -10,6 +10,9 @@ type UiContextType = {
   IconButton: typeof IconButton
   strings: {
     id: string
+    rectangle: string
+    polygon: string
+    polyline: string
     type: string
   }
 }
@@ -20,6 +23,9 @@ export const DefaultUiContext: UiContextType = {
   IconButton,
   strings: {
     id: 'ID',
+    polygon: 'Polygon',
+    polyline: 'Polyline',
+    rectangle: 'Rectangle',
     type: 'Type',
   },
 }

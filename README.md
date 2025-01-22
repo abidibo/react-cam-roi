@@ -22,6 +22,7 @@ You can customize many aspects of this library by using the `UiProvider`.
 - You can override them by using the `UiProvider`. But you can also use the default ones and just add your styling.
 - You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling. 
 - You can define a primary color which is used for color or background of active elements.
+- You can define custom strings used here and there.
 - You can enable logs in the console by setting the `enableLogs` option to `true`.
 
 ``` tsx
@@ -34,6 +35,22 @@ const MyView: React.FC = () => {
       <RoiEditor imageUrl={'whatever'} />
     </UiProvider>
   )
+}
+```
+
+### UiProvider
+
+```ts 
+type UiContextType = {
+  children?: React.ReactNode
+  enableLogs: boolean
+  themeMode: 'light' | 'dark'
+  primaryColor: string
+  IconButton: typeof IconButton
+  strings: {
+    id: string
+    type: string
+  }
 }
 ```
 
@@ -80,3 +97,9 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-toolbar`
 - `react-cam-roi-toolbar-light`
 - `react-cam-roi-toolbar-dark`
+
+#### Metadata table
+
+- `react-cam-roi-metadata-table`
+- `react-cam-roi-metadata-table-light`
+- `react-cam-roi-metadata-table-dark`
