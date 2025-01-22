@@ -46,6 +46,7 @@ type UiContextType = {
   enableLogs: boolean
   themeMode: 'light' | 'dark'
   primaryColor: string
+  Typography: React.FC<TypographyProps>
   IconButton: React.FC<IconButtonProps>
   DeleteIcon: React.FC<DeleteIconProps>
   EditIcon: React.FC<EditIconProps>
@@ -73,6 +74,16 @@ type LoaderProps = {}
 - `react-cam-roi-loader`
 - `react-cam-roi-loader-light`
 - `react-cam-roi-loader-dark`
+
+#### Typography
+
+##### Interface
+
+``` ts 
+type TypographyProps = {
+  children?: React.ReactNode
+}
+```
 
 #### IconButton
 

@@ -8,7 +8,7 @@ import styles from './Metadata.module.css'
 import { Shape } from './Types'
 
 const Metadata: React.FC = () => {
-  const { strings, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
+  const { strings, Typography, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
   const { shapes, removeShape } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
 
@@ -37,8 +37,8 @@ const Metadata: React.FC = () => {
       {Object.keys(shapes).length > 0 && (
         <thead>
           <tr>
-            <th>{strings.id}</th>
-            <th>{strings.type}</th>
+            <th><Typography>{strings.id}</Typography></th>
+            <th><Typography>{strings.type}</Typography></th>
             <th />
           </tr>
         </thead>
@@ -48,9 +48,9 @@ const Metadata: React.FC = () => {
           return (
             <tr key={id} className={selected.indexOf(id) > -1 ? css('metadata-row-selected', styles, themeMode) : ''}>
               <td>
-                <div onClick={handleRemoveShape(id)}>{id.substring(0, 6)}</div>
+                <div><Typography>{id.substring(0, 6)}</Typography></div>
               </td>
-              <td>{strings[shapes[id].type]}</td>
+              <td><Typography>{strings[shapes[id].type]}</Typography></td>
               <td>
                 <IconButton onClick={handleSelectShape(id)}>
                   <SelectIcon color={iconColor} />

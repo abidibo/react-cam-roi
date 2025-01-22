@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren } from 'react'
 
+import Typography from '../Components/Typography'
 import IconButton from '../Components/IconButton'
 import DeleteIcon from '../Icons/DeleteIcon'
 import EditIcon from '../Icons/EditIcon'
@@ -10,6 +11,7 @@ type UiContextType = {
   enableLogs: boolean
   themeMode: 'light' | 'dark'
   primaryColor: string
+  Typography: typeof Typography
   IconButton: typeof IconButton
   DeleteIcon: typeof DeleteIcon
   EditIcon: typeof EditIcon
@@ -27,6 +29,7 @@ export const DefaultUiContext: UiContextType = {
   enableLogs: true,
   themeMode: 'light',
   primaryColor: '#1976d2',
+  Typography,
   IconButton,
   DeleteIcon,
   EditIcon,
@@ -48,6 +51,7 @@ const UiProvider = ({
   enableLogs,
   themeMode,
   primaryColor,
+  Typography,
   IconButton,
   DeleteIcon,
   EditIcon,
@@ -57,6 +61,7 @@ const UiProvider = ({
 }: PropsWithChildren<Partial<Omit<UiContextType, 'strings'>> & { strings?: Partial<UiContextType['strings']> }>) => {
   const ctx: UiContextType = {
     enableLogs: enableLogs ?? DefaultUiContext.enableLogs,
+    Typography: Typography ?? DefaultUiContext.Typography,
     IconButton: IconButton ?? DefaultUiContext.IconButton,
     DeleteIcon: DeleteIcon ?? DefaultUiContext.DeleteIcon,
     EditIcon: EditIcon ?? DefaultUiContext.EditIcon,

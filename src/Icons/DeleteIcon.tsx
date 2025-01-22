@@ -1,4 +1,4 @@
-type DeleteIconProps = {
+export type DeleteIconProps = {
   color?: string
   style?: React.CSSProperties
 }

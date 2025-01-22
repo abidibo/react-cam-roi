@@ -6,10 +6,10 @@ import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
 import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
+import Metadata from './Metadata'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
 import { Shape, Shapes, ShapeType, ToolEnum } from './Types'
-import Metadata from './Metadata'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -26,12 +26,18 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
   const [activeColor, setActiveColor] = useState(pickerColors[0])
 
   const [shapes, setShapes] = useState<Shapes>({})
-  const addShape = useCallback((id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }), [shapes])
-  const removeShape = useCallback((id: string) => {
-    const newShapes = { ...shapes }
-    delete newShapes[id]
-    setShapes(newShapes)
-  }, [shapes])
+  const addShape = useCallback(
+    (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
+    [shapes],
+  )
+  const removeShape = useCallback(
+    (id: string) => {
+      const newShapes = { ...shapes }
+      delete newShapes[id]
+      setShapes(newShapes)
+    },
+    [shapes],
+  )
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
@@ -61,8 +67,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
         >
           <Canvas canvasSize={canvasSize} />
         </div>
-      </div>
-      <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }}>
         <Metadata />
       </div>
     </EditorProvider>
