@@ -1,6 +1,7 @@
-import * as fabric from 'fabric'
+import * as fabric from 'fabric';
+import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent } from './Types'
+import { FabricEvent } from './Types';
 
 const addPoint = (
   event: FabricEvent,
@@ -25,6 +26,7 @@ const addPoint = (
       {
         stroke: 'black',
         strokeWidth: 2,
+        strokeUniform: true,
         selectable: false,
         hasControls: false,
       },
@@ -69,13 +71,16 @@ export const handleDoubleClickPolygon = (
   setLines: (v: fabric.Line[]) => void,
 ) => {
   if (points.length > 2) {
+    const id = uuidv4()
     const polygon = new fabric.Polygon(points, {
       fill: 'transparent',
       stroke: 'black',
-      strokeWidth: 1,
+      strokeWidth: 2,
       selectable: false,
       hasControls: true,
       hoverCursor: 'default',
+      // @ts-expect-error id is not included in types but the property is added and it works
+      id,
     })
     canvas.add(polygon)
     setPoints([])

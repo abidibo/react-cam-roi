@@ -1,6 +1,7 @@
-import * as fabric from 'fabric'
+import * as fabric from 'fabric';
+import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent } from './Types'
+import { FabricEvent } from './Types';
 
 const addPoint = (
   event: FabricEvent,
@@ -25,6 +26,7 @@ const addPoint = (
       {
         stroke: 'black',
         strokeWidth: 2,
+        strokeUniform: true,
         selectable: false,
         hasControls: false,
       },
@@ -69,6 +71,7 @@ export const handleDoubleClickPolyline = (
   setLines: (v: fabric.Line[]) => void,
 ) => {
   if (points.length > 2) {
+    const id = uuidv4()
     const polyline = new fabric.Polyline(points, {
       fill: '#00000000',
       stroke: '#000000',
@@ -76,6 +79,7 @@ export const handleDoubleClickPolyline = (
       selectable: false,
       hasControls: true,
       lockRotation: false,
+      id,
     })
     canvas.add(polyline)
     setPoints([])

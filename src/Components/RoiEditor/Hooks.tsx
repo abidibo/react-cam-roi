@@ -17,13 +17,13 @@ export const useImageSize = (imageUrl: string) => {
     }
   }, [imageUrl])
 
-  return { imageSize, isDone: imageSize.width > 0 }
+  return { imageSize, isReady: imageSize.width > 0 }
 }
 
 export const useCanvasSize = (imageUrl: string) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
-  const { imageSize, isDone } = useImageSize(imageUrl)
+  const { imageSize, isReady } = useImageSize(imageUrl)
 
   useEffect(() => {
     if (wrapperRef.current) {
@@ -52,12 +52,17 @@ export const useCanvasSize = (imageUrl: string) => {
     }
   }, [imageSize, wrapperRef.current]) // eslint-disable-line
 
-  return { imageSize, canvasSize, wrapperRef, isDone }
+  return { imageSize, canvasSize, wrapperRef, isReady }
 }
 
-export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, setSelectedShapes: (shapes: fabric.Object[] | null) => void, canvas: fabric.Canvas | null) => {
+export const useTool = (
+  tool: ToolEnum,
+  selectedShapes: fabric.Object[] | null,
+  setSelectedShapes: (shapes: fabric.Object[] | null) => void,
+  canvas: fabric.Canvas | null,
+) => {
   const [isDrawing, setIsDrawing] = useState(false)
-  const [shape, setShape] = useState<Shape>(null)
+  const [shape, setShape] = useState<Shape | null>(null)
   const [originX, setOriginX] = useState(0)
   const [originY, setOriginY] = useState(0)
   const [startPos] = useState({ x: 0, y: 0 })
@@ -65,16 +70,19 @@ export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, 
   const [lines, setLines] = useState<fabric.Line[]>([])
 
   // Handler for object selected event to update style settings
-  const handleObjectSelected = useCallback ((event: FabricSelectionEvent) => {
-    setSelectedShapes(event.selected ?? null) // Update selected shapes state
-  }, [setSelectedShapes])
+  const handleObjectSelected = useCallback(
+    (event: FabricSelectionEvent) => {
+      setSelectedShapes(event.selected ?? null) // Update selected shapes state
+    },
+    [setSelectedShapes],
+  )
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
     setSelectedShapes(null) // Clear selected shapes state
   }, [setSelectedShapes])
 
-  console.log('SELECTED SHAPE', selectedShapes) // eslint-disable-line
+  console.log('SELECTED SHAPE', selectedShapes)
 
   useEffect(() => {
     if (!canvas) {
@@ -114,7 +122,7 @@ export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, 
     const handleMouseMove = (event: FabricEvent) => {
       switch (tool) {
         case ToolEnum.Rectangle:
-          handleMouseMoveRect(event, canvas, originX, originY, shape, isDrawing)
+          handleMouseMoveRect(event, canvas, originX, originY, shape as Shape, isDrawing)
           break
         case ToolEnum.Polygon:
           handleMouseMovePolygon(event, canvas, isDrawing, lines)
@@ -130,7 +138,7 @@ export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, 
     const handleMouseUp = () => {
       switch (tool) {
         case ToolEnum.Rectangle:
-          handleMouseUpRect(canvas, setIsDrawing, shape, setShape)
+          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape)
           break
         default:
           break
@@ -164,8 +172,20 @@ export const useTool = (tool: ToolEnum, selectedShapes: fabric.Object[] | null, 
       canvas.off('mouse:up', handleMouseUp)
       canvas.off('mouse:dblclick', handleDoubleClick)
       canvas.off('selection:created', handleObjectSelected)
-      canvas.off('selection:updated', handleObjectSelected )
+      canvas.off('selection:updated', handleObjectSelected)
       canvas.off('selection:cleared', handleSelectionCleared)
     }
-  }, [tool, isDrawing, shape, originX, originY, startPos, lines, points, canvas, handleObjectSelected, handleSelectionCleared])
+  }, [
+    tool,
+    isDrawing,
+    shape,
+    originX,
+    originY,
+    startPos,
+    lines,
+    points,
+    canvas,
+    handleObjectSelected,
+    handleSelectionCleared,
+  ])
 }

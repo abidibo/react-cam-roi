@@ -7,6 +7,7 @@ export const enum ToolEnum {
   Rectangle = 'rectangle',
 }
 
-export type Shape = fabric.Rect | fabric.Polygon | null
+export type Shape = fabric.Rect | fabric.Polygon | fabric.Polyline
+export type Shapes = Record<string, Shape>
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>
 export type FabricSelectionEvent = Partial<fabric.TEvent> & { selected: fabric.Object[] }

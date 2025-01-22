@@ -11,10 +11,10 @@ export const handleMouseDownRect = (
   setShape: (v: Shape) => void,
   setIsDrawing: (v: boolean) => void,
 ) => {
-  const id = uuidv4()
   const pointer = canvas.getScenePoint(event.e)
   setOriginX(pointer.x)
   setOriginY(pointer.y)
+  const id = uuidv4()
   const newRectangle = new fabric.Rect({
     left: pointer.x,
     top: pointer.y,
@@ -24,7 +24,8 @@ export const handleMouseDownRect = (
     height: 0,
     fill: 'transparent',
     stroke: 'black',
-    strokeWidth: 1,
+    strokeWidth: 2,
+    strokeUniform: true,
     selectable: false,
     hasControls: true,
     hoverCursor: 'default',
@@ -63,10 +64,10 @@ export const handleMouseUpRect = (
   canvas: fabric.Canvas,
   setIsDrawing: (v: boolean) => void,
   shape: Shape,
-  setShape: (v: Shape) => void,
+  setShape: (v: Shape | null) => void,
 ) => {
   setIsDrawing(false)
-  shape?.setCoords()
+  shape.setCoords()
   setShape(null)
   canvas.defaultCursor = 'default'
 }

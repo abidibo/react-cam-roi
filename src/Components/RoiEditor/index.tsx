@@ -20,17 +20,15 @@ export type RoiEditorProps = {
 // https://github.com/n-mazaheri/image-editor
 const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
   const { themeMode, enableLogs } = useContext(UiContext)
-  const { imageSize, canvasSize, wrapperRef, isDone } = useCanvasSize(imageUrl)
+  const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
-  // const [isDrawing, setIsDrawing] = useState(false)
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [selectedShapes, setSelectedShapes] = useState<fabric.Object[] | null>(null)
-  // const [shape, setShape] = useState(null)
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
 
-  if (!isDone) {
+  if (!isReady) {
     return <Loader />
   }
   return (
