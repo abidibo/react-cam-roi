@@ -71,12 +71,12 @@ export const useTool = (
 
   // Handler for object selected event to update style settings
   const handleObjectSelected = useCallback((event: FabricSelectionEvent) => {
-    console.log('SELECtING POIN', event.selected ?? null) // Update selected shapes state
+    Dispatcher.emit('canvas:shapeSelected', event.selected ?? null)
   }, [])
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
-    console.log('clear selection point', null) // Clear selected shapes state
+    Dispatcher.emit('canvas:shapeSelected', null)
   }, [])
 
   useEffect(() => {
@@ -96,6 +96,7 @@ export const useTool = (
       canvas.selection = false
       canvas.discardActiveObject()
       canvas.renderAll()
+      Dispatcher.emit('canvas:shapeSelected', null)
     }
 
     const handleMouseDown = (event: FabricEvent) => {
@@ -197,10 +198,8 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool:
 
     const selectShape = (_: string, id: string) => {
       const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
-      console.log('SELECt', obj, canvas)
       if (obj) {
         canvas?.discardActiveObject()
-        console.log('SELECTING')
         canvas?.setActiveObject(obj)
         canvas?.requestRenderAll()
         setActiveTool(ToolEnum.Pointer)

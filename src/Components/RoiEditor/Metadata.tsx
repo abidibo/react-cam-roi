@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import DeleteIcon from '../../Icons/DeleteIcon'
 import EditIcon from '../../Icons/EditIcon'
@@ -8,10 +8,22 @@ import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import styles from './Metadata.module.css'
+import { Shape } from './Types'
 
 const Metadata: React.FC = () => {
   const { strings, IconButton, themeMode } = useContext(UiContext)
   const { shapes, removeShape } = useEditorContext()
+  const [selected, setSelected] = useState<string[]>([])
+
+  useEffect(() => {
+    const setSelectedShapes = (_: string, event: Shape[]) => {
+      setSelected(event?.map((s: Shape) => s.id!) ?? [])
+    }
+    Dispatcher.register('canvas:shapeSelected', setSelectedShapes)
+    return () => {
+      Dispatcher.unregister('canvas:shapeSelected', setSelectedShapes)
+    }
+  }, [shapes])
 
   const handleRemoveShape = (id: string) => () => {
     Dispatcher.emit('canvas:removeShape', id)
@@ -38,7 +50,7 @@ const Metadata: React.FC = () => {
       <tbody>
         {Object.keys(shapes).map((id) => {
           return (
-            <tr key={id}>
+            <tr key={id} className={selected.indexOf(id) > -1 ? css('metadata-row-selected', styles, themeMode) : ''}>
               <td>
                 <div onClick={handleRemoveShape(id)}>{id.substring(0, 6)}</div>
               </td>

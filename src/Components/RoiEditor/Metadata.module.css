@@ -24,3 +24,11 @@
 .metadata-table-dark {
   color: #fff;
 }
+
+.metadata-row-selected-light {
+  background-color: #ccc;
+}
+
+.metadata-row-selected-dark {
+  background-color: #666;
+}
