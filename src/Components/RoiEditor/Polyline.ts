@@ -6,6 +6,7 @@ import { FabricEvent, ShapeType, ToolEnum } from './Types';
 const addPoint = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  color: string,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
@@ -24,7 +25,7 @@ const addPoint = (
         pointer.y,
       ],
       {
-        stroke: 'black',
+        stroke: color,
         strokeWidth: 2,
         strokeUniform: true,
         selectable: false,
@@ -39,6 +40,7 @@ const addPoint = (
 export const handleMouseDownPolyline = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  activeColor: string,
   setIsDrawing: (v: boolean) => void,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
@@ -46,7 +48,7 @@ export const handleMouseDownPolyline = (
   setLines: (v: fabric.Line[]) => void,
 ) => {
   setIsDrawing(true)
-  addPoint(event, canvas, points, setPoints, lines, setLines)
+  addPoint(event, canvas, activeColor, points, setPoints, lines, setLines)
 }
 
 export const handleMouseMovePolyline = (
@@ -64,6 +66,7 @@ export const handleMouseMovePolyline = (
 
 export const handleDoubleClickPolyline = (
   canvas: fabric.Canvas,
+  activeColor: string,
   setIsDrawing: (v: boolean) => void,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
@@ -74,8 +77,7 @@ export const handleDoubleClickPolyline = (
   if (points.length > 2) {
     const id = uuidv4()
     const polyline = new fabric.Polyline(points, {
-      fill: '#00000000',
-      stroke: '#000000',
+      stroke: activeColor,
       strokeWidth: 2,
       selectable: false,
       hasControls: true,

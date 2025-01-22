@@ -13,10 +13,9 @@ const Metadata: React.FC = () => {
   const [selected, setSelected] = useState<string[]>([])
 
   useEffect(() => {
-    const setSelectedShapes = (_: string, event: Shape[]) => {
-      setSelected(event?.map((s: Shape) => s.id!) ?? [])
-    }
+    const setSelectedShapes = (_: string, event: Shape[]) => setSelected(event?.map((s: Shape) => s.id!) ?? [])
     Dispatcher.register('canvas:shapeSelected', setSelectedShapes)
+
     return () => {
       Dispatcher.unregister('canvas:shapeSelected', setSelectedShapes)
     }

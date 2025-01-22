@@ -9,6 +9,7 @@ import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
 import styles from './Toolbar.module.css'
 import { ToolEnum } from './Types'
+import ColorPicker from './ColorPicker'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor } = useContext(UiContext)
@@ -31,6 +32,7 @@ const Toolbar = () => {
       <IconButton onClick={setTool(ToolEnum.Rectangle)}>
         <RectangleIcon color={iconColor(ToolEnum.Rectangle)} />
       </IconButton>
+      <ColorPicker style={{ marginLeft: 'auto' }} />
     </div>
   )
 }

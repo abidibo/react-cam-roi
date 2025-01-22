@@ -6,6 +6,7 @@ import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types';
 const addPoint = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  color: string,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
@@ -24,7 +25,7 @@ const addPoint = (
         pointer.y,
       ],
       {
-        stroke: 'black',
+        stroke: color,
         strokeWidth: 2,
         strokeUniform: true,
         selectable: false,
@@ -39,6 +40,7 @@ const addPoint = (
 export const handleMouseDownPolygon = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  activeColor: string,
   setIsDrawing: (v: boolean) => void,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
@@ -46,7 +48,7 @@ export const handleMouseDownPolygon = (
   setLines: (v: fabric.Line[]) => void,
 ) => {
   setIsDrawing(true)
-  addPoint(event, canvas, points, setPoints, lines, setLines)
+  addPoint(event, canvas, activeColor, points, setPoints, lines, setLines)
 }
 
 export const handleMouseMovePolygon = (
@@ -64,6 +66,7 @@ export const handleMouseMovePolygon = (
 
 export const handleDoubleClickPolygon = (
   canvas: fabric.Canvas,
+  activeColor: string,
   setIsDrawing: (v: boolean) => void,
   points: { x: number; y: number }[],
   setPoints: (v: { x: number; y: number }[]) => void,
@@ -75,7 +78,7 @@ export const handleDoubleClickPolygon = (
     const id = uuidv4()
     const polygon = new fabric.Polygon(points, {
       fill: 'transparent',
-      stroke: 'black',
+      stroke: activeColor,
       strokeWidth: 2,
       selectable: false,
       hasControls: true,

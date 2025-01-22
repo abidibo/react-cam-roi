@@ -6,6 +6,7 @@ import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types'
 export const handleMouseDownRect = (
   event: FabricEvent,
   canvas: fabric.Canvas,
+  activeColor: string,
   setOriginX: (v: number) => void,
   setOriginY: (v: number) => void,
   setShape: (v: Shape) => void,
@@ -23,7 +24,7 @@ export const handleMouseDownRect = (
     width: 0,
     height: 0,
     fill: 'transparent',
-    stroke: 'black',
+    stroke: activeColor,
     strokeWidth: 2,
     strokeUniform: true,
     selectable: false,

@@ -1,0 +1,17 @@
+.colorpickerWrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: .2rem;
+}
+
+.colorpicker-button {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.colorpicker-button-active {
+  border: 2px solid red;
+}

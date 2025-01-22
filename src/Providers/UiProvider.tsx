@@ -14,6 +14,7 @@ type UiContextType = {
   DeleteIcon: typeof DeleteIcon
   EditIcon: typeof EditIcon
   SelectIcon: typeof SelectIcon
+  pickerColors: string[]
   strings: {
     id: string
     rectangle: string
@@ -30,6 +31,7 @@ export const DefaultUiContext: UiContextType = {
   DeleteIcon,
   EditIcon,
   SelectIcon,
+  pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   strings: {
     id: 'ID',
     polygon: 'Polygon',
@@ -50,6 +52,7 @@ const UiProvider = ({
   DeleteIcon,
   EditIcon,
   SelectIcon,
+  pickerColors,
   strings,
 }: PropsWithChildren<Partial<Omit<UiContextType, 'strings'>> & { strings?: Partial<UiContextType['strings']> }>) => {
   const ctx: UiContextType = {
@@ -60,6 +63,7 @@ const UiProvider = ({
     SelectIcon: SelectIcon ?? DefaultUiContext.SelectIcon,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
+    pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
     strings: strings ? { ...DefaultUiContext.strings, ...strings } : DefaultUiContext.strings,
   }
   return <UiContext.Provider value={ctx}>{children}</UiContext.Provider>

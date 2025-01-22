@@ -5,7 +5,9 @@ import { Shape, Shapes, ShapeType, ToolEnum } from '../Components/RoiEditor/Type
 type EditorContextType = {
   activeTool: ToolEnum
   setActiveTool: (tool: ToolEnum) => void
-  shapes: Shapes,
+  activeColor: string
+  setActiveColor: (color: string) => void
+  shapes: Shapes
   addShape: (id: string, type: ShapeType, shape: Shape) => void
   removeShape: (id: string) => void
 }
@@ -25,13 +27,15 @@ const EditorProvider = ({
   children,
   activeTool,
   setActiveTool,
+  activeColor,
+  setActiveColor,
   shapes,
   addShape,
   removeShape,
 }: PropsWithChildren<EditorContextType>) => {
   return (
     <EditorContext.Provider
-      value={{ activeTool, setActiveTool, shapes, addShape, removeShape }}
+      value={{ activeTool, setActiveTool, activeColor, setActiveColor, shapes, addShape, removeShape }}
     >
       {children}
     </EditorContext.Provider>

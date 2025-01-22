@@ -139,3 +139,13 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-metadata-table`
 - `react-cam-roi-metadata-table-light`
 - `react-cam-roi-metadata-table-dark`
+
+#### Colorpicker button
+
+- `react-cam-roi-colorpicker-button`
+- `react-cam-roi-colorpicker-button-light`
+- `react-cam-roi-colorpicker-button-dark`
+
+- `react-cam-roi-colorpicker-button-active`
+- `react-cam-roi-colorpicker-button-active-light`
+- `react-cam-roi-colorpicker-button-active-dark`

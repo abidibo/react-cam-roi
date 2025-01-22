@@ -58,6 +58,7 @@ export const useCanvasSize = (imageUrl: string) => {
 
 export const useTool = (
   tool: ToolEnum,
+  activeColor: string,
   addShape: (id: string, type: ShapeType, shape: Shape) => void,
   canvas: fabric.Canvas | null,
 ) => {
@@ -102,13 +103,13 @@ export const useTool = (
     const handleMouseDown = (event: FabricEvent) => {
       switch (tool) {
         case ToolEnum.Rectangle:
-          handleMouseDownRect(event, canvas, setOriginX, setOriginY, setShape, setIsDrawing)
+          handleMouseDownRect(event, canvas, activeColor, setOriginX, setOriginY, setShape, setIsDrawing)
           break
         case ToolEnum.Polygon:
-          handleMouseDownPolygon(event, canvas, setIsDrawing, points, setPoints, lines, setLines)
+          handleMouseDownPolygon(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         case ToolEnum.Polyline:
-          handleMouseDownPolyline(event, canvas, setIsDrawing, points, setPoints, lines, setLines)
+          handleMouseDownPolyline(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         default:
           break
@@ -144,10 +145,10 @@ export const useTool = (
     const handleDoubleClick = () => {
       switch (tool) {
         case ToolEnum.Polygon:
-          handleDoubleClickPolygon(canvas, setIsDrawing, points, setPoints, lines, setLines, addShape)
+          handleDoubleClickPolygon(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines, addShape)
           break
         case ToolEnum.Polyline:
-          handleDoubleClickPolyline(canvas, setIsDrawing, points, setPoints, lines, setLines, addShape)
+          handleDoubleClickPolyline(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines, addShape)
           break
         default:
           break
@@ -173,6 +174,7 @@ export const useTool = (
     }
   }, [
     tool,
+    activeColor,
     isDrawing,
     shape,
     originX,
