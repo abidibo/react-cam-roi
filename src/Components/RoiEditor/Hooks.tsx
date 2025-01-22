@@ -95,8 +95,8 @@ export const useTool = (
       // disable selection
       canvas.selection = false
       canvas.discardActiveObject()
-      canvas.renderAll()
       Dispatcher.emit('canvas:shapeSelected', null)
+      canvas.renderAll()
     }
 
     const handleMouseDown = (event: FabricEvent) => {

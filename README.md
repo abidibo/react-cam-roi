@@ -46,7 +46,10 @@ type UiContextType = {
   enableLogs: boolean
   themeMode: 'light' | 'dark'
   primaryColor: string
-  IconButton: typeof IconButton
+  IconButton: React.FC<IconButtonProps>
+  DeleteIcon: React.FC<DeleteIconProps>
+  EditIcon: React.FC<EditIconProps>
+  SelectIcon: React.FC<SelectIconProps>
   strings: {
     id: string
     type: string
@@ -79,6 +82,39 @@ type LoaderProps = {}
 type IconButtonProps = {
   children?: React.ReactNode
   onClick?: (event: React.MouseEvent) => void
+}
+```
+
+#### DeleteIcon
+
+##### Interface
+
+``` ts 
+type DeleteIconProps = {
+  color?: string
+  style?: React.CSSProperties
+}
+```
+
+#### EditIcon
+
+##### Interface
+
+``` ts 
+type EditIconProps = {
+  color?: string
+  style?: React.CSSProperties
+}
+```
+
+#### SelectIcon
+
+##### Interface
+
+``` ts 
+type SelectIconProps = {
+  color?: string
+  style?: React.CSSProperties
 }
 ```
 

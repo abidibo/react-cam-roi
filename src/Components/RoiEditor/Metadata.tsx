@@ -1,8 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 
-import DeleteIcon from '../../Icons/DeleteIcon'
-import EditIcon from '../../Icons/EditIcon'
-import SelectIcon from '../../Icons/SelectIcon'
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
@@ -11,7 +8,7 @@ import styles from './Metadata.module.css'
 import { Shape } from './Types'
 
 const Metadata: React.FC = () => {
-  const { strings, IconButton, themeMode } = useContext(UiContext)
+  const { strings, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
   const { shapes, removeShape } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
 
