@@ -19,6 +19,6 @@ jobs:
           node-version: "20.x"
       - run: npm ci
       - run: npm run build
-      - run npm publish --provencance --access public
+      - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
