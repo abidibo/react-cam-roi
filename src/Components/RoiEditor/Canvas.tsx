@@ -22,10 +22,10 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
       }
     }
 
-    Dispatcher.register('removeShape', removeShape)
+    Dispatcher.register('canvas:removeShape', removeShape)
 
     return () => {
-      Dispatcher.unregister('removeShape', removeShape)
+      Dispatcher.unregister('canvas:removeShape', removeShape)
     }
   }, [])
 
