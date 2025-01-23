@@ -9,7 +9,8 @@
     ".nvim.lua",
     ".prettierrc.json",
     "eslint.config.js",
-    "storybook.log"
+    "storybook.log",
+    "react-cam-roi.png"
   ],
   "compilerOptions": {
     "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,

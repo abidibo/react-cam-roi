@@ -4,6 +4,8 @@
 
 This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.
 
+![Screenshot](./react-cam-roi.png)
+
 It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each has dynamic metadata attached (configured via api).
 Export and import functionality is also provided.
 
@@ -13,7 +15,7 @@ Features:
 - Draw polylines, polygons and rectangles, change dimensions and rotate them.
 - Support for dynamic metadata information attached to each shape.
 - Import and export shapes and metadata in json format.
-- Highly customizable: custom components and css classes.
+- Highly customizable: shape colors, custom components and css classes.
 
 ## Installation
 
