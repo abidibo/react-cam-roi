@@ -4,10 +4,21 @@
 
 This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.
 
+It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each has dynamic metadata attached (configured via api).
+Export and import functionality is also provided.
+
+Features:
+
+- Autosizing of the editor: the canvas resizes to the size of the image, but it's also responsive, so if the container width is smaller, then the canvas is resized accordingly keeping the aspect ratio.
+- Draw polylines, polygons and rectangles, change dimensions and rotate them.
+- Support for dynamic metadata information attached to each shape.
+- Import and export shapes and metadata in json format.
+- Highly customizable: custom components and css classes.
+
 ## Installation
 
 ```
-npm install react-cam-roi
+npm install @abidibo/react-cam-roi
 ```
 
 ## Usage
@@ -18,7 +29,7 @@ TODO
 
 You can customize many aspects of this library by using the `UiProvider`.
 
-- You cancustomize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
+- You can customize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
 - You can override them by using the `UiProvider`. But you can also use the default ones and just add your styling.
 - You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling. 
 - You can define a primary color which is used for color or background of active elements.
