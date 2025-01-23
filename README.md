@@ -180,11 +180,28 @@ There are components that cannot be overridden. But still you can use classes to
 
 ## Development
 
+After cloning the repository, you can run the following commands:
+
 | Command | Description |
 | --- | --- |
 | `npm run clean` | Clean the dist folder |
 | `npm run build` | Build the library |
 | `npm run storybook` | Run storybook |
+
+In order to start developing just run the storybook, then make changes to code and the storybook will be updated.
+
+In order to test the library in onother local react project you can:
+
+```bash
+$ cd react-cam-roi
+$ yarn link
+$ cd ../my-project
+$ yarn link @abidibo/react-cam-roi
+```
+
+Then rebuild this library to see your changes in the project.
+
+## CI
 
 A github action pipeline is provided, it will publish the package to npm when a new tag is pushed. You need to add the `NPM_TOKEN` secret to your repository settings.
 
