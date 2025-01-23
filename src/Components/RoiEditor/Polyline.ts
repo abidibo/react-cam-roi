@@ -77,6 +77,7 @@ export const handleDoubleClickPolyline = (
   if (points.length > 2) {
     const id = uuidv4()
     const polyline = new fabric.Polyline(points, {
+      fill: 'transparent',
       stroke: activeColor,
       strokeWidth: 2,
       selectable: false,
