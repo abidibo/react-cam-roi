@@ -180,13 +180,13 @@ There are components that cannot be overridden. But still you can use classes to
 
 ## Development
 
-After cloning the repository, you can run the following commands:
+After cloning the repository and install dependencies (`yarn install`), you can run the following commands:
 
 | Command | Description |
 | --- | --- |
-| `npm run clean` | Clean the dist folder |
-| `npm run build` | Build the library |
-| `npm run storybook` | Run storybook |
+| `yarn clean` | Clean the dist folder |
+| `yarn build` | Build the library |
+| `yarn storybook` | Run storybook |
 
 In order to start developing just run the storybook, then make changes to code and the storybook will be updated.
 
