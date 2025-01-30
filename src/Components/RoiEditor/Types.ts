@@ -12,3 +12,4 @@ export type Shape = (fabric.Rect | fabric.Polygon | fabric.Polyline) & { id?: st
 export type Shapes = Record<string, { type: ShapeType, shape: Shape }>
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>
 export type FabricSelectionEvent = Partial<fabric.TEvent> & { selected: fabric.Object[] }
+export type IAddShape = (id: string, type: ShapeType, shape: Shape) => void

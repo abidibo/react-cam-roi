@@ -1,7 +1,7 @@
-import * as fabric from 'fabric';
+import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types';
+import { FabricEvent, IAddShape, Shape, ToolEnum } from './Types'
 
 const addPoint = (
   event: FabricEvent,
@@ -72,7 +72,7 @@ export const handleDoubleClickPolygon = (
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
   setLines: (v: fabric.Line[]) => void,
-  addShape: (id: string, type: ShapeType, shape: fabric.Polygon) => void,
+  addShape: IAddShape,
 ) => {
   if (points.length > 2) {
     const id = uuidv4()
@@ -95,4 +95,20 @@ export const handleDoubleClickPolygon = (
     setLines([])
     setIsDrawing(false)
   }
+}
+
+export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon, addShape: IAddShape) => {
+  const id = uuidv4()
+  const copy = new fabric.Polygon(polygon.points.map((p) => ({ x: p.x + 10, y: p.y + 10 })), {
+    fill: 'transparent',
+    stroke: polygon.stroke,
+    strokeWidth: polygon.strokeWidth,
+    selectable: false,
+    hasControls: true,
+    hoverCursor: 'default',
+    // @ts-expect-error id is not included in types but the property is added and it works
+    id,
+  })
+  canvas.add(copy)
+  addShape(id, ToolEnum.Polygon, copy)
 }

@@ -6,6 +6,7 @@ import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import styles from './Metadata.module.css'
 import { Shape } from './Types'
+import CopyIcon from '../../Icons/CopyIcon'
 
 const Metadata: React.FC = () => {
   const { strings, Typography, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
@@ -20,6 +21,10 @@ const Metadata: React.FC = () => {
       Dispatcher.unregister('canvas:shapeSelected', setSelectedShapes)
     }
   }, [shapes])
+
+  const handleCopyShape = (id: string) => () => {
+    Dispatcher.emit('canvas:copyShape', id)
+  }
 
   const handleRemoveShape = (id: string) => () => {
     Dispatcher.emit('canvas:removeShape', id)
@@ -54,6 +59,9 @@ const Metadata: React.FC = () => {
               <td>
                 <IconButton onClick={handleSelectShape(id)}>
                   <SelectIcon color={iconColor} />
+                </IconButton>
+                <IconButton onClick={handleCopyShape(id)}>
+                  <CopyIcon color={iconColor} />
                 </IconButton>
                 <IconButton onClick={handleRemoveShape(id)}>
                   <EditIcon color={iconColor} />

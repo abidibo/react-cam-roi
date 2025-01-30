@@ -2,10 +2,10 @@ import * as fabric from 'fabric'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import Dispatcher from '../../Utils/Dispatcher'
-import { handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
+import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import { FabricEvent, FabricSelectionEvent, Shape, ShapeType, ToolEnum } from './Types'
+import { FabricEvent, FabricSelectionEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -189,12 +189,23 @@ export const useTool = (
   ])
 }
 
-export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool: (tool: ToolEnum) => void) => {
+export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool: (tool: ToolEnum) => void, addShape: IAddShape) => {
   useEffect(() => {
     const removeShape = (_: string, id: string) => {
       const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
       if (obj) {
         canvas?.remove(obj)
+      }
+    }
+
+    const copyShape = (_: string, id: string) => {
+      const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
+      switch (obj?.type) {
+        case ToolEnum.Polygon:
+          copyPolygon(canvas!, obj as fabric.Polygon, addShape)
+          break
+        default:
+          break
       }
     }
 
@@ -209,11 +220,13 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool:
     }
 
     Dispatcher.register('canvas:removeShape', removeShape)
+    Dispatcher.register('canvas:copyShape', copyShape)
     Dispatcher.register('canvas:selectShape', selectShape)
 
     return () => {
       Dispatcher.unregister('canvas:removeShape', removeShape)
+      Dispatcher.unregister('canvas:copyShape', copyShape)
       Dispatcher.unregister('canvas:selectShape', selectShape)
     }
-  }, [setActiveTool, canvas])
+  }, [setActiveTool, canvas, addShape])
 }

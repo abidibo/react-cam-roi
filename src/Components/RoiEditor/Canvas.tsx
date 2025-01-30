@@ -11,7 +11,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
   const canvasRef = useRef<fabric.Canvas>(null)
 
   useTool(activeTool, activeColor, addShape, canvasRef.current)
-  useDispatcherEvents(canvasRef.current, setActiveTool)
+  useDispatcherEvents(canvasRef.current, setActiveTool, addShape)
 
   useEffect(() => {
     canvasRef.current = new fabric.Canvas('react-cam-roi-canvas')
