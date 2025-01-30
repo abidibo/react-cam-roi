@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
-import { handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
+import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
 import { FabricEvent, FabricSelectionEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
 
@@ -203,6 +203,9 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool:
       switch (obj?.type) {
         case ToolEnum.Polygon:
           copyPolygon(canvas!, obj as fabric.Polygon, addShape)
+          break
+        case ToolEnum.Polyline:
+          copyPolyline(canvas!, obj as fabric.Polyline, addShape)
           break
         default:
           break

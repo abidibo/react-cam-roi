@@ -1,7 +1,7 @@
 import * as fabric from 'fabric';
 import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent, ShapeType, ToolEnum } from './Types';
+import { FabricEvent, IAddShape, ShapeType, ToolEnum } from './Types';
 
 const addPoint = (
   event: FabricEvent,
@@ -94,4 +94,19 @@ export const handleDoubleClickPolyline = (
     setLines([])
     setIsDrawing(false)
   }
+}
+
+export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline, addShape: IAddShape) => {
+  const id = uuidv4()
+  const copy = new fabric.Polyline(polyline.points.map((p) => ({ x: p.x + 10, y: p.y + 10 })), {
+    fill: 'transparent',
+    stroke: polyline.stroke,
+    strokeWidth: polyline.strokeWidth,
+    selectable: false,
+    hasControls: true,
+    hoverCursor: 'default',
+    id,
+  })
+  canvas.add(copy)
+  addShape(id, ToolEnum.Polyline, copy)
 }
