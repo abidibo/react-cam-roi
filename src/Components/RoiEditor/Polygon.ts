@@ -99,7 +99,9 @@ export const handleDoubleClickPolygon = (
 
 export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon, addShape: IAddShape) => {
   const id = uuidv4()
-  const copy = new fabric.Polygon(polygon.points.map((p) => ({ x: p.x + 10, y: p.y + 10 })), {
+  const copy = new fabric.Polygon(polygon.points, {
+    top: polygon.top + 10,
+    left: polygon.left + 10,
     fill: 'transparent',
     stroke: polygon.stroke,
     strokeWidth: polygon.strokeWidth,
@@ -111,4 +113,5 @@ export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon, addS
   })
   canvas.add(copy)
   addShape(id, ToolEnum.Polygon, copy)
+  return copy
 }

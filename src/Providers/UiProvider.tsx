@@ -23,8 +23,8 @@ type UiContextType = {
     polygonHelpText: string
     polyline: string
     polylineHelpText: string
-    rectangle: string
-    rectangleHelpText: string
+    rect: string
+    rectHelpText: string
     pointer: string
     pointerHelpText: string
     type: string
@@ -46,8 +46,8 @@ export const DefaultUiContext: UiContextType = {
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',
     polylineHelpText: 'click to draw all the polyline points, double click on the last point to stop drawing',
-    rectangle: 'Rectangle',
-    rectangleHelpText: 'click and drag to draw the rectangle',
+    rect: 'Rectangle',
+    rectHelpText: 'click and drag to draw the rectangle',
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
     type: 'Type',

@@ -98,7 +98,9 @@ export const handleDoubleClickPolyline = (
 
 export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline, addShape: IAddShape) => {
   const id = uuidv4()
-  const copy = new fabric.Polyline(polyline.points.map((p) => ({ x: p.x + 10, y: p.y + 10 })), {
+  const copy = new fabric.Polyline(polyline.points, {
+    top: polyline.top + 10,
+    left: polyline.left + 10,
     fill: 'transparent',
     stroke: polyline.stroke,
     strokeWidth: polyline.strokeWidth,
@@ -109,4 +111,5 @@ export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline, a
   })
   canvas.add(copy)
   addShape(id, ToolEnum.Polyline, copy)
+  return copy
 }

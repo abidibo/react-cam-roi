@@ -30,6 +30,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
     (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
     [shapes],
   )
+
   const removeShape = useCallback(
     (id: string) => {
       const newShapes = { ...shapes }

@@ -4,7 +4,7 @@ export const enum ToolEnum {
   Pointer = 'pointer',
   Polyline = 'polyline',
   Polygon = 'polygon',
-  Rectangle = 'rectangle',
+  Rectangle = 'rect',
 }
 
 export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle

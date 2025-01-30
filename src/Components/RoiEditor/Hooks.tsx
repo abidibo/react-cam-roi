@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
-import { handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
+import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
 import { FabricEvent, FabricSelectionEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
 
 export const useImageSize = (imageUrl: string) => {
@@ -189,7 +189,11 @@ export const useTool = (
   ])
 }
 
-export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool: (tool: ToolEnum) => void, addShape: IAddShape) => {
+export const useDispatcherEvents = (
+  canvas: fabric.Canvas | null,
+  setActiveTool: (tool: ToolEnum) => void,
+  addShape: IAddShape,
+) => {
   useEffect(() => {
     const removeShape = (_: string, id: string) => {
       const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
@@ -200,12 +204,23 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null, setActiveTool:
 
     const copyShape = (_: string, id: string) => {
       const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
+      let copy: fabric.Object
+
       switch (obj?.type) {
         case ToolEnum.Polygon:
-          copyPolygon(canvas!, obj as fabric.Polygon, addShape)
+          copy = copyPolygon(canvas!, obj as fabric.Polygon, addShape)
+          // @ts-expect-error id exists but his stupid ts does not know
+          Dispatcher.emit('canvas:selectShape', copy.id)
           break
         case ToolEnum.Polyline:
-          copyPolyline(canvas!, obj as fabric.Polyline, addShape)
+          copy = copyPolyline(canvas!, obj as fabric.Polyline, addShape)
+          // @ts-expect-error id exists but his stupid ts does not know
+          Dispatcher.emit('canvas:selectShape', copy.id)
+          break
+        case ToolEnum.Rectangle:
+          copy = copyRectangle(canvas!, obj as fabric.Rect, addShape)
+          // @ts-expect-error id exists but his stupid ts does not know
+          Dispatcher.emit('canvas:selectShape', copy.id)
           break
         default:
           break

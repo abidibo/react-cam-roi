@@ -1,7 +1,7 @@
 import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent, Shape, ShapeType, ToolEnum } from './Types'
+import { FabricEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
 
 export const handleMouseDownRect = (
   event: FabricEvent,
@@ -73,4 +73,28 @@ export const handleMouseUpRect = (
   addShape(shape.id!, ToolEnum.Rectangle, shape)
   setShape(null)
   canvas.defaultCursor = 'default'
+}
+
+export const copyRectangle = (canvas: fabric.Canvas, rectangle: fabric.Rect, addShape: IAddShape) => {
+  const id = uuidv4()
+  const copy = new fabric.Rect({
+    left: rectangle.left + 10,
+    top: rectangle.top + 10,
+    originX: 'left',
+    originY: 'top',
+    width: rectangle.width,
+    height: rectangle.height,
+    fill: 'transparent',
+    stroke: rectangle.stroke,
+    strokeWidth: rectangle.strokeWidth,
+    strokeUniform: true,
+    selectable: false,
+    hasControls: true,
+    hoverCursor: 'default',
+    id,
+  })
+
+  canvas.add(copy)
+  addShape(id, ToolEnum.Rectangle, copy)
+  return copy
 }
