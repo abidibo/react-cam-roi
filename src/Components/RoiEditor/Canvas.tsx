@@ -6,7 +6,7 @@ type CanvasProps = {
   canvasSize: { width: number; height: number }
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
-  const canvasRef = useRef<fabric.Canvas>(null)
+  const canvasRef = useRef<fabric.Canvas | null>(null)
 
   useTool(canvasRef.current)
   useDispatcherEvents(canvasRef.current)

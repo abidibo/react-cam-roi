@@ -7,10 +7,10 @@ export type ParametersModalFormProps = {
 }
 
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ onClose }) => {
-  const { Modal } = useContext(UiContext)
+  const { Modal, strings, Typography } = useContext(UiContext)
   return (
-    <Modal onClose={onClose} title={'title'} isOpen size="lg">
-      <div>CIAO</div>
+    <Modal onClose={onClose} title={strings.mainParametersMetadata} isOpen size="lg">
+      <Typography>Here comes the dynamic parameters form</Typography>
     </Modal>
   )
 }

@@ -197,6 +197,7 @@ type UiContextType = {
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
     id: string
+    mainParametersMetadata: string
     polygon: string
     polygonHelpText: string
     polyline: string
@@ -257,7 +258,6 @@ type ModalProps = {
 - `react-cam-roi-modal-title-light`
 - `react-cam-roi-modal-title-dark`
 
-
 #### Typography
 
 ##### Interface
@@ -265,6 +265,9 @@ type ModalProps = {
 ```ts
 type TypographyProps = {
   children?: React.ReactNode
+  variant?: any // compatible with mui
+  component?: any // compatible with mui
+  className?: string
 }
 ```
 

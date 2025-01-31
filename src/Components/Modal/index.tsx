@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import ReactModal from 'react-modal'
+import { createPortal } from 'react-dom';
+import { PropsWithChildren, useContext } from 'react'
 
 import CloseIcon from '../../Icons/CloseIcon'
 import { UiContext } from '../../Providers/UiProvider'
@@ -9,30 +9,31 @@ import styles from './Modal.module.css'
 export type ModalProps = {
   isOpen: boolean
   onClose: () => void
-  children: React.ReactNode
   title: string
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title, size }) => {
-  const { themeMode, IconButton } = useContext(UiContext)
+const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, children, title, size }) => {
+  const { themeMode, IconButton, Typography } = useContext(UiContext)
   const iconColor = themeMode === 'light' ? 'black' : 'white'
 
-  return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      className={`${css('modal', styles, themeMode)} ${css(`modal-${size}`, styles, themeMode)}`}
-      overlayClassName={css('modal-overlay', styles, themeMode)}
-    >
-      <div className={css('modal-header', styles, themeMode)} onClick={onClose}>
-        <h4 className={css('modal-title', styles, themeMode)}>{title}</h4>
-        <IconButton onClick={onClose}>
-          <CloseIcon color={iconColor} />
-        </IconButton>
+  if (!isOpen) {
+    return null
+  }
+
+  return createPortal(
+    <div className={css('modal-overlay', styles, themeMode)}>
+      <div className={`${css('modal', styles, themeMode)} ${css(`modal-${size}`, styles, themeMode)}`}>
+        <div className={css('modal-header', styles, themeMode)}>
+          <Typography component='h6' className={css('modal-title', styles, themeMode)}>{title}</Typography>
+          <IconButton onClick={onClose}>
+            <CloseIcon color={iconColor} />
+          </IconButton>
+        </div>
+        {children}
       </div>
-      {children}
-    </ReactModal>
+    </div>,
+    document.body
   )
 }
 
