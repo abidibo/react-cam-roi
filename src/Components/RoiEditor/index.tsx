@@ -6,7 +6,7 @@ import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
 import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
-import Metadata from './Metadata'
+import ShapesList from './ShapesList'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
 import { Configuration, Shape, Shapes, ShapeType, ToolEnum } from './Types'
@@ -17,7 +17,6 @@ export type RoiEditorProps = {
   configuration: Configuration
 }
 
-// https://medium.com/@na.mazaheri/dynamically-drawing-shapes-on-canvas-with-fabric-js-in-react-js-8b9c42791903
 // https://github.com/n-mazaheri/image-editor
 const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
   const { themeMode, enableLogs, pickerColors } = useContext(UiContext)
@@ -70,7 +69,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
         >
           <Canvas canvasSize={canvasSize} />
         </div>
-        <Metadata />
+        <ShapesList />
       </div>
     </EditorProvider>
   )

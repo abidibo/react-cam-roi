@@ -314,11 +314,11 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-toolbar-helper-light`
 - `react-cam-roi-toolbar-helper-dark`
 
-#### Metadata table
+#### Shapes list
 
-- `react-cam-roi-metadata-table`
-- `react-cam-roi-metadata-table-light`
-- `react-cam-roi-metadata-table-dark`
+- `react-cam-roi-shapes-table`
+- `react-cam-roi-shapes-table-light`
+- `react-cam-roi-shapes-table-dark`
 
 #### Colorpicker button
 

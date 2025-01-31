@@ -1,36 +1,36 @@
-.metadata-table {
+.shapes-table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.metadata-table th {
+.shapes-table th {
   padding: .8rem .3rem .3rem;
   text-align: left;
 }
 
-.metadata-table td {
+.shapes-table td {
   padding: 0 .3rem;
 }
 
-.metadata-table tr td:last-child,
-.metadata-table tr th:last-child {
+.shapes-table tr td:last-child,
+.shapes-table tr th:last-child {
   text-align: right;
 }
 
-.metadata-table-light {
+.shapes-table-light {
   background-color: #eee;
   color: #000;
 }
 
-.metadata-table-dark {
+.shapes-table-dark {
   background-color: #333;
   color: #fff;
 }
 
-.metadata-row-selected-light {
+.shapes-row-selected-light {
   background-color: #ccc;
 }
 
-.metadata-row-selected-dark {
+.shapes-row-selected-dark {
   background-color: #666;
 }

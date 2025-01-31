@@ -4,11 +4,11 @@ import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
-import styles from './Metadata.module.css'
+import styles from './ShapesList.module.css'
 import { Shape } from './Types'
 import CopyIcon from '../../Icons/CopyIcon'
 
-const Metadata: React.FC = () => {
+const ShapesList: React.FC = () => {
   const { strings, Typography, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
   const { shapes, removeShape } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
@@ -38,7 +38,7 @@ const Metadata: React.FC = () => {
   const iconColor = themeMode === 'light' ? 'black' : 'white'
 
   return (
-    <table className={css('metadata-table', styles, themeMode)}>
+    <table className={css('shapes-table', styles, themeMode)}>
       {Object.keys(shapes).length > 0 && (
         <thead>
           <tr>
@@ -51,7 +51,7 @@ const Metadata: React.FC = () => {
       <tbody>
         {Object.keys(shapes).map((id) => {
           return (
-            <tr key={id} className={selected.indexOf(id) > -1 ? css('metadata-row-selected', styles, themeMode) : ''}>
+            <tr key={id} className={selected.indexOf(id) > -1 ? css('shapes-row-selected', styles, themeMode) : ''}>
               <td>
                 <div><Typography>{id.substring(0, 6)}</Typography></div>
               </td>
@@ -77,4 +77,4 @@ const Metadata: React.FC = () => {
     </table>
   )
 }
-export default Metadata
+export default ShapesList
