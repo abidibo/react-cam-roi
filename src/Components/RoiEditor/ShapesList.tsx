@@ -6,10 +6,9 @@ import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import styles from './ShapesList.module.css'
 import { Shape } from './Types'
-import CopyIcon from '../../Icons/CopyIcon'
 
 const ShapesList: React.FC = () => {
-  const { strings, Typography, IconButton, DeleteIcon, EditIcon, SelectIcon, themeMode } = useContext(UiContext)
+  const { strings, Typography, IconButton, DeleteIcon, EditIcon, SelectIcon, CopyIcon, themeMode } = useContext(UiContext)
   const { shapes, removeShape } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
 
