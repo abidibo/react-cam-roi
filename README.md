@@ -186,7 +186,18 @@ type UiContextType = {
   EditIcon: React.FC<EditIconProps>
   SelectIcon: React.FC<SelectIconProps>
   strings: {
+    cannotDrawMorePolygons: string
+    cannotDrawMorePolylines: string
+    cannotDrawMoreRectangles: string
     id: string
+    polygon: string
+    polygonHelpText: string
+    polyline: string
+    polylineHelpText: string
+    rect: string
+    rectHelpText: string
+    pointer: string
+    pointerHelpText: string
     type: string
   }
 }

@@ -1,18 +1,13 @@
 import * as fabric from 'fabric'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
+import { UiContext } from '../../Providers/UiProvider'
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import {
-  FabricEvent,
-  FabricSelectionEvent,
-  IAddShape,
-  Shape,
-  ToolEnum,
-} from './Types'
+import { FabricEvent, FabricSelectionEvent, IAddShape, Shape, ToolEnum } from './Types'
 import { canDrawShape } from './Utils'
 
 export const useImageSize = (imageUrl: string) => {
@@ -66,6 +61,8 @@ export const useCanvasSize = (imageUrl: string) => {
 
 export const useTool = (canvas: fabric.Canvas | null) => {
   const { configuration, activeTool, activeColor, shapes, addShape } = useEditorContext()
+  const { notify, strings } = useContext(UiContext)
+
   const [isDrawing, setIsDrawing] = useState(false)
   const [shape, setShape] = useState<Shape | null>(null)
   const [originX, setOriginX] = useState(0)
@@ -107,15 +104,15 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     const handleMouseDown = (event: FabricEvent) => {
       switch (activeTool) {
         case ToolEnum.Rectangle:
-          if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, true)) return
+          if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
           handleMouseDownRect(event, canvas, activeColor, setOriginX, setOriginY, setShape, setIsDrawing)
           break
         case ToolEnum.Polygon:
-          if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, true)) return
+          if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
           handleMouseDownPolygon(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         case ToolEnum.Polyline:
-          if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, true)) return
+          if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, notify, strings.cannotDrawMorePolylines)) return
           handleMouseDownPolyline(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         default:

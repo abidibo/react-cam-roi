@@ -1,4 +1,11 @@
-import { Configuration, OperatorEnum, Shape, Shapes, ToolEnum } from './Types'
+import { Configuration, INotify, OperatorEnum, Shapes, ToolEnum } from './Types'
+
+export const notify: INotify = {
+  info: (message: string) => alert(`Info: ${message}`),
+  warn: (message: string) => alert(`Warning: ${message}`),
+  error: (message: string) => alert(`Error: ${message}`),
+  success: (message: string) => alert(`Success: ${message}`),
+}
 
 export const enableRois = (configuration: Configuration): boolean => {
   return configuration.rois.length > 0
@@ -8,7 +15,8 @@ export const canDrawShape = (
   configuration: Configuration,
   shapeType: Omit<ToolEnum, ToolEnum.Pointer>,
   shapes: Shapes,
-  notify: boolean,
+  notify: INotify,
+  message: string,
 ): boolean => {
   const rule = configuration.rois.find((roi) => roi.type === shapeType)
 
@@ -33,7 +41,7 @@ export const canDrawShape = (
   }
 
   if (!res && notify) {
-    alert(`You cannot draw more than ${rule.multiplicity.threshold} ${shapeType}s`)
+    notify.warn(message)
   }
 
   return res

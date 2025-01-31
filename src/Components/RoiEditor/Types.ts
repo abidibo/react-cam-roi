@@ -48,7 +48,15 @@ export type RoiConfiguration = {
   },
   parameters: ConfigurationParameter[],
 }
+
 export type Configuration = {
   parameters: ConfigurationParameter[],
   rois: RoiConfiguration[],
+}
+
+export interface INotify {
+  info: (message: string) => void
+  warn: (message: string) => void
+  error: (message: string) => void
+  success: (message: string) => void
 }

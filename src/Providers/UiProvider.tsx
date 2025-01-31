@@ -5,6 +5,8 @@ import IconButton from '../Components/IconButton'
 import DeleteIcon from '../Icons/DeleteIcon'
 import EditIcon from '../Icons/EditIcon'
 import SelectIcon from '../Icons/SelectIcon'
+import { INotify } from '../Components/RoiEditor/Types'
+import { notify } from '../Components/RoiEditor/Utils'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -17,7 +19,11 @@ type UiContextType = {
   EditIcon: typeof EditIcon
   SelectIcon: typeof SelectIcon
   pickerColors: string[]
+  notify: INotify,
   strings: {
+    cannotDrawMorePolygons: string
+    cannotDrawMorePolylines: string
+    cannotDrawMoreRectangles: string
     id: string
     polygon: string
     polygonHelpText: string
@@ -40,7 +46,11 @@ export const DefaultUiContext: UiContextType = {
   EditIcon,
   SelectIcon,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
+  notify,
   strings: {
+    cannotDrawMorePolygons: 'You cannot draw more polygons',
+    cannotDrawMorePolylines: 'You cannot draw more polylines',
+    cannotDrawMoreRectangles: 'You cannot draw more rectangles',
     id: 'ID',
     polygon: 'Polygon',
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
@@ -67,6 +77,7 @@ const UiProvider = ({
   EditIcon,
   SelectIcon,
   pickerColors,
+  notify,
   strings,
 }: PropsWithChildren<Partial<Omit<UiContextType, 'strings'>> & { strings?: Partial<UiContextType['strings']> }>) => {
   const ctx: UiContextType = {
@@ -79,6 +90,7 @@ const UiProvider = ({
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
+    notify: notify ?? DefaultUiContext.notify,
     strings: strings ? { ...DefaultUiContext.strings, ...strings } : DefaultUiContext.strings,
   }
   return <UiContext.Provider value={ctx}>{children}</UiContext.Provider>
