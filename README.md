@@ -49,6 +49,10 @@ The configuration prop defines which kind and how many ROIs can be drawn, along 
 
 ``` ts
 
+// All types can be imported:
+// import { Types } from '@abidibo/react-cam-roi'
+// const { ToolEnum, ShapeType, DataTypeEnum, OperatorEnum, ConfigurationParameter, RoiConfiguration, Configuration } = Types
+
 export const enum ToolEnum {
   Pointer = 'pointer',
   Polyline = 'polyline',
@@ -174,6 +178,8 @@ const MyView: React.FC = () => {
 
 ### UiProvider
 
+Props and types are defined later in this document.
+
 ```ts 
 type UiContextType = {
   children?: React.ReactNode
@@ -185,6 +191,7 @@ type UiContextType = {
   DeleteIcon: React.FC<DeleteIconProps>
   EditIcon: React.FC<EditIconProps>
   SelectIcon: React.FC<SelectIconProps>
+  notify: INotify,
   strings: {
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
@@ -271,6 +278,17 @@ type EditIconProps = {
 type SelectIconProps = {
   color?: string
   style?: React.CSSProperties
+}
+```
+
+### Functions
+
+``` ts 
+type INotify = { // compatible with toast (react-toastify)
+  info: (message: string) => void
+  warn: (message: string) => void
+  error: (message: string) => void
+  success: (message: string) => void
 }
 ```
 
