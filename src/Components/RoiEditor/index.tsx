@@ -6,19 +6,19 @@ import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
 import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
-import Metadata from './Metadata'
+import ShapesList from './ShapesList'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
-import { Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { Configuration, Shape, Shapes, ShapeType, ToolEnum } from './Types'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
   imageUrl: string
+  configuration: Configuration
 }
 
-// https://medium.com/@na.mazaheri/dynamically-drawing-shapes-on-canvas-with-fabric-js-in-react-js-8b9c42791903
 // https://github.com/n-mazaheri/image-editor
-const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
+const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
   const { themeMode, enableLogs, pickerColors } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -30,6 +30,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
     (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
     [shapes],
   )
+
   const removeShape = useCallback(
     (id: string) => {
       const newShapes = { ...shapes }
@@ -54,6 +55,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
       shapes={shapes}
       addShape={addShape}
       removeShape={removeShape}
+      configuration={configuration}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
@@ -67,7 +69,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
         >
           <Canvas canvasSize={canvasSize} />
         </div>
-        <Metadata />
+        <ShapesList />
       </div>
     </EditorProvider>
   )
