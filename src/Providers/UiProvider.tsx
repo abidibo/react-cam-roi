@@ -8,6 +8,7 @@ import SelectIcon from '../Icons/SelectIcon'
 import { INotify } from '../Components/RoiEditor/Types'
 import { notify } from '../Components/RoiEditor/Utils'
 import CopyIcon from '../Icons/CopyIcon'
+import AnnotateIcon from '../Icons/AnnotateIcon'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -19,7 +20,8 @@ type UiContextType = {
   DeleteIcon: typeof DeleteIcon
   EditIcon: typeof EditIcon
   SelectIcon: typeof SelectIcon
-  CopyIcon: typeof CopyIcon,
+  CopyIcon: typeof CopyIcon
+  AnnotateIcon: typeof AnnotateIcon
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -48,6 +50,7 @@ export const DefaultUiContext: UiContextType = {
   EditIcon,
   SelectIcon,
   CopyIcon,
+  AnnotateIcon,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -80,6 +83,7 @@ const UiProvider = ({
   EditIcon,
   SelectIcon,
   CopyIcon,
+  AnnotateIcon,
   pickerColors,
   notify,
   strings,
@@ -92,6 +96,7 @@ const UiProvider = ({
     EditIcon: EditIcon ?? DefaultUiContext.EditIcon,
     SelectIcon: SelectIcon ?? DefaultUiContext.SelectIcon,
     CopyIcon: CopyIcon ?? DefaultUiContext.CopyIcon,
+    AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,

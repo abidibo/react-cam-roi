@@ -281,6 +281,27 @@ type SelectIconProps = {
 }
 ```
 
+#### CopyIcon
+
+##### Interface
+
+``` ts 
+type CopyIconProps = {
+  color?: string
+  style?: React.CSSProperties
+}
+```
+
+#### AnnotateIcon
+
+##### Interface
+
+``` ts 
+type AnnotateIconProps = {
+  color?: string
+  style?: React.CSSProperties
+}
+
 ### Functions
 
 ``` ts 
