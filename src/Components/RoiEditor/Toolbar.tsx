@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 
+import AnnotateIcon from '../../Icons/AnnotateIcon'
 import PointerIcon from '../../Icons/PointerIcon'
 import PolygonIcon from '../../Icons/PolygonIcon'
 import PolylineIcon from '../../Icons/PolylineIcon'
@@ -10,7 +11,7 @@ import { css } from '../../Utils'
 import ColorPicker from './ColorPicker'
 import styles from './Toolbar.module.css'
 import { ToolEnum } from './Types'
-import { enableRois } from './Utils'
+import { enableMainMetadata, enableRois } from './Utils'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
@@ -38,6 +39,14 @@ const Toolbar = () => {
             </IconButton>
             <ColorPicker style={{ marginLeft: 'auto' }} />
           </>
+        )}
+        {enableRois(configuration) && enableMainMetadata(configuration) && (
+          <div className={css('toolbar-spacer', styles, themeMode)} />
+        )}
+        {enableMainMetadata(configuration) && (
+          <IconButton onClick={() => {}}>
+            <AnnotateIcon color={iconColor(ToolEnum.Rectangle)} />
+          </IconButton>
         )}
       </div>
 

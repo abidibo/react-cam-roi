@@ -11,6 +11,10 @@ export const enableRois = (configuration: Configuration): boolean => {
   return configuration.rois.length > 0
 }
 
+export const enableMainMetadata = (configuration: Configuration): boolean => {
+  return configuration.parameters.length > 0
+}
+
 export const canDrawShape = (
   configuration: Configuration,
   shapeType: Omit<ToolEnum, ToolEnum.Pointer>,

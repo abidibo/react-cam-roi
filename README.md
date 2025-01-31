@@ -308,6 +308,10 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-toolbar-light`
 - `react-cam-roi-toolbar-dark`
 
+- `react-cam-roi-toolbar-spacer`
+- `react-cam-roi-toolbar-spacer-light`
+- `react-cam-roi-toolbar-spacer-dark`
+
 #### Toolbar help text
 
 - `react-cam-roi-toolbar-helper`
