@@ -1,17 +1,15 @@
 import { useRef, useEffect } from 'react';
 import * as fabric from 'fabric';
-import { useEditorContext } from '../../Providers/EditorProvider';
 import { useDispatcherEvents, useTool } from './Hooks';
 
 type CanvasProps = {
   canvasSize: { width: number; height: number }
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
-  const { setActiveTool, addShape } = useEditorContext()
   const canvasRef = useRef<fabric.Canvas>(null)
 
   useTool(canvasRef.current)
-  useDispatcherEvents(canvasRef.current, setActiveTool, addShape)
+  useDispatcherEvents(canvasRef.current)
 
   useEffect(() => {
     canvasRef.current = new fabric.Canvas('react-cam-roi-canvas')

@@ -190,14 +190,19 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     addShape,
     handleObjectSelected,
     handleSelectionCleared,
+    configuration,
+    notify,
+    strings,
+    shapes,
   ])
 }
 
 export const useDispatcherEvents = (
   canvas: fabric.Canvas | null,
-  setActiveTool: (tool: ToolEnum) => void,
-  addShape: IAddShape,
 ) => {
+  const { configuration, shapes, addShape, setActiveTool } = useEditorContext()
+  const { notify, strings } = useContext(UiContext)
+
   useEffect(() => {
     const removeShape = (_: string, id: string) => {
       const obj = canvas?.getObjects().find((s: fabric.Object) => (s as Shape).id === id)
@@ -212,16 +217,19 @@ export const useDispatcherEvents = (
 
       switch (obj?.type) {
         case ToolEnum.Polygon:
+          if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
           copy = copyPolygon(canvas!, obj as fabric.Polygon, addShape)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
           break
         case ToolEnum.Polyline:
+          if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, notify, strings.cannotDrawMorePolylines)) return
           copy = copyPolyline(canvas!, obj as fabric.Polyline, addShape)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
           break
         case ToolEnum.Rectangle:
+          if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
           copy = copyRectangle(canvas!, obj as fabric.Rect, addShape)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
@@ -250,5 +258,5 @@ export const useDispatcherEvents = (
       Dispatcher.unregister('canvas:copyShape', copyShape)
       Dispatcher.unregister('canvas:selectShape', selectShape)
     }
-  }, [setActiveTool, canvas, addShape])
+  }, [setActiveTool, canvas, addShape, configuration, shapes, notify, strings])
 }
