@@ -9,16 +9,18 @@ import { useCanvasSize } from './Hooks'
 import Metadata from './Metadata'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
-import { Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { Configuration, Shape, Shapes, ShapeType, ToolEnum } from './Types'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
   imageUrl: string
+  configuration: Configuration
 }
 
 // https://medium.com/@na.mazaheri/dynamically-drawing-shapes-on-canvas-with-fabric-js-in-react-js-8b9c42791903
 // https://github.com/n-mazaheri/image-editor
-const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl }) => {
+const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
+  console.log('CONFIG', configuration) // eslint-disable-line
   const { themeMode, enableLogs, pickerColors } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
