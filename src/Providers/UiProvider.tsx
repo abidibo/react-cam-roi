@@ -9,6 +9,8 @@ import { INotify } from '../Components/RoiEditor/Types'
 import { notify } from '../Components/RoiEditor/Utils'
 import CopyIcon from '../Icons/CopyIcon'
 import AnnotateIcon from '../Icons/AnnotateIcon'
+import Modal from '../Components/Modal'
+import CloseIcon from '../Icons/CloseIcon'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -17,11 +19,13 @@ type UiContextType = {
   primaryColor: string
   Typography: typeof Typography
   IconButton: typeof IconButton
+  Modal: typeof Modal
   DeleteIcon: typeof DeleteIcon
   EditIcon: typeof EditIcon
   SelectIcon: typeof SelectIcon
   CopyIcon: typeof CopyIcon
   AnnotateIcon: typeof AnnotateIcon
+  CloseIcon: typeof CloseIcon
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -46,11 +50,13 @@ export const DefaultUiContext: UiContextType = {
   primaryColor: '#1976d2',
   Typography,
   IconButton,
+  Modal,
   DeleteIcon,
   EditIcon,
   SelectIcon,
   CopyIcon,
   AnnotateIcon,
+  CloseIcon,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -78,12 +84,14 @@ const UiProvider = ({
   themeMode,
   primaryColor,
   Typography,
+  Modal,
   IconButton,
   DeleteIcon,
   EditIcon,
   SelectIcon,
   CopyIcon,
   AnnotateIcon,
+  CloseIcon,
   pickerColors,
   notify,
   strings,
@@ -91,12 +99,14 @@ const UiProvider = ({
   const ctx: UiContextType = {
     enableLogs: enableLogs ?? DefaultUiContext.enableLogs,
     Typography: Typography ?? DefaultUiContext.Typography,
+    Modal: Modal ?? DefaultUiContext.Modal,
     IconButton: IconButton ?? DefaultUiContext.IconButton,
     DeleteIcon: DeleteIcon ?? DefaultUiContext.DeleteIcon,
     EditIcon: EditIcon ?? DefaultUiContext.EditIcon,
     SelectIcon: SelectIcon ?? DefaultUiContext.SelectIcon,
     CopyIcon: CopyIcon ?? DefaultUiContext.CopyIcon,
     AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
+    CloseIcon: CloseIcon ?? DefaultUiContext.CloseIcon,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,

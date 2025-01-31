@@ -27,7 +27,7 @@ npm install @abidibo/react-cam-roi
 
 ## Usage
 
-``` ts
+```ts
 import { RoiEditor, UiProvider } from '@abidibo/react-cam-roi'
 import { Typography, IconButton, Delete } from '@mui/material'
 
@@ -47,8 +47,7 @@ const MyComponent: React.FC = () => {
 
 The configuration prop defines which kind and how many ROIs can be drawn, along with metadata information. Here the types definitions and an example:
 
-``` ts
-
+```ts
 // All types can be imported:
 // import { Types } from '@abidibo/react-cam-roi'
 // const { ToolEnum, ShapeType, DataTypeEnum, OperatorEnum, ConfigurationParameter, RoiConfiguration, Configuration } = Types
@@ -94,13 +93,13 @@ export type RoiConfiguration = {
   multiplicity: {
     operator: OperatorEnum
     threshold: number
-  },
-  parameters: ConfigurationParameter[],
+  }
+  parameters: ConfigurationParameter[]
 }
 
 export type Configuration = {
-  parameters: ConfigurationParameter[],
-  rois: RoiConfiguration[],
+  parameters: ConfigurationParameter[]
+  rois: RoiConfiguration[]
 }
 
 export const configuration: Configuration = {
@@ -158,14 +157,14 @@ You can customize many aspects of this library by using the `UiProvider`.
 
 - You can customize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
 - You can override them by using the `UiProvider`. But you can also use the default ones and just add your styling.
-- You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling. 
+- You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling.
 - You can define a primary color which is used for color or background of active elements.
 - You can define custom strings used here and there.
 - You can enable logs in the console by setting the `enableLogs` option to `true`.
 
-``` tsx
-import { UiProvider, RoiEditor } from 'react-cam-roi'
+```tsx
 import IconButton from '@mui/material/IconButton'
+import { UiProvider, RoiEditor } from 'react-cam-roi'
 
 const MyView: React.FC = () => {
   return (
@@ -180,18 +179,19 @@ const MyView: React.FC = () => {
 
 Props and types are defined later in this document.
 
-```ts 
+```ts
 type UiContextType = {
   children?: React.ReactNode
   enableLogs: boolean
   themeMode: 'light' | 'dark'
   primaryColor: string
   Typography: React.FC<TypographyProps>
+  Modal: React.FC<ModalProps>
   IconButton: React.FC<IconButtonProps>
   DeleteIcon: React.FC<DeleteIconProps>
   EditIcon: React.FC<EditIconProps>
   SelectIcon: React.FC<SelectIconProps>
-  notify: INotify,
+  notify: INotify
   strings: {
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
@@ -218,20 +218,51 @@ Here comes the list of components you can override using the `UiProvider`.
 
 ##### Interface
 
-``` ts 
+```ts
 type LoaderProps = {}
 ```
 
 ##### Classes
+
 - `react-cam-roi-loader`
 - `react-cam-roi-loader-light`
 - `react-cam-roi-loader-dark`
+
+#### Modal
+
+##### Interface
+
+```ts
+type ModalProps = {
+  children?: React.ReactNode
+  title: string
+  onClose: () => void
+  isOpen: boolean
+  size: 'xs' | 'sm' | 'md' | 'lg'
+}
+```
+
+##### Classes
+
+- `react-cam-roi-modal`
+- `react-cam-roi-modal-light`
+- `react-cam-roi-modal-dark`
+- `react-cam-roi-modal-overlay`
+- `react-cam-roi-modal-overlay-light`
+- `react-cam-roi-modal-overlay-dark`
+- `react-cam-roi-modal-header`
+- `react-cam-roi-modal-header-light`
+- `react-cam-roi-modal-header-dark`
+- `react-cam-roi-modal-title`
+- `react-cam-roi-modal-title-light`
+- `react-cam-roi-modal-title-dark`
+
 
 #### Typography
 
 ##### Interface
 
-``` ts 
+```ts
 type TypographyProps = {
   children?: React.ReactNode
 }
@@ -241,7 +272,7 @@ type TypographyProps = {
 
 ##### Interface
 
-``` ts 
+```ts
 type IconButtonProps = {
   children?: React.ReactNode
   onClick?: (event: React.MouseEvent) => void
@@ -252,7 +283,7 @@ type IconButtonProps = {
 
 ##### Interface
 
-``` ts 
+```ts
 type DeleteIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -263,7 +294,7 @@ type DeleteIconProps = {
 
 ##### Interface
 
-``` ts 
+```ts
 type EditIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -274,7 +305,7 @@ type EditIconProps = {
 
 ##### Interface
 
-``` ts 
+```ts
 type SelectIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -285,7 +316,7 @@ type SelectIconProps = {
 
 ##### Interface
 
-``` ts 
+```ts
 type CopyIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -296,7 +327,7 @@ type CopyIconProps = {
 
 ##### Interface
 
-``` ts 
+````ts
 type AnnotateIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -304,14 +335,14 @@ type AnnotateIconProps = {
 
 ### Functions
 
-``` ts 
+``` ts
 type INotify = { // compatible with toast (react-toastify)
   info: (message: string) => void
   warn: (message: string) => void
   error: (message: string) => void
   success: (message: string) => void
 }
-```
+````
 
 ### Styles
 
@@ -359,11 +390,11 @@ There are components that cannot be overridden. But still you can use classes to
 
 After cloning the repository and install dependencies (`yarn install`), you can run the following commands:
 
-| Command | Description |
-| --- | --- |
-| `yarn clean` | Clean the dist folder |
-| `yarn build` | Build the library |
-| `yarn storybook` | Run storybook |
+| Command          | Description           |
+| ---------------- | --------------------- |
+| `yarn clean`     | Clean the dist folder |
+| `yarn build`     | Build the library     |
+| `yarn storybook` | Run storybook         |
 
 In order to start developing just run the storybook, then make changes to code and the storybook will be updated.
 
@@ -384,7 +415,7 @@ A github action pipeline is provided, it will publish the package to npm when a 
 
 Example of deployment:
 
-``` bash
+```bash
 $ npm version patch
 $ git push
 $ git push --tags
