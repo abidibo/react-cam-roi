@@ -7,10 +7,10 @@ type CanvasProps = {
   canvasSize: { width: number; height: number }
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
-  const { activeTool, setActiveTool, activeColor, addShape } = useEditorContext()
+  const { setActiveTool, addShape } = useEditorContext()
   const canvasRef = useRef<fabric.Canvas>(null)
 
-  useTool(activeTool, activeColor, addShape, canvasRef.current)
+  useTool(canvasRef.current)
   useDispatcherEvents(canvasRef.current, setActiveTool, addShape)
 
   useEffect(() => {

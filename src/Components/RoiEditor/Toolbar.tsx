@@ -21,9 +21,9 @@ const Toolbar = () => {
 
   return (
     <>
-      {enableRois(configuration) && (
-        <>
-          <div className={css('toolbar', styles, themeMode)}>
+      <div className={css('toolbar', styles, themeMode)}>
+        {enableRois(configuration) && (
+          <>
             <IconButton onClick={setTool(ToolEnum.Pointer)}>
               <PointerIcon color={iconColor(ToolEnum.Pointer)} />
             </IconButton>
@@ -37,15 +37,15 @@ const Toolbar = () => {
               <RectangleIcon color={iconColor(ToolEnum.Rectangle)} />
             </IconButton>
             <ColorPicker style={{ marginLeft: 'auto' }} />
-          </div>
+          </>
+        )}
+      </div>
 
-          <div className={css('toolbar-helper', styles, themeMode)}>
-            <Typography>
-              {strings[activeTool]}: {strings[`${activeTool}HelpText`]}
-            </Typography>
-          </div>
-        </>
-      )}
+      <div className={css('toolbar-helper', styles, themeMode)}>
+        <Typography>
+          {strings[activeTool]}: {strings[`${activeTool}HelpText`]}
+        </Typography>
+      </div>
     </>
   )
 }

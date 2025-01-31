@@ -4,6 +4,8 @@
 
 This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.
 
+Metadata are dynamic information that can be attached to the whole image or to each ROI. The ROI that can be drawn, and the metadata are controlled through a configuration object.
+
 ![Screenshot](./react-cam-roi.png)
 
 It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each has dynamic metadata attached (configured via api).
@@ -13,7 +15,7 @@ Features:
 
 - Autosizing of the editor: the canvas resizes to the size of the image, but it's also responsive, so if the container width is smaller, then the canvas is resized accordingly keeping the aspect ratio.
 - Draw polylines, polygons and rectangles, change dimensions and rotate them.
-- Support for dynamic metadata information attached to each shape.
+- Support for dynamic metadata information attached to each shape and the whole image.
 - Import and export shapes and metadata in json format.
 - Highly customizable: shape colors, custom components and css classes.
 
@@ -25,7 +27,126 @@ npm install @abidibo/react-cam-roi
 
 ## Usage
 
-TODO
+``` ts
+import { RoiEditor, UiProvider } from '@abidibo/react-cam-roi'
+import { Typography, IconButton, Delete } from '@mui/material'
+
+const MyComponent: React.FC = () => {
+    const themMode = 'light'
+    const config = {} // se below
+
+    return (
+        <UiProvider themeMode={themeMode} IconButton={IconButton} Typography={Typography} DeleteIcon={() => <Delete />}>
+          <RoiEditor imageUrl={'https://placecats.com/800/600'} configuration={config} />
+        </UiProvider>
+    )
+}
+```
+
+## Configuration
+
+The configuration prop defines which kind and how many ROIs can be drawn, along with metadata information. Here the types definitions and an example:
+
+``` ts
+
+export const enum ToolEnum {
+  Pointer = 'pointer',
+  Polyline = 'polyline',
+  Polygon = 'polygon',
+  Rectangle = 'rect',
+}
+
+export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle
+
+export enum DataTypeEnum {
+  Integer = 'int',
+  Float = 'float',
+  String = 'string',
+  Boolean = 'bool',
+}
+
+export enum OperatorEnum {
+  Lt = 'lt',
+  Lte = 'lte',
+  Gt = 'gt',
+  Gte = 'gte',
+  Eq = 'eq',
+}
+
+export type ConfigurationParameter = {
+  codename: string
+  label: string
+  description: string
+  unit: string
+  type: DataTypeEnum
+  options: { value: number | string | boolean; label: string }[]
+  required: boolean
+  value: number | string | boolean | null
+}
+
+export type RoiConfiguration = {
+  role: string
+  type: Omit<ShapeType, 'pointer'>
+  multiplicity: {
+    operator: OperatorEnum
+    threshold: number
+  },
+  parameters: ConfigurationParameter[],
+}
+
+export type Configuration = {
+  parameters: ConfigurationParameter[],
+  rois: RoiConfiguration[],
+}
+
+export const configuration: Configuration = {
+  parameters: [
+    {
+      codename: 'analytics_1', // internal code
+      label: 'Analytics param 1', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.Integer, // int, float, string, bool
+      options: [
+        // if filled -> enum of types type
+        {
+          value: 7,
+          label: 'Seven',
+        },
+        {
+          value: 10,
+          label: 'Ten',
+        },
+      ],
+      required: true, // true | false,
+      value: 10, // default value
+    },
+  ],
+  rois: [
+    {
+      role: 'invasion_area', // analytics role, do not show in interface
+      type: ToolEnum.Polygon,
+      multiplicity: {
+        // how many rois of this type can/should be created
+        operator: OperatorEnum.Lt, // lt | lte | gt | gte | eq
+        threshold: 2,
+      },
+      parameters: [
+        {
+          codename: 'threshold', // internal code
+          label: 'Alert threshold', // to be shown in interface
+          description: 'Threshold used for triggering alarms', // tooltip
+          unit: '%', // unit
+          type: DataTypeEnum.Integer, // int, float, string, bool
+          options: [],
+          required: true, // true / false,
+          value: null, // default value
+        },
+      ],
+    },
+  ],
+}
+```
 
 ## Customization
 

@@ -41,7 +41,7 @@ export type ConfigurationParameter = {
 }
 export type RoiConfiguration = {
   role: string
-  type: ShapeType
+  type: Omit<ShapeType, 'pointer'>
   multiplicity: {
     operator: OperatorEnum
     threshold: number

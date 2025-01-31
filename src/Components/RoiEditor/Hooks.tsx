@@ -1,11 +1,19 @@
 import * as fabric from 'fabric'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import { useEditorContext } from '../../Providers/EditorProvider'
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import { FabricEvent, FabricSelectionEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
+import {
+  FabricEvent,
+  FabricSelectionEvent,
+  IAddShape,
+  Shape,
+  ToolEnum,
+} from './Types'
+import { canDrawShape } from './Utils'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -56,12 +64,8 @@ export const useCanvasSize = (imageUrl: string) => {
   return { imageSize, canvasSize, wrapperRef, isReady }
 }
 
-export const useTool = (
-  tool: ToolEnum,
-  activeColor: string,
-  addShape: (id: string, type: ShapeType, shape: Shape) => void,
-  canvas: fabric.Canvas | null,
-) => {
+export const useTool = (canvas: fabric.Canvas | null) => {
+  const { configuration, activeTool, activeColor, shapes, addShape } = useEditorContext()
   const [isDrawing, setIsDrawing] = useState(false)
   const [shape, setShape] = useState<Shape | null>(null)
   const [originX, setOriginX] = useState(0)
@@ -85,7 +89,7 @@ export const useTool = (
       return
     }
 
-    if (tool === ToolEnum.Pointer) {
+    if (activeTool === ToolEnum.Pointer) {
       // enable selection
       canvas.selection = true
       canvas.getObjects().forEach((object) => {
@@ -101,14 +105,17 @@ export const useTool = (
     }
 
     const handleMouseDown = (event: FabricEvent) => {
-      switch (tool) {
+      switch (activeTool) {
         case ToolEnum.Rectangle:
+          if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, true)) return
           handleMouseDownRect(event, canvas, activeColor, setOriginX, setOriginY, setShape, setIsDrawing)
           break
         case ToolEnum.Polygon:
+          if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, true)) return
           handleMouseDownPolygon(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         case ToolEnum.Polyline:
+          if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, true)) return
           handleMouseDownPolyline(event, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         default:
@@ -117,7 +124,7 @@ export const useTool = (
     }
 
     const handleMouseMove = (event: FabricEvent) => {
-      switch (tool) {
+      switch (activeTool) {
         case ToolEnum.Rectangle:
           handleMouseMoveRect(event, canvas, originX, originY, shape as Shape, isDrawing)
           break
@@ -133,7 +140,7 @@ export const useTool = (
     }
 
     const handleMouseUp = () => {
-      switch (tool) {
+      switch (activeTool) {
         case ToolEnum.Rectangle:
           handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape, addShape)
           break
@@ -143,7 +150,7 @@ export const useTool = (
     }
 
     const handleDoubleClick = () => {
-      switch (tool) {
+      switch (activeTool) {
         case ToolEnum.Polygon:
           handleDoubleClickPolygon(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines, addShape)
           break
@@ -173,7 +180,7 @@ export const useTool = (
       canvas.off('selection:cleared', handleSelectionCleared)
     }
   }, [
-    tool,
+    activeTool,
     activeColor,
     isDrawing,
     shape,
