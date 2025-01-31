@@ -20,7 +20,6 @@ export type RoiEditorProps = {
 // https://medium.com/@na.mazaheri/dynamically-drawing-shapes-on-canvas-with-fabric-js-in-react-js-8b9c42791903
 // https://github.com/n-mazaheri/image-editor
 const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
-  console.log('CONFIG', configuration) // eslint-disable-line
   const { themeMode, enableLogs, pickerColors } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -57,6 +56,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
       shapes={shapes}
       addShape={addShape}
       removeShape={removeShape}
+      configuration={configuration}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
