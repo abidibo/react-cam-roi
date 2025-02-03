@@ -11,6 +11,7 @@ import CopyIcon from '../Icons/CopyIcon'
 import AnnotateIcon from '../Icons/AnnotateIcon'
 import Modal from '../Components/Modal'
 import CloseIcon from '../Icons/CloseIcon'
+import TextField from '../Components/TextField'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -26,6 +27,7 @@ type UiContextType = {
   CopyIcon: typeof CopyIcon
   AnnotateIcon: typeof AnnotateIcon
   CloseIcon: typeof CloseIcon
+  TextField: typeof TextField
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -58,6 +60,7 @@ export const DefaultUiContext: UiContextType = {
   CopyIcon,
   AnnotateIcon,
   CloseIcon,
+  TextField,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -94,6 +97,7 @@ const UiProvider = ({
   CopyIcon,
   AnnotateIcon,
   CloseIcon,
+  TextField,
   pickerColors,
   notify,
   strings,
@@ -109,6 +113,7 @@ const UiProvider = ({
     CopyIcon: CopyIcon ?? DefaultUiContext.CopyIcon,
     AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
     CloseIcon: CloseIcon ?? DefaultUiContext.CloseIcon,
+    TextField: TextField ?? DefaultUiContext.TextField,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
