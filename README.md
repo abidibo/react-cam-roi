@@ -239,7 +239,7 @@ type ModalProps = {
   title: string
   onClose: () => void
   isOpen: boolean
-  size: 'xs' | 'sm' | 'md' | 'lg'
+  maxWidth: 'xs' | 'sm' | 'md' | 'lg'
 }
 ```
 
@@ -405,6 +405,40 @@ type NumberFieldProps = {
 - `react-cam-roi-number-field-helper-text-light`
 - `react-cam-roi-number-field-helper-text-dark`
 - `react-cam-roi-number-field-helper-text-error`
+
+#### BoolField
+
+##### Interface
+
+````ts
+type BoolFieldProps = {
+  onChange: (value: boolean) => void
+  value: boolean
+  label: string
+  helperText?: string
+  error?: boolean
+  required?: boolean
+  readOnly?: boolean
+  disabled?: boolean
+}
+
+##### Classes
+
+- `react-cam-roi-bool-field-wrapper`
+- `react-cam-roi-bool-field-wrapper-light`
+- `react-cam-roi-bool-field-wrapper-dark`
+- `react-cam-roi-bool-field`
+- `react-cam-roi-bool-field--light`
+- `react-cam-roi-bool-field--dark`
+- `react-cam-roi-bool-field--error`
+- `react-cam-roi-bool-field-label`
+- `react-cam-roi-bool-field-label-light`
+- `react-cam-roi-bool-field-label-dark`
+- `react-cam-roi-bool-field-label-error`
+- `react-cam-roi-bool-field-helper-text`
+- `react-cam-roi-bool-field-helper-text-light`
+- `react-cam-roi-bool-field-helper-text-dark`
+- `react-cam-roi-bool-field-helper-text-error`
 
 ### Functions
 

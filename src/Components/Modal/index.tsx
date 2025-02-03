@@ -10,10 +10,10 @@ export type ModalProps = {
   isOpen: boolean
   onClose: () => void
   title: string
-  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  maxWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 
-const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, children, title, size }) => {
+const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, children, title, maxWidth }) => {
   const { themeMode, IconButton, Typography } = useContext(UiContext)
   const iconColor = themeMode === 'light' ? 'black' : 'white'
 
@@ -23,7 +23,7 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, child
 
   return createPortal(
     <div className={css('modal-overlay', styles, themeMode)}>
-      <div className={`${css('modal', styles, themeMode)} ${css(`modal-${size}`, styles, themeMode)}`}>
+      <div className={`${css('modal', styles, themeMode)} ${css(`modal-${maxWidth}`, styles, themeMode)}`}>
         <div className={css('modal-header', styles, themeMode)}>
           <Typography component='h6' className={css('modal-title', styles, themeMode)}>{title}</Typography>
           <IconButton onClick={onClose}>

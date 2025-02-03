@@ -1,0 +1,60 @@
+/*
+.bool-field-wrapper {
+  margin-bottom: 2rem;
+}
+.bool-field-wrapper-light {
+}
+.bool-field-wrapper-dark {
+}
+*/
+
+.bool-field {
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+.bool-field:focus-visible {
+  outline: none;
+  border: 1px solid #1976d2;
+}
+.bool-field-light {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.bool-field-dark {
+  background-color: #333;
+  border: 1px solid #666;
+  color: #fff;
+}
+.bool-field-error {
+  border: 1px solid #d32f2f;
+}
+.bool-field-label {
+  font-weight: bold;
+  display: block;
+  margin: 0 0 1rem 0;
+}
+/*
+.text-fiel-label-light {
+}
+.bool-field-label-dark {
+}
+*/
+.bool-field-label-error {
+  color: #d32f2f;
+}
+.bool-field-helper-text {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+/*
+.bool-field-helper-text-light {
+}
+.bool-field-helper-text-dark {
+}
+*/
+.bool-field-helper-text-error {
+  color: #d32f2f;
+}

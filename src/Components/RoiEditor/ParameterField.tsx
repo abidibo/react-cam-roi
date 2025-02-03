@@ -8,27 +8,39 @@ export type ParameterFieldProps<T> = {
   parameter: ConfigurationParameter
 }
 const ParameterField = <T,>({ value, onChange, parameter }: ParameterFieldProps<T>) => {
-  const { TextField, NumberField } = useContext(UiContext)
+  const { TextField, NumberField, BoolField } = useContext(UiContext)
+
+  const props = {
+    required: parameter.required,
+    label: `${parameter.label}${parameter.unit ? ` (${parameter.unit})` : ''}`,
+    helperText: parameter.description
+  }
 
   switch (parameter.type) {
     case 'string':
       return (
         <TextField
           type="text"
-          label={`${parameter.label} (${parameter.unit})`}
           value={value as string}
           onChange={(v) => onChange(v as T)}
-          helperText={parameter.description}
+          {...props}
         />
       )
     case 'int':
     case 'float':
       return (
         <NumberField
-          label={`${parameter.label} (${parameter.unit})`}
           value={value as number}
           onChange={(v) => onChange(v as T)}
-          helperText={parameter.description}
+          {...props}
+        />
+      )
+    case 'bool':
+      return (
+        <BoolField
+          value={value as boolean}
+          onChange={(v) => onChange(v as T)}
+          {...props}
         />
       )
     default:

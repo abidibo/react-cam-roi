@@ -13,6 +13,7 @@ import Modal from '../Components/Modal'
 import CloseIcon from '../Icons/CloseIcon'
 import TextField from '../Components/TextField'
 import NumberField from '../Components/NumberField'
+import BoolField from '../Components/BoolField'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -30,6 +31,7 @@ type UiContextType = {
   CloseIcon: typeof CloseIcon
   TextField: typeof TextField
   NumberField: typeof NumberField
+  BoolField: typeof BoolField
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -64,6 +66,7 @@ export const DefaultUiContext: UiContextType = {
   CloseIcon,
   TextField,
   NumberField,
+  BoolField,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -102,6 +105,7 @@ const UiProvider = ({
   CloseIcon,
   TextField,
   NumberField,
+  BoolField,
   pickerColors,
   notify,
   strings,
@@ -119,6 +123,7 @@ const UiProvider = ({
     CloseIcon: CloseIcon ?? DefaultUiContext.CloseIcon,
     TextField: TextField ?? DefaultUiContext.TextField,
     NumberField: NumberField ?? DefaultUiContext.NumberField,
+    BoolField: BoolField ?? DefaultUiContext.BoolField,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
