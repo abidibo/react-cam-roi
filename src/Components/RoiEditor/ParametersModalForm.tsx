@@ -4,12 +4,13 @@ import { UiContext } from '../../Providers/UiProvider'
 
 export type ParametersModalFormProps = {
   onClose: () => void
+  title: string
 }
 
-const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ onClose }) => {
-  const { Modal, strings, Typography } = useContext(UiContext)
+const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose }) => {
+  const { Modal, Typography } = useContext(UiContext)
   return (
-    <Modal onClose={onClose} title={strings.mainParametersMetadata} isOpen size="lg">
+    <Modal onClose={onClose} title={title} isOpen size="lg">
       <Typography>Here comes the dynamic parameters form</Typography>
     </Modal>
   )

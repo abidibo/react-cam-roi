@@ -58,7 +58,7 @@ const Toolbar = () => {
         </Typography>
       </div>
 
-      {form.isOpen && <ParametersModalForm onClose={() => setForm({ isOpen: false, data: [] })} />}
+      {form.isOpen && <ParametersModalForm title={strings.mainParametersMetadata} onClose={() => setForm({ isOpen: false, data: [] })} />}
     </>
   )
 }
