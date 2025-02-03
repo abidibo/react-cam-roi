@@ -1,5 +1,6 @@
 /*
 .text-field-wrapper {
+  margin-bottom: 2rem;
 }
 .text-field-wrapper-light {
 }
@@ -31,6 +32,7 @@
   border: 1px solid #d32f2f;
 }
 .text-field-label {
+  font-weight: bold;
   display: block;
   margin: 0 0 1rem 0;
 }

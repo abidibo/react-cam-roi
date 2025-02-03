@@ -348,6 +348,9 @@ type TextFieldProps = {
   label: string
   helperText?: string
   error?: boolean
+  required?: boolean
+  readOnly?: boolean
+  disabled?: boolean
 }
 
 ##### Classes
@@ -368,6 +371,40 @@ type TextFieldProps = {
 - `react-cam-roi-text-field-helper-text-light`
 - `react-cam-roi-text-field-helper-text-dark`
 - `react-cam-roi-text-field-helper-text-error`
+
+#### NumberField
+
+##### Interface
+
+````ts
+type NumberFieldProps = {
+  onChange: (value: number) => void
+  value: number
+  label: string
+  helperText?: string
+  error?: boolean
+  required?: boolean
+  readOnly?: boolean
+  disabled?: boolean
+}
+
+##### Classes
+
+- `react-cam-roi-number-field-wrapper`
+- `react-cam-roi-number-field-wrapper-light`
+- `react-cam-roi-number-field-wrapper-dark`
+- `react-cam-roi-number-field`
+- `react-cam-roi-number-field--light`
+- `react-cam-roi-number-field--dark`
+- `react-cam-roi-number-field--error`
+- `react-cam-roi-number-field-label`
+- `react-cam-roi-number-field-label-light`
+- `react-cam-roi-number-field-label-dark`
+- `react-cam-roi-number-field-label-error`
+- `react-cam-roi-number-field-helper-text`
+- `react-cam-roi-number-field-helper-text-light`
+- `react-cam-roi-number-field-helper-text-dark`
+- `react-cam-roi-number-field-helper-text-error`
 
 ### Functions
 
@@ -421,6 +458,10 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-colorpicker-button-active`
 - `react-cam-roi-colorpicker-button-active-light`
 - `react-cam-roi-colorpicker-button-active-dark`
+
+#### Form
+
+- `react-cam-roi-form`
 
 ## Development
 

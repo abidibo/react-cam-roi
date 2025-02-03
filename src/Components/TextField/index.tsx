@@ -3,17 +3,23 @@ import { useContext } from 'react'
 import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
 import styles from './TextField.module.css'
+import { FieldProps } from '../../Types'
 
-export type TextFieldProps = {
+export interface TextFieldProps extends FieldProps<string> {
   type?: 'text' | 'email' | 'password'
-  onChange: (value: string) => void
-  value: string
-  label: string
-  helperText?: string
-  error?: boolean
 }
 
-const TextField: React.FC<TextFieldProps> = ({ onChange, type = 'text', value, label, helperText, error }) => {
+const TextField: React.FC<TextFieldProps> = ({
+  onChange,
+  type = 'text',
+  value,
+  label,
+  helperText,
+  error,
+  required = false,
+  readOnly = false,
+  disabled = false,
+}) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value)
@@ -24,13 +30,15 @@ const TextField: React.FC<TextFieldProps> = ({ onChange, type = 'text', value, l
       <label
         className={`${css('text-field-label', styles, themeMode)} ${error ? css('text-field-label-error', styles, null) : ''}`}
       >
-        <Typography>{label}</Typography>
+        <Typography>{label}{required && ' *'}</Typography>
       </label>
       <input
         type={type}
         className={`${css('text-field', styles, themeMode)} ${error ? css('text-field-error', styles, null) : ''}`}
         onChange={handleChange}
         value={value as string | number}
+        readOnly={readOnly}
+        disabled={disabled}
       />
       {helperText && (
         <Typography

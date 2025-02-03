@@ -22,6 +22,16 @@ export const configuration: Configuration = {
       required: true, // true | false,
       value: 10, // default value
     },
+    {
+      codename: 'analytics_2', // internal code
+      label: 'Analytics param 2', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.String, // int, float, string, bool
+      options: [],
+      required: true, // true | false,
+      value: '', // default value
+    },
   ],
   rois: [
     {
