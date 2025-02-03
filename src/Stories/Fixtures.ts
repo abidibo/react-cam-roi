@@ -7,7 +7,7 @@ export const configuration: Configuration = {
       label: 'Analytics param 1', // to be shown in interface
       description: 'This is some descriptive text', // tooltip
       unit: 's', // unit
-      type: DataTypeEnum.String, // int, float, string, bool
+      type: DataTypeEnum.Integer, // int, float, string, bool
       options: [
         // if filled -> enum of types type
         {

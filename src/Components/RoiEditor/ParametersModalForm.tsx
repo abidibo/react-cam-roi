@@ -28,6 +28,16 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClos
                 parameter={parameter}
               />
             )
+          case 'int':
+          case 'float':
+            return (
+              <ParameterField<number>
+                key={parameter.codename}
+                value={fields[parameter.codename] as number}
+                onChange={setField<number>(parameter.codename)}
+                parameter={parameter}
+              />
+            )
           default:
             return null
         }

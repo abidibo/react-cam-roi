@@ -1,0 +1,59 @@
+/*
+.number-field-wrapper {
+}
+.number-field-wrapper-light {
+}
+.number-field-wrapper-dark {
+}
+*/
+
+.number-field {
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 100%;
+}
+.number-field:focus-visible {
+  outline: none;
+  border: 1px solid #1976d2;
+}
+.number-field-light {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.number-field-dark {
+  background-color: #333;
+  border: 1px solid #666;
+  color: #fff;
+}
+.number-field-error {
+  border: 1px solid #d32f2f;
+}
+.number-field-label {
+  display: block;
+  margin: 0 0 1rem 0;
+}
+/*
+.text-fiel-label-light {
+}
+.number-field-label-dark {
+}
+*/
+.number-field-label-error {
+  color: #d32f2f;
+}
+.number-field-helper-text {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+/*
+.number-field-helper-text-light {
+}
+.number-field-helper-text-dark {
+}
+*/
+.number-field-helper-text-error {
+  color: #d32f2f;
+}

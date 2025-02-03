@@ -8,15 +8,25 @@ export type ParameterFieldProps<T> = {
   parameter: ConfigurationParameter
 }
 const ParameterField = <T,>({ value, onChange, parameter }: ParameterFieldProps<T>) => {
-  const { TextField } = useContext(UiContext)
+  const { TextField, NumberField } = useContext(UiContext)
 
   switch (parameter.type) {
     case 'string':
       return (
         <TextField
           type="text"
-          label={parameter.label}
+          label={`${parameter.label} (${parameter.unit})`}
           value={value as string}
+          onChange={(v) => onChange(v as T)}
+          helperText={parameter.description}
+        />
+      )
+    case 'int':
+    case 'float':
+      return (
+        <NumberField
+          label={`${parameter.label} (${parameter.unit})`}
+          value={value as number}
           onChange={(v) => onChange(v as T)}
           helperText={parameter.description}
         />

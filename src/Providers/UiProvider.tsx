@@ -12,6 +12,7 @@ import AnnotateIcon from '../Icons/AnnotateIcon'
 import Modal from '../Components/Modal'
 import CloseIcon from '../Icons/CloseIcon'
 import TextField from '../Components/TextField'
+import NumberField from '../Components/NumberField'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -28,6 +29,7 @@ type UiContextType = {
   AnnotateIcon: typeof AnnotateIcon
   CloseIcon: typeof CloseIcon
   TextField: typeof TextField
+  NumberField: typeof NumberField
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -61,6 +63,7 @@ export const DefaultUiContext: UiContextType = {
   AnnotateIcon,
   CloseIcon,
   TextField,
+  NumberField,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -98,6 +101,7 @@ const UiProvider = ({
   AnnotateIcon,
   CloseIcon,
   TextField,
+  NumberField,
   pickerColors,
   notify,
   strings,
@@ -114,6 +118,7 @@ const UiProvider = ({
     AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
     CloseIcon: CloseIcon ?? DefaultUiContext.CloseIcon,
     TextField: TextField ?? DefaultUiContext.TextField,
+    NumberField: NumberField ?? DefaultUiContext.NumberField,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
