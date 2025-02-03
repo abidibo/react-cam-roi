@@ -18,6 +18,7 @@ const ParameterField = <T,>({ value, onChange, parameter }: ParameterFieldProps<
           label={parameter.label}
           value={value as string}
           onChange={(v) => onChange(v as T)}
+          helperText={parameter.description}
         />
       )
     default:

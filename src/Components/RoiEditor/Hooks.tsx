@@ -260,6 +260,7 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
 }
 
 export const useParametersForm = (parameters: ConfigurationParameter[]) => {
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [fields, setFields] = useState<Record<string, unknown>>(
     parameters.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {}),
   )
@@ -271,5 +272,7 @@ export const useParametersForm = (parameters: ConfigurationParameter[]) => {
     fields,
     setField,
     setFields,
+    errors,
+    setErrors,
   }
 }

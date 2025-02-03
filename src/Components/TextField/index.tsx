@@ -14,7 +14,7 @@ export type TextFieldProps = {
 }
 
 const TextField: React.FC<TextFieldProps> = ({ onChange, type = 'text', value, label, helperText, error }) => {
-  const { themeMode } = useContext(UiContext)
+  const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value)
   }
@@ -22,22 +22,23 @@ const TextField: React.FC<TextFieldProps> = ({ onChange, type = 'text', value, l
   return (
     <div className={css('text-field-wrapper', styles, themeMode)}>
       <label
-        className={`${css('text-field-label', styles, themeMode)} ${error ? styles['text-field-label-error'] : ''}`}
+        className={`${css('text-field-label', styles, themeMode)} ${error ? css('text-field-label-error', styles, null) : ''}`}
       >
-        {label}
+        <Typography>{label}</Typography>
       </label>
       <input
         type={type}
-        className={`${css('text-field', styles, themeMode)} ${error ? styles['text-field-error'] : ''}`}
+        className={`${css('text-field', styles, themeMode)} ${error ? css('text-field-error', styles, null) : ''}`}
         onChange={handleChange}
         value={value as string | number}
       />
       {helperText && (
-        <p
-          className={`${css('text-field-helper-text', styles, themeMode)} ${error ? styles['text-field-helper-text-error'] : ''}`}
+        <Typography
+          component={'div'}
+          className={`${css('text-field-helper-text', styles, themeMode)} ${error ? css('text-field-helper-text-error', styles, null) : ''}`}
         >
           {helperText}
-        </p>
+        </Typography>
       )}
     </div>
   )

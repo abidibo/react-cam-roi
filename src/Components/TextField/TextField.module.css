@@ -1,32 +1,59 @@
+/*
 .text-field-wrapper {
-
 }
 .text-field-wrapper-light {
 }
 .text-field-wrapper-dark {
 }
+*/
+
 .text-field {
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 100%;
+}
+.text-field:focus-visible {
+  outline: none;
+  border: 1px solid #1976d2;
 }
 .text-field-light {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
 }
 .text-field-dark {
+  background-color: #333;
+  border: 1px solid #666;
+  color: #fff;
 }
 .text-field-error {
+  border: 1px solid #d32f2f;
 }
 .text-field-label {
-
+  display: block;
+  margin: 0 0 1rem 0;
 }
+/*
 .text-fiel-label-light {
 }
 .text-field-label-dark {
 }
+*/
 .text-field-label-error {
+  color: #d32f2f;
 }
 .text-field-helper-text {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
+/*
 .text-field-helper-text-light {
 }
 .text-field-helper-text-dark {
 }
+*/
 .text-field-helper-text-error {
+  color: #d32f2f;
 }
