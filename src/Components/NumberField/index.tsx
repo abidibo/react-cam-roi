@@ -1,11 +1,11 @@
 import { useContext } from 'react'
 
 import { UiContext } from '../../Providers/UiProvider'
+import { FieldProps } from '../../Types'
 import { css } from '../../Utils'
 import styles from './NumberField.module.css'
-import { FieldProps } from '../../Types'
 
-const NumberField: React.FC<FieldProps<number | null>> = ({ onChange, value, label, helperText, error }) => {
+const NumberField: React.FC<FieldProps<number | null>> = ({ onChange, value, label, required, helperText, error }) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(parseFloat(e.target.value))
@@ -16,7 +16,10 @@ const NumberField: React.FC<FieldProps<number | null>> = ({ onChange, value, lab
       <label
         className={`${css('number-field-label', styles, themeMode)} ${error ? css('number-field-label-error', styles, null) : ''}`}
       >
-        <Typography>{label}</Typography>
+        <Typography>
+          {label}
+          {required && ' *'}
+        </Typography>
       </label>
       <input
         type={'number'}

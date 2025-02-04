@@ -150,6 +150,14 @@ export const configuration: Configuration = {
     },
   ],
 }
+
+export type Metadata = {
+  parameters: ConfigurationParameter[]
+  rois: {
+    id: string,
+    parameters: ConfigurationParameter[],
+  }[]
+}
 ```
 
 ## Customization
@@ -293,9 +301,17 @@ type TypographyProps = {
 ```ts
 type IconButtonProps = {
   children?: React.ReactNode
+  disabled?: boolean
   onClick?: (event: React.MouseEvent) => void
 }
 ```
+
+##### Classes
+
+- `react-cam-roi-icon-button`
+- `react-cam-roi-icon-button-light`
+- `react-cam-roi-icon-button-dark`
+- `react-cam-roi-icon-button-disabled`
 
 #### DeleteIcon
 

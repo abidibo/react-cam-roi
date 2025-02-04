@@ -61,3 +61,11 @@ export interface INotify {
   error: (message: string) => void
   success: (message: string) => void
 }
+
+export type Metadata = {
+  parameters: ConfigurationParameter[]
+  rois: {
+    id: string,
+    parameters: ConfigurationParameter[],
+  }
+}

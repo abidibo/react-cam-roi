@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
 
-import { Configuration, Shape, Shapes, ShapeType, ToolEnum } from '../Components/RoiEditor/Types'
+import { Configuration, Metadata, Shape, Shapes, ShapeType, ToolEnum } from '../Components/RoiEditor/Types'
 
 type EditorContextType = {
   activeTool: ToolEnum
@@ -11,8 +11,8 @@ type EditorContextType = {
   addShape: (id: string, type: ShapeType, shape: Shape) => void
   removeShape: (id: string) => void
   configuration: Configuration
-  metadata: Configuration
-  setMetadata: (data: Configuration) => void
+  metadata: Metadata
+  setMetadata: (data: Metadata) => void
 }
 
 export const EditorContext = createContext<EditorContextType | undefined>(undefined) // eslint-disable-line
