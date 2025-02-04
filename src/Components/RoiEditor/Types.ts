@@ -35,7 +35,7 @@ export type ConfigurationParameter = {
   description: string
   unit: string
   type: DataTypeEnum
-  options: { value: number | string | boolean; label: string }[]
+  options: { value: number | string; label: string }[]
   required: boolean
   value: number | string | boolean | null
 }

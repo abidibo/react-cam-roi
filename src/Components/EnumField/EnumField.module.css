@@ -1,0 +1,61 @@
+/*
+.enum-field-wrapper {
+  margin-bottom: 2rem;
+}
+.enum-field-wrapper-light {
+}
+.enum-field-wrapper-dark {
+}
+*/
+
+.enum-field {
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  width: 100%;
+}
+.enum-field:focus-visible {
+  outline: none;
+  border: 1px solid #1976d2;
+}
+.enum-field-light {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.enum-field-dark {
+  background-color: #333;
+  border: 1px solid #666;
+  color: #fff;
+}
+.enum-field-error {
+  border: 1px solid #d32f2f;
+}
+.enum-field-label {
+  font-weight: bold;
+  display: block;
+  margin: 0 0 1rem 0;
+}
+/*
+.text-fiel-label-light {
+}
+.enum-field-label-dark {
+}
+*/
+.enum-field-label-error {
+  color: #d32f2f;
+}
+.enum-field-helper-text {
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+/*
+.enum-field-helper-text-light {
+}
+.enum-field-helper-text-dark {
+}
+*/
+.enum-field-helper-text-error {
+  color: #d32f2f;
+}
