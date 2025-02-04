@@ -14,6 +14,7 @@ import CloseIcon from '../Icons/CloseIcon'
 import TextField from '../Components/TextField'
 import NumberField from '../Components/NumberField'
 import BoolField from '../Components/BoolField'
+import EnumField from '../Components/EnumField'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -32,6 +33,7 @@ type UiContextType = {
   TextField: typeof TextField
   NumberField: typeof NumberField
   BoolField: typeof BoolField
+  EnumField: typeof EnumField
   pickerColors: string[]
   notify: INotify,
   strings: {
@@ -67,6 +69,7 @@ export const DefaultUiContext: UiContextType = {
   TextField,
   NumberField,
   BoolField,
+  EnumField,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
@@ -106,6 +109,7 @@ const UiProvider = ({
   TextField,
   NumberField,
   BoolField,
+  EnumField,
   pickerColors,
   notify,
   strings,
@@ -124,6 +128,7 @@ const UiProvider = ({
     TextField: TextField ?? DefaultUiContext.TextField,
     NumberField: NumberField ?? DefaultUiContext.NumberField,
     BoolField: BoolField ?? DefaultUiContext.BoolField,
+    EnumField: EnumField ?? DefaultUiContext.EnumField,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
