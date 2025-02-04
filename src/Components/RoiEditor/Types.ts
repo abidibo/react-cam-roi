@@ -69,3 +69,26 @@ export type Metadata = {
     parameters: ConfigurationParameter[],
   }[]
 }
+
+export type OutputShapeRect = {
+  top: number
+  left: number
+  width: number
+  height: number
+}
+
+export type OutputShapePolyline = {
+  points: { x: number; y: number }[]
+}
+
+export type OutputShapePolygon = {
+  points: { x: number; y: number }[]
+}
+
+export interface Output {
+  parameters: ConfigurationParameter[]
+  rois: {
+    parameters: ConfigurationParameter[],
+    shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
+  }[]
+}
