@@ -12,12 +12,13 @@ export type ParametersModalFormProps = {
   onClose: () => void
   title: string
   parameters: ConfigurationParameter[]
+  data: ConfigurationParameter[]
   onSubmit: (data: ConfigurationParameter[]) => void
 }
 
-const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose, parameters, onSubmit }) => {
+const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose, parameters, data, onSubmit }) => {
   const { Modal } = useContext(UiContext)
-  const { fields, setField, errors, setErrors } = useParametersForm(parameters)
+  const { fields, setField, errors, setErrors } = useParametersForm(data)
 
   const handleSubmit = () => {
     if (validateParametersForm(parameters, fields, setErrors)) {
