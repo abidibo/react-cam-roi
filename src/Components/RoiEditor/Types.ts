@@ -36,6 +36,7 @@ export type ConfigurationParameter = {
   unit: string
   type: DataTypeEnum
   options: { value: number | string; label: string }[]
+  multiple?: boolean
   required: boolean
   value: number | string | boolean | null
 }

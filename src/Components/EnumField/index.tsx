@@ -19,10 +19,15 @@ const EnumField = ({
   options,
   disabled = false,
   required = false,
-}: Omit<FieldProps<string | number>, 'readOnly'> & { options: EnumOption[] }) => {
+  multiple = false
+}: Omit<FieldProps<string | number | (string | number)[]>, 'readOnly'> & { options: EnumOption[], multiple?: boolean }) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChange(e.target.value)
+    const selectedValues = Array.from(e.target.selectedOptions, (option) => {
+      return isNaN(Number(option.value)) ? option.value : (Number(option.value) as (string | number));
+    });
+
+    onChange(multiple ? selectedValues as (string | number)[] : (selectedValues[0] as (string | number)));
   }
   return (
     <div className={css('enum-field-wrapper', styles, themeMode)}>
@@ -37,7 +42,7 @@ const EnumField = ({
       <select
         className={`${css('enum-field', styles, themeMode)} ${error ? css('enum-field-error', styles, null) : ''}`}
         onChange={handleChange}
-        value={value}
+        value={value as string | number | string[]}
         disabled={disabled}
       >
         {!required && <option value={''}></option>}

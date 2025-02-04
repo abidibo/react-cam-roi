@@ -83,6 +83,7 @@ export type ConfigurationParameter = {
   unit: string
   type: DataTypeEnum
   options: { value: number | string | boolean; label: string }[]
+  multiple?: boolean
   required: boolean
   value: number | string | boolean | null
 }
@@ -330,7 +331,7 @@ type CopyIconProps = {
 
 ##### Interface
 
-````ts
+`````ts
 type AnnotateIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -440,6 +441,40 @@ type BoolFieldProps = {
 - `react-cam-roi-bool-field-helper-text-dark`
 - `react-cam-roi-bool-field-helper-text-error`
 
+#### EnumField
+
+##### Interface
+
+````ts
+type EnumFieldProps = {
+  onChange: (value: string | number | (string | number)[]) => void
+  value: string | number | (string | number)[]
+  label: string
+  helperText?: string
+  error?: boolean
+  required?: boolean
+  multiple?: boolean
+  disabled?: boolean
+}
+
+##### Classes
+
+- `react-cam-roi-enum-field-wrapper`
+- `react-cam-roi-enum-field-wrapper-light`
+- `react-cam-roi-enum-field-wrapper-dark`
+- `react-cam-roi-enum-field`
+- `react-cam-roi-enum-field--light`
+- `react-cam-roi-enum-field--dark`
+- `react-cam-roi-enum-field--error`
+- `react-cam-roi-enum-field-label`
+- `react-cam-roi-enum-field-label-light`
+- `react-cam-roi-enum-field-label-dark`
+- `react-cam-roi-enum-field-label-error`
+- `react-cam-roi-enum-field-helper-text`
+- `react-cam-roi-enum-field-helper-text-light`
+- `react-cam-roi-enum-field-helper-text-dark`
+- `react-cam-roi-enum-field-helper-text-error`
+
 ### Functions
 
 ``` ts
@@ -449,7 +484,7 @@ type INotify = { // compatible with toast (react-toastify)
   error: (message: string) => void
   success: (message: string) => void
 }
-````
+`````
 
 ### Styles
 

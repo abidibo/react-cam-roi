@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 
 import { UiContext } from '../../Providers/UiProvider'
-import EnumField from '../EnumField'
 import { ConfigurationParameter } from './Types'
 
 export type ParameterFieldProps<T> = {
@@ -10,7 +9,7 @@ export type ParameterFieldProps<T> = {
   parameter: ConfigurationParameter
 }
 const ParameterField = <T,>({ value, onChange, parameter }: ParameterFieldProps<T>) => {
-  const { TextField, NumberField, BoolField } = useContext(UiContext)
+  const { TextField, NumberField, BoolField, EnumField } = useContext(UiContext)
 
   const props = {
     required: parameter.required,
