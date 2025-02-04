@@ -15,6 +15,7 @@ import TextField from '../Components/TextField'
 import NumberField from '../Components/NumberField'
 import BoolField from '../Components/BoolField'
 import EnumField from '../Components/EnumField'
+import Button from '../Components/Button'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -34,9 +35,11 @@ type UiContextType = {
   NumberField: typeof NumberField
   BoolField: typeof BoolField
   EnumField: typeof EnumField
+  Button: typeof Button
   pickerColors: string[]
   notify: INotify,
   strings: {
+    cancel: string
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
@@ -50,6 +53,7 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    save: string
     type: string
   }
 }
@@ -70,9 +74,11 @@ export const DefaultUiContext: UiContextType = {
   NumberField,
   BoolField,
   EnumField,
+  Button,
   pickerColors: ['#ffffff', '#000000', '#ff9900', '#0099ff'],
   notify,
   strings: {
+    cancel: 'Cancel',
     cannotDrawMorePolygons: 'You cannot draw more polygons',
     cannotDrawMorePolylines: 'You cannot draw more polylines',
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
@@ -86,6 +92,7 @@ export const DefaultUiContext: UiContextType = {
     rectHelpText: 'click and drag to draw the rectangle',
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
+    save: 'Save',
     type: 'Type',
   },
 }
@@ -110,6 +117,7 @@ const UiProvider = ({
   NumberField,
   BoolField,
   EnumField,
+  Button,
   pickerColors,
   notify,
   strings,
@@ -129,6 +137,7 @@ const UiProvider = ({
     NumberField: NumberField ?? DefaultUiContext.NumberField,
     BoolField: BoolField ?? DefaultUiContext.BoolField,
     EnumField: EnumField ?? DefaultUiContext.EnumField,
+    Button: Button ?? DefaultUiContext.Button,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,

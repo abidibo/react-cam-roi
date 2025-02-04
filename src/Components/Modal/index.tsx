@@ -11,10 +11,11 @@ export type ModalProps = {
   onClose: () => void
   title: string
   maxWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  onSubmit?: () => void
 }
 
-const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, children, title, maxWidth }) => {
-  const { themeMode, IconButton, Typography } = useContext(UiContext)
+const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, children, title, maxWidth, onSubmit }) => {
+  const { themeMode, IconButton, Typography, Button, strings } = useContext(UiContext)
   const iconColor = themeMode === 'light' ? 'black' : 'white'
 
   if (!isOpen) {
@@ -31,6 +32,10 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({ isOpen, onClose, child
           </IconButton>
         </div>
         {children}
+        <div className={css('modal-footer', styles, themeMode)}>
+          <Button onClick={onClose}>{strings.cancel}</Button>
+          {onSubmit && <Button primary onClick={onSubmit}>{strings.save}</Button>}
+        </div>
       </div>
     </div>,
     document.body

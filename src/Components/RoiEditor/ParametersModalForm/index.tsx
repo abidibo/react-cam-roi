@@ -16,9 +16,10 @@ export type ParametersModalFormProps = {
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose, parameters }) => {
   const { Modal } = useContext(UiContext)
   const { fields, setField } = useParametersForm(parameters)
+  const handleSubmit = () => {}
 
   return (
-    <Modal onClose={onClose} title={title} isOpen maxWidth="sm">
+    <Modal onClose={onClose} title={title} isOpen maxWidth="sm" onSubmit={handleSubmit}>
       <div className={css('form', styles, null)}>
         {parameters.map((parameter: ConfigurationParameter) => {
           switch (parameter.type) {

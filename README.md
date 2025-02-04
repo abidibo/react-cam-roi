@@ -192,8 +192,17 @@ type UiContextType = {
   DeleteIcon: React.FC<DeleteIconProps>
   EditIcon: React.FC<EditIconProps>
   SelectIcon: React.FC<SelectIconProps>
+  CopyIcon: typeof CopyIcon
+  AnnotateIcon: typeof AnnotateIcon
+  CloseIcon: typeof CloseIcon
+  TextField: typeof TextField
+  NumberField: typeof NumberField
+  BoolField: typeof BoolField
+  EnumField: typeof EnumField
+  Button: typeof Button
   notify: INotify
   strings: {
+    cancel: string
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
@@ -207,6 +216,7 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    save: string
     type: string
   }
 }
@@ -258,6 +268,9 @@ type ModalProps = {
 - `react-cam-roi-modal-title`
 - `react-cam-roi-modal-title-light`
 - `react-cam-roi-modal-title-dark`
+- `react-cam-roi-modal-footer`
+- `react-cam-roi-modal-footer-light`
+- `react-cam-roi-modal-footer-dark`
 
 #### Typography
 
@@ -474,6 +487,27 @@ type EnumFieldProps = {
 - `react-cam-roi-enum-field-helper-text-light`
 - `react-cam-roi-enum-field-helper-text-dark`
 - `react-cam-roi-enum-field-helper-text-error`
+
+
+#### Button
+
+##### Interface
+
+````ts
+type ButtonProps = {
+  onClick: (event: React.MouseEvent) => void
+  primary?: boolean
+  disabled?: boolean
+}
+
+##### Classes
+
+- `react-cam-roi-button`
+- `react-cam-roi-button-light`
+- `react-cam-roi-button-dark`
+- `react-cam-roi-button-disabled`
+- `react-cam-roi-button-disabled-light`
+- `react-cam-roi-button-disabled-dark`
 
 ### Functions
 
