@@ -53,7 +53,6 @@ const ShapesList: React.FC = () => {
   }
 
   const iconColor = themeMode === 'light' ? 'black' : 'white'
-  console.log('METADATA', metadata) // eslint-disable-line
 
   return (
     <>
