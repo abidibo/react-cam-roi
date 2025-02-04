@@ -43,5 +43,6 @@ export const Default: Story = {
   args: {
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
+    onSubmit: () => {}
   },
 }

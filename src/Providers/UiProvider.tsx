@@ -16,6 +16,7 @@ import NumberField from '../Components/NumberField'
 import BoolField from '../Components/BoolField'
 import EnumField from '../Components/EnumField'
 import Button from '../Components/Button'
+import SaveIcon from '../Icons/SaveIcon'
 
 type UiContextType = {
   children?: React.ReactNode
@@ -30,6 +31,7 @@ type UiContextType = {
   SelectIcon: typeof SelectIcon
   CopyIcon: typeof CopyIcon
   AnnotateIcon: typeof AnnotateIcon
+  SaveIcon: typeof SaveIcon
   CloseIcon: typeof CloseIcon
   TextField: typeof TextField
   NumberField: typeof NumberField
@@ -70,6 +72,7 @@ export const DefaultUiContext: UiContextType = {
   SelectIcon,
   CopyIcon,
   AnnotateIcon,
+  SaveIcon,
   CloseIcon,
   TextField,
   NumberField,
@@ -114,6 +117,7 @@ const UiProvider = ({
   SelectIcon,
   CopyIcon,
   AnnotateIcon,
+  SaveIcon,
   CloseIcon,
   TextField,
   NumberField,
@@ -134,6 +138,7 @@ const UiProvider = ({
     SelectIcon: SelectIcon ?? DefaultUiContext.SelectIcon,
     CopyIcon: CopyIcon ?? DefaultUiContext.CopyIcon,
     AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
+    SaveIcon: SaveIcon ?? DefaultUiContext.SaveIcon,
     CloseIcon: CloseIcon ?? DefaultUiContext.CloseIcon,
     TextField: TextField ?? DefaultUiContext.TextField,
     NumberField: NumberField ?? DefaultUiContext.NumberField,

@@ -203,6 +203,7 @@ type UiContextType = {
   CopyIcon: typeof CopyIcon
   AnnotateIcon: typeof AnnotateIcon
   CloseIcon: typeof CloseIcon
+  SaveIcon: typeof SaveIcon
   TextField: typeof TextField
   NumberField: typeof NumberField
   BoolField: typeof BoolField
@@ -366,6 +367,18 @@ type AnnotateIconProps = {
   color?: string
   style?: React.CSSProperties
 }
+
+#### SaveIcon
+
+##### Interface
+
+`````ts
+type SaveIconProps = {
+  color?: string
+  style?: React.CSSProperties
+}
+
+
 
 #### TextField
 

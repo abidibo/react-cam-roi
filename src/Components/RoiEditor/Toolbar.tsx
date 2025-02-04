@@ -5,6 +5,7 @@ import PointerIcon from '../../Icons/PointerIcon'
 import PolygonIcon from '../../Icons/PolygonIcon'
 import PolylineIcon from '../../Icons/PolylineIcon'
 import RectangleIcon from '../../Icons/RectangleIcon'
+import SaveIcon from '../../Icons/SaveIcon'
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css } from '../../Utils'
@@ -16,7 +17,7 @@ import { enableMainMetadata, enableRois } from './Utils'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
-  const { activeTool, setActiveTool, configuration, metadata, setMetadata } = useEditorContext()
+  const { activeTool, setActiveTool, configuration, metadata, setMetadata, onSubmit } = useEditorContext()
   const [form, setForm] = useState<{ isOpen: boolean }>({ isOpen: false })
 
   const iconColor = (tool: ToolEnum) => (tool === activeTool ? primaryColor : themeMode === 'light' ? 'black' : 'white')
@@ -47,7 +48,7 @@ const Toolbar = () => {
             <IconButton onClick={setTool(ToolEnum.Rectangle)}>
               <RectangleIcon color={iconColor(ToolEnum.Rectangle)} />
             </IconButton>
-            <ColorPicker style={{ marginLeft: 'auto' }} />
+            <ColorPicker style={{ marginLeft: 'auto', marginRight: '.5rem' }} />
           </>
         )}
         {enableRois(configuration) && enableMainMetadata(configuration) && (
@@ -58,6 +59,10 @@ const Toolbar = () => {
             <AnnotateIcon color={iconColor(ToolEnum.Rectangle)} />
           </IconButton>
         )}
+        <div className={css('toolbar-spacer', styles, themeMode)} />
+        <IconButton onClick={onSubmit}>
+          <SaveIcon color={iconColor(ToolEnum.Rectangle)} />
+        </IconButton>
       </div>
 
       <div className={css('toolbar-helper', styles, themeMode)}>

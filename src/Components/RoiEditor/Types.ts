@@ -67,5 +67,5 @@ export type Metadata = {
   rois: {
     id: string,
     parameters: ConfigurationParameter[],
-  }
+  }[]
 }

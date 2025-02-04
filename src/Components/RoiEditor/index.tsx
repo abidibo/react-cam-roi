@@ -15,10 +15,11 @@ export type RoiEditorProps = {
   // the url of the image we want to annotate
   imageUrl: string
   configuration: Configuration
+  onSubmit: () => void
 }
 
 // https://github.com/n-mazaheri/image-editor
-const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
+const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit }) => {
   const { themeMode, enableLogs, pickerColors } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -44,6 +45,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
     [shapes],
   )
 
+  const handleSubmit = useCallback(() => {
+    onSubmit()
+  }, [onSubmit])
+
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
   log('info', enableLogs, 'react-cam-roi', 'metadata', metadata)
@@ -63,6 +68,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
       configuration={configuration}
       metadata={metadata}
       setMetadata={setMetadata}
+      onSubmit={handleSubmit}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
