@@ -17,7 +17,7 @@ import { enableMainMetadata, enableRois } from './Utils'
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
   const { activeTool, setActiveTool, configuration, metadata, setMetadata } = useEditorContext()
-  const [form, setForm] = useState<{ isOpen: boolean; data: ConfigurationParameter[] }>({ isOpen: false })
+  const [form, setForm] = useState<{ isOpen: boolean }>({ isOpen: false })
 
   const iconColor = (tool: ToolEnum) => (tool === activeTool ? primaryColor : themeMode === 'light' ? 'black' : 'white')
   const setTool = (tool: ToolEnum) => () => setActiveTool(tool)
@@ -27,7 +27,7 @@ const Toolbar = () => {
       ...metadata,
       parameters: data,
     })
-    setForm({ isOpen: false, data })
+    setForm({ isOpen: false })
   }
 
   return (
@@ -54,7 +54,7 @@ const Toolbar = () => {
           <div className={css('toolbar-spacer', styles, themeMode)} />
         )}
         {enableMainMetadata(configuration) && (
-          <IconButton onClick={() => setForm({ isOpen: true, data: configuration.parameters })}>
+          <IconButton onClick={() => setForm({ isOpen: true })}>
             <AnnotateIcon color={iconColor(ToolEnum.Rectangle)} />
           </IconButton>
         )}
@@ -71,7 +71,7 @@ const Toolbar = () => {
           parameters={configuration.parameters}
           data={metadata.parameters}
           title={strings.mainParametersMetadata}
-          onClose={() => setForm({ isOpen: false, data: [] })}
+          onClose={() => setForm({ isOpen: false })}
           onSubmit={handleSubmitMetadata}
         />
       )}
