@@ -53,6 +53,7 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    requiredField: string
     save: string
     type: string
   }
@@ -92,6 +93,7 @@ export const DefaultUiContext: UiContextType = {
     rectHelpText: 'click and drag to draw the rectangle',
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
+    requiredField: 'This field is required',
     save: 'Save',
     type: 'Type',
   },

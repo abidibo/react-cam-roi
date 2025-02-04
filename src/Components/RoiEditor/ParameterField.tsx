@@ -7,14 +7,16 @@ export type ParameterFieldProps<T> = {
   value: T
   onChange: (value: T) => void
   parameter: ConfigurationParameter
+  errors: Record<string,string>
 }
-const ParameterField = <T,>({ value, onChange, parameter }: ParameterFieldProps<T>) => {
-  const { TextField, NumberField, BoolField, EnumField } = useContext(UiContext)
+const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFieldProps<T>) => {
+  const { TextField, NumberField, BoolField, EnumField, strings } = useContext(UiContext)
 
   const props = {
     required: parameter.required,
     label: `${parameter.label}${parameter.unit ? ` (${parameter.unit})` : ''}`,
-    helperText: parameter.description,
+    error: !!errors[parameter.codename],
+    helperText: errors[parameter.codename] ? strings[errors[parameter.codename] as keyof typeof strings] : parameter.description,
   }
 
   switch (parameter.type) {

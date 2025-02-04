@@ -216,6 +216,7 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    requiredField: string
     save: string
     type: string
   }

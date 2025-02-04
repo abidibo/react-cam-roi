@@ -6,6 +6,7 @@ import { useParametersForm } from '../Hooks'
 import ParameterField from '../ParameterField'
 import { ConfigurationParameter } from '../Types'
 import styles from './ParametersModalForm.module.css'
+import { validateParametersForm } from '../Utils'
 
 export type ParametersModalFormProps = {
   onClose: () => void
@@ -16,10 +17,12 @@ export type ParametersModalFormProps = {
 
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose, parameters, onSubmit }) => {
   const { Modal } = useContext(UiContext)
-  const { fields, setField } = useParametersForm(parameters)
+  const { fields, setField, errors, setErrors } = useParametersForm(parameters)
 
   const handleSubmit = () => {
-    onSubmit([...parameters.map((p) => ({ ...p, value: fields[p.codename] }))] as ConfigurationParameter[])
+    if (validateParametersForm(parameters, fields, setErrors)) {
+      onSubmit([...parameters.map((p) => ({ ...p, value: fields[p.codename] }))] as ConfigurationParameter[])
+    }
   }
 
   return (
@@ -34,6 +37,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClos
                   value={String(fields[parameter.codename])}
                   onChange={setField<string>(parameter.codename)}
                   parameter={parameter}
+                  errors={errors}
                 />
               )
             case 'int':
@@ -44,6 +48,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClos
                   value={fields[parameter.codename] as number}
                   onChange={setField<number>(parameter.codename)}
                   parameter={parameter}
+                  errors={errors}
                 />
               )
             case 'bool':
@@ -53,6 +58,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClos
                   value={fields[parameter.codename] as boolean}
                   onChange={setField<boolean>(parameter.codename)}
                   parameter={parameter}
+                  errors={errors}
                 />
               )
             default:

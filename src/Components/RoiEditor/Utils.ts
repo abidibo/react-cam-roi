@@ -1,4 +1,4 @@
-import { Configuration, INotify, OperatorEnum, Shapes, ToolEnum } from './Types'
+import { Configuration, ConfigurationParameter, INotify, OperatorEnum, Shapes, ToolEnum } from './Types'
 
 export const notify: INotify = {
   info: (message: string) => alert(`Info: ${message}`),
@@ -49,4 +49,24 @@ export const canDrawShape = (
   }
 
   return res
+}
+
+export const validateParametersForm = (
+  parameters: ConfigurationParameter[],
+  fields: Record<string, unknown>,
+  setErrors: (errors: Record<string, string>) => void,
+) => {
+  const err: Record<string, string> = {}
+  parameters.forEach(p => {
+    if (p.required && !fields[p.codename]) {
+      err[p.codename] = 'requiredField'
+    }
+  })
+
+  if (Object.keys(err).length > 0) {
+    setErrors(err)
+    return false
+  }
+
+  return true
 }
