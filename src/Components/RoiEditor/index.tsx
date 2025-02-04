@@ -43,6 +43,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
+  log('info', enableLogs, 'react-cam-roi', 'metadata', metadata)
 
   if (!isReady) {
     return <Loader />

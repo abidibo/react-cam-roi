@@ -16,11 +16,19 @@ import { enableMainMetadata, enableRois } from './Utils'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
-  const { activeTool, setActiveTool, configuration } = useEditorContext()
+  const { activeTool, setActiveTool, configuration, metadata, setMetadata } = useEditorContext()
   const [form, setForm] = useState<{ isOpen: boolean; data: ConfigurationParameter[] }>({ isOpen: false, data: [] })
 
   const iconColor = (tool: ToolEnum) => (tool === activeTool ? primaryColor : themeMode === 'light' ? 'black' : 'white')
   const setTool = (tool: ToolEnum) => () => setActiveTool(tool)
+
+  const handleSubmitMetadata = (data: ConfigurationParameter[]) => {
+    setMetadata({
+      ...metadata,
+      parameters: data,
+    })
+    setForm({ isOpen: false, data })
+  }
 
   return (
     <>
@@ -63,6 +71,7 @@ const Toolbar = () => {
           parameters={configuration.parameters}
           title={strings.mainParametersMetadata}
           onClose={() => setForm({ isOpen: false, data: [] })}
+          onSubmit={handleSubmitMetadata}
         />
       )}
     </>
