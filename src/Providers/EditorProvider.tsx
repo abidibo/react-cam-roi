@@ -11,6 +11,8 @@ type EditorContextType = {
   addShape: (id: string, type: ShapeType, shape: Shape) => void
   removeShape: (id: string) => void
   configuration: Configuration
+  metadata: Configuration
+  setMetadata: (data: Configuration) => void
 }
 
 export const EditorContext = createContext<EditorContextType | undefined>(undefined) // eslint-disable-line
@@ -34,10 +36,23 @@ const EditorProvider = ({
   addShape,
   removeShape,
   configuration,
+  metadata,
+  setMetadata,
 }: PropsWithChildren<EditorContextType>) => {
   return (
     <EditorContext.Provider
-      value={{ activeTool, setActiveTool, activeColor, setActiveColor, shapes, addShape, removeShape, configuration }}
+      value={{
+        activeTool,
+        setActiveTool,
+        activeColor,
+        setActiveColor,
+        shapes,
+        addShape,
+        removeShape,
+        configuration,
+        metadata,
+        setMetadata,
+      }}
     >
       {children}
     </EditorContext.Provider>

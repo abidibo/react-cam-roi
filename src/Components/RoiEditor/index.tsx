@@ -25,6 +25,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [activeColor, setActiveColor] = useState(pickerColors[0])
 
+  const [metadata, setMetadata] = useState(structuredClone(configuration))
   const [shapes, setShapes] = useState<Shapes>({})
   const addShape = useCallback(
     (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
@@ -56,6 +57,8 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration }) => {
       addShape={addShape}
       removeShape={removeShape}
       configuration={configuration}
+      metadata={metadata}
+      setMetadata={setMetadata}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <Toolbar />
