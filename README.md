@@ -217,6 +217,7 @@ type UiContextType = {
     cannotDrawMoreRectangles: string
     id: string
     mainParametersMetadata: string
+    missingRequiredValuesInMainParameters: string
     polygon: string
     polygonHelpText: string
     polyline: string

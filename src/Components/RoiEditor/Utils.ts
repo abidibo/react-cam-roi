@@ -1,4 +1,4 @@
-import { Configuration, ConfigurationParameter, INotify, OperatorEnum, Shapes, ToolEnum } from './Types'
+import { Configuration, ConfigurationParameter, INotify, Metadata, OperatorEnum, Shapes, ToolEnum } from './Types'
 
 export const notify: INotify = {
   info: (message: string) => alert(`Info: ${message}`),
@@ -69,4 +69,29 @@ export const validateParametersForm = (
   }
 
   return true
+}
+
+const isEmpty = (v: string | number | boolean | string[] | number[] | null | undefined): boolean => {
+  if (typeof v === 'string') {
+    return v.length === 0
+  }
+  if (Array.isArray(v)) {
+    return v.length === 0
+  }
+  return v === null || v === undefined
+}
+
+export const validate = (
+  configuration: Configuration,
+  shapes: Shapes,
+  metadata: Metadata,
+) => {
+  const errors = []
+  // check main parameters
+  if (configuration.parameters.length) {
+    if (metadata.parameters.find(p => p.required && isEmpty(p.value))) {
+      errors.push('missingRequiredValuesInMainParameters')
+    }
+  }
+  return [errors.length === 0, errors]
 }

@@ -47,6 +47,7 @@ type UiContextType = {
     cannotDrawMoreRectangles: string
     id: string
     mainParametersMetadata: string
+    missingRequiredValuesInMainParameters: string
     polygon: string
     polygonHelpText: string
     polyline: string
@@ -88,6 +89,7 @@ export const DefaultUiContext: UiContextType = {
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
     id: 'ID',
     mainParametersMetadata: 'Main parameters',
+    missingRequiredValuesInMainParameters: 'Missing required values in main parameters',
     polygon: 'Polygon',
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',

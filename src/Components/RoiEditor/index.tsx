@@ -10,6 +10,7 @@ import ShapesList from './ShapesList'
 import styles from './RoiEditor.module.css'
 import Toolbar from './Toolbar'
 import { Configuration, Metadata, Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { validate } from './Utils'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -46,8 +47,11 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
   )
 
   const handleSubmit = useCallback(() => {
-    onSubmit()
-  }, [onSubmit])
+    const [isValid, errors] = validate(configuration, shapes, metadata)
+    if (isValid) {
+      onSubmit()
+    }
+  }, [onSubmit, configuration, shapes, metadata])
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
