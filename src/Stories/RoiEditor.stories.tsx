@@ -48,6 +48,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
+    id: 'default',
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
     initialData: initialData as Output,
@@ -75,7 +76,8 @@ export const Mui: Story = {
     (Story, context) => {
       return (
         <div>
-          <h4>Example using some MUI components: TextField, Checkbox, IconButton</h4>
+          <h3>Example using some MUI components</h3>
+          <p>TextField, Checkbox, IconButton. Dark mode is not configured in this example.</p>
           <UiProvider
             themeMode={context.globals.theme}
             IconButton={IconButton}
@@ -91,6 +93,7 @@ export const Mui: Story = {
     },
   ],
   args: {
+    id: 'mui',
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
     initialData: initialData as Output,

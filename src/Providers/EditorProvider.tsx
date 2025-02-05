@@ -16,6 +16,7 @@ type EditorContextType = {
   metadata: Metadata
   setMetadata: (data: Metadata) => void
   onSubmit: () => void
+  id: string
 }
 
 export const EditorContext = createContext<EditorContextType | undefined>(undefined) // eslint-disable-line
@@ -31,6 +32,7 @@ export function useEditorContext() {
 
 const EditorProvider = ({
   children,
+  id,
   hideForbiddenTools,
   activeTool,
   setActiveTool,
@@ -48,6 +50,7 @@ const EditorProvider = ({
   return (
     <EditorContext.Provider
       value={{
+        id,
         hideForbiddenTools,
         activeTool,
         setActiveTool,

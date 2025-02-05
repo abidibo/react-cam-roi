@@ -18,10 +18,11 @@ export type RoiEditorProps = {
   configuration: Configuration
   onSubmit: (data: Output) => void
   initialData?: Output
+  id: string
 }
 
 // https://github.com/n-mazaheri/image-editor
-const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit, initialData }) => {
+const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit, initialData, id }) => {
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -88,6 +89,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
   }
   return (
     <EditorProvider
+      id={id}
       hideForbiddenTools={configuration.options?.hideForbiddenTools ?? false}
       activeTool={activeTool}
       setActiveTool={setActiveTool}
