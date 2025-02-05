@@ -6,10 +6,17 @@ import { css, log } from '../../Utils'
 import { Loader } from '../Loader'
 import Canvas from './Canvas'
 import { useCanvasSize } from './Hooks'
-import ShapesList from './ShapesList'
 import styles from './RoiEditor.module.css'
+import ShapesList from './ShapesList'
 import Toolbar from './Toolbar'
-import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import {
+  Configuration,
+  Metadata,
+  Output, OutputRoi, Shape,
+  Shapes,
+  ShapeType,
+  ToolEnum
+} from './Types'
 import { fabricShapeToOutputShape, validate } from './Utils'
 
 export type RoiEditorProps = {
@@ -17,10 +24,11 @@ export type RoiEditorProps = {
   imageUrl: string
   configuration: Configuration
   onSubmit: (data: Output) => void
+  initialShapes?: OutputRoi[]
 }
 
 // https://github.com/n-mazaheri/image-editor
-const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit }) => {
+const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit, initialShapes }) => {
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -29,7 +37,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
 
   const [metadata, setMetadata] = useState<Metadata>({
     parameters: [...configuration.parameters],
-    rois: []
+    rois: [],
   })
   const [shapes, setShapes] = useState<Shapes>({})
   const addShape = useCallback(
@@ -52,10 +60,13 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
     if (isValid) {
       onSubmit({
         parameters: metadata.parameters,
-        rois: Object.keys(shapes).map(shapeId => ({
-          parameters: metadata.rois.find((r) => r.id === shapeId)?.parameters ?? [],
-          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType)
-        }))
+        rois: Object.keys(shapes).map((shapeId) => ({
+          parameters:
+            metadata.rois
+              .find((r) => r.id === shapeId)
+              ?.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
+          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType),
+        })),
       })
     } else {
       notify.error(strings.invalidSubmission + '\n' + errors.map((e) => `- ${e}`).join('\n'))
@@ -94,7 +105,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
             backgroundImage: `url(${imageUrl})`,
           }}
         >
-          <Canvas canvasSize={canvasSize} />
+          <Canvas canvasSize={canvasSize} initialShapes={initialShapes} />
         </div>
         <ShapesList />
       </div>

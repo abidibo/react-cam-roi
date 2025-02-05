@@ -1,11 +1,13 @@
 import { useRef, useEffect } from 'react';
 import * as fabric from 'fabric';
 import { useDispatcherEvents, useTool } from './Hooks';
+import { OutputRoi } from './Types';
 
 type CanvasProps = {
   canvasSize: { width: number; height: number }
+  initialShapes?: OutputRoi[]
 }
-const Canvas: React.FC<CanvasProps> = ({ canvasSize }) => {
+const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialShapes }) => {
   const canvasRef = useRef<fabric.Canvas | null>(null)
 
   useTool(canvasRef.current)

@@ -94,7 +94,7 @@ export type ConfigurationParameter = {
   options: { value: number | string | boolean; label: string }[] // if filled the component will be a dropdown
   multiple?: boolean // for multiple selection
   required: boolean // required parameter
-  value: number | string | boolean | null // default value
+  value: number | string | boolean | string[] | number[] | null // default value
 }
 
 // Configuration of ROIs

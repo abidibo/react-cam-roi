@@ -38,7 +38,7 @@ export type ConfigurationParameter = {
   options: { value: number | string; label: string }[]
   multiple?: boolean
   required: boolean
-  value: number | string | boolean | null
+  value: number | string | boolean | string[] | number[] | null
 }
 export type RoiConfiguration = {
   role: string
@@ -92,10 +92,16 @@ export type OutputShapePolygon = {
   color: string
 }
 
+export interface OutputParameter {
+  codename: string
+  value: number | string | boolean | string[] | number[] | null
+}
+
+export interface OutputRoi {
+  parameters: OutputParameter[]
+  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
+}
 export interface Output {
   parameters: ConfigurationParameter[]
-  rois: {
-    parameters: ConfigurationParameter[],
-    shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
-  }[]
+  rois: OutputRoi[]
 }
