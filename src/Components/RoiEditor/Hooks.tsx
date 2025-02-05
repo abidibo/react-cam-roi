@@ -47,11 +47,13 @@ export const useCanvasSize = (imageUrl: string) => {
       }
       if (imageSize.width > 0 && wrapperRef.current) {
         update()
-        // observe ref for resizing event and in case update canvas dimensions
-        const resizeObserver = new ResizeObserver(() => {
-          update()
-        })
-        resizeObserver.observe(wrapperRef.current)
+        // commenting out following lines, dont't want resizing after first load otherwise shapes
+        // will disappear
+        // observe ref for resizing event and in case update canvas dimensions 
+        // const resizeObserver = new ResizeObserver(() => {
+        //   update()
+        // })
+        // resizeObserver.observe(wrapperRef.current)
       }
     }
   }, [imageSize, wrapperRef.current]) // eslint-disable-line
