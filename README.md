@@ -13,6 +13,7 @@ Export and import functionality is also provided.
 Features:
 
 - Autosizing of the editor: the canvas resizes to the size of the image, but it's also responsive, so if the container width is smaller, then the canvas is resized accordingly keeping the aspect ratio.
+  (the size is adjusted on load, after will remain the same even if changing viewport size)
 - Draw polylines, polygons and rectangles, change dimensions and rotate them.
 - Support for number of drawable ROIs, defining a rule for each type.
 - Support for dynamic metadata information attached to each shape and the whole image (with validation included).
@@ -35,7 +36,7 @@ const MyComponent: React.FC = () => {
     const themMode = 'light'
     const config = {} // see below
 
-    const handleSubmit = (data: Types.Ouput) =>  console.log(data)
+    const handleSubmit = (data: Types.Output) =>  console.log(data)
 
     return (
         <UiProvider themeMode={themeMode} IconButton={IconButton} Typography={Typography} DeleteIcon={() => <Delete />}>

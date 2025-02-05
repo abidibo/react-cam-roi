@@ -12,7 +12,7 @@ import { css } from '../../Utils'
 import ColorPicker from './ColorPicker'
 import ParametersModalForm from './ParametersModalForm'
 import styles from './Toolbar.module.css'
-import { ConfigurationParameter, ToolEnum } from './Types'
+import { OutputParameter, ToolEnum } from './Types'
 import { enableMainMetadata, enableRois } from './Utils'
 
 const Toolbar = () => {
@@ -23,7 +23,7 @@ const Toolbar = () => {
   const iconColor = (tool: ToolEnum) => (tool === activeTool ? primaryColor : themeMode === 'light' ? 'black' : 'white')
   const setTool = (tool: ToolEnum) => () => setActiveTool(tool)
 
-  const handleSubmitMetadata = (data: ConfigurationParameter[]) => {
+  const handleSubmitMetadata = (data: OutputParameter[]) => {
     setMetadata({
       ...metadata,
       parameters: data,

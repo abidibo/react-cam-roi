@@ -4,7 +4,7 @@ import { UiContext } from '../../../Providers/UiProvider'
 import { css } from '../../../Utils'
 import { useParametersForm } from '../Hooks'
 import ParameterField from '../ParameterField'
-import { ConfigurationParameter } from '../Types'
+import { ConfigurationParameter, OutputParameter } from '../Types'
 import styles from './ParametersModalForm.module.css'
 import { validateParametersForm } from '../Utils'
 
@@ -12,8 +12,8 @@ export type ParametersModalFormProps = {
   onClose: () => void
   title: string
   parameters: ConfigurationParameter[]
-  data: ConfigurationParameter[]
-  onSubmit: (data: ConfigurationParameter[]) => void
+  data: OutputParameter[]
+  onSubmit: (data: OutputParameter[]) => void
 }
 
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClose, parameters, data, onSubmit }) => {
@@ -22,7 +22,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({ title, onClos
 
   const handleSubmit = () => {
     if (validateParametersForm(parameters, fields, setErrors)) {
-      onSubmit([...parameters.map((p) => ({ ...p, value: fields[p.codename] }))] as ConfigurationParameter[])
+      onSubmit([...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] }))] as OutputParameter[])
     }
   }
 

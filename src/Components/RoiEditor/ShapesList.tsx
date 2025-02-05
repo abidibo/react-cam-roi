@@ -6,7 +6,7 @@ import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import ParametersModalForm from './ParametersModalForm'
 import styles from './ShapesList.module.css'
-import { ConfigurationParameter, Shape } from './Types'
+import { OutputParameter, Shape } from './Types'
 
 const ShapesList: React.FC = () => {
   const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, SelectIcon, CopyIcon, themeMode } =
@@ -41,7 +41,7 @@ const ShapesList: React.FC = () => {
     setForm({ isOpen: true, shapeId: id })
   }
 
-  const handleSubmitMetadata = (shapeId: string) => (data: ConfigurationParameter[]) => {
+  const handleSubmitMetadata = (shapeId: string) => (data: OutputParameter[]) => {
     setMetadata({
       ...metadata,
       rois: [

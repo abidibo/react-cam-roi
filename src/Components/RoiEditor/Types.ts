@@ -67,10 +67,10 @@ export interface INotify {
 }
 
 export type Metadata = {
-  parameters: ConfigurationParameter[]
+  parameters: OutputParameter[]
   rois: {
     id: string,
-    parameters: ConfigurationParameter[],
+    parameters: OutputParameter[],
   }[]
 }
 
@@ -84,11 +84,15 @@ export type OutputShapeRect = {
 
 export type OutputShapePolyline = {
   points: { x: number; y: number }[]
+  top: number
+  left: number
   color: string
 }
 
 export type OutputShapePolygon = {
   points: { x: number; y: number }[]
+  top: number
+  left: number
   color: string
 }
 
@@ -99,9 +103,10 @@ export interface OutputParameter {
 
 export interface OutputRoi {
   parameters: OutputParameter[]
+  type: ShapeType
   shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
 }
 export interface Output {
-  parameters: ConfigurationParameter[]
+  parameters: OutputParameter[]
   rois: OutputRoi[]
 }

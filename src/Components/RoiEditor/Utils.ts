@@ -90,7 +90,7 @@ export const validate = (
   const errors = []
   // check main parameters
   if (configuration.parameters.length) {
-    if (metadata.parameters.find((p) => p.required && isEmpty(p.value))) {
+    if (metadata.parameters.find((p) => configuration.parameters.find((p2) => p2.codename === p.codename)?.required && isEmpty(p.value))) {
       errors.push(strings.missingRequiredValuesInMainParameters)
     }
   }
@@ -176,6 +176,8 @@ export const fabricShapeToOutputShape = (shape: Shape, type: ShapeType) => {
     case ToolEnum.Polyline:
       return {
         points: shape.get('points'),
+        top: shape.top,
+        left: shape.left,
         color: shape.stroke as string
       }
   }

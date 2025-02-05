@@ -7,7 +7,7 @@ import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import { ConfigurationParameter, FabricEvent, FabricSelectionEvent, IAddShape, Shape, ToolEnum } from './Types'
+import { FabricEvent, FabricSelectionEvent, OutputParameter, Shape, ToolEnum } from './Types'
 import { canDrawShape } from './Utils'
 
 export const useImageSize = (imageUrl: string) => {
@@ -261,7 +261,7 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
   }, [setActiveTool, canvas, addShape, configuration, shapes, notify, strings])
 }
 
-export const useParametersForm = (parameters: ConfigurationParameter[]) => {
+export const useParametersForm = (parameters: OutputParameter[]) => {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [fields, setFields] = useState<Record<string, unknown>>(
     parameters.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {}),
