@@ -216,8 +216,10 @@ type UiContextType = {
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
     id: string
+    invalidSubmission: string
     mainParametersMetadata: string
     missingRequiredValuesInMainParameters: string
+    missingRequiredValuesInShapeParameters: string // with {id} placeholder
     polygon: string
     polygonHelpText: string
     polyline: string
@@ -228,6 +230,11 @@ type UiContextType = {
     pointerHelpText: string
     requiredField: string
     save: string
+    shapesOfTypeShouldBeEqualToThreshold: string // with {type} and {threshold} placeholders
+    shapesOfTypeShouldBeGreaterThanThreshold: string // with {type} and {threshold} placeholders
+    shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: string // with {type} and {threshold} placeholders
+    shapesOfTypeShouldBeLessThanThreshold: string // with {type} and {threshold} placeholders
+    shapesOfTypeShouldBeLessThanOrEqualToThreshold: string // with {type} and {threshold} placeholders
     type: string
   }
 }
@@ -240,7 +247,7 @@ Here comes the list of components you can override using the `UiProvider`.
 #### Loader
 
 ##### Interface
-
+ 
 ```ts
 type LoaderProps = {}
 ```

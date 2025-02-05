@@ -1,4 +1,4 @@
-import { Configuration, ConfigurationParameter, INotify, Metadata, OperatorEnum, Shapes, ToolEnum } from './Types'
+import { Configuration, ConfigurationParameter, INotify, Metadata, OperatorEnum, Shape, Shapes, ShapeType, ToolEnum } from './Types'
 
 export const notify: INotify = {
   info: (message: string) => alert(`Info: ${message}`),
@@ -57,8 +57,8 @@ export const validateParametersForm = (
   setErrors: (errors: Record<string, string>) => void,
 ) => {
   const err: Record<string, string> = {}
-  parameters.forEach(p => {
-    if (p.required && !fields[p.codename]) {
+  parameters.forEach((p) => {
+    if (p.required && isEmpty(fields[p.codename] as string | number | boolean | string[] | number[])) {
       err[p.codename] = 'requiredField'
     }
   })
@@ -85,13 +85,98 @@ export const validate = (
   configuration: Configuration,
   shapes: Shapes,
   metadata: Metadata,
-) => {
+  strings: Record<string, string>,
+) : [boolean, string[]] => {
   const errors = []
   // check main parameters
   if (configuration.parameters.length) {
-    if (metadata.parameters.find(p => p.required && isEmpty(p.value))) {
-      errors.push('missingRequiredValuesInMainParameters')
+    if (metadata.parameters.find((p) => p.required && isEmpty(p.value))) {
+      errors.push(strings.missingRequiredValuesInMainParameters)
     }
   }
+  // check rois number
+  configuration.rois.forEach((roi) => {
+    // check multiplicity
+    if (roi.multiplicity) {
+      switch (roi.multiplicity.operator) {
+        case OperatorEnum.Eq:
+          if (Object.values(shapes).filter((s) => s.type === roi.type).length !== roi.multiplicity.threshold) {
+            errors.push(
+              strings.shapesOfTypeShouldBeEqualToThreshold
+                .replace('{type}', String(roi.type))
+                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+            )
+          }
+          break
+        case OperatorEnum.Lt:
+          if (Object.values(shapes).filter((s) => s.type === roi.type).length >= roi.multiplicity.threshold) {
+            errors.push(
+              strings.shapesOfTypeShouldBeLessThanThreshold
+                .replace('{type}', String(roi.type))
+                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+            )
+          }
+          break
+        case OperatorEnum.Lte:
+          if (Object.values(shapes).filter((s) => s.type === roi.type).length > roi.multiplicity.threshold) {
+            errors.push(
+              strings.shapesOfTypeShouldBeLessThanOrEqualToThreshold
+                .replace('{type}', String(roi.type))
+                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+            )
+          }
+          break
+        case OperatorEnum.Gt:
+          if (Object.values(shapes).filter((s) => s.type === roi.type).length <= roi.multiplicity.threshold) {
+            errors.push(
+              strings.shapesOfTypeShouldBeGreaterThanThreshold
+                .replace('{type}', String(roi.type))
+                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+            )
+          }
+          break
+        case OperatorEnum.Gte:
+          if (Object.values(shapes).filter((s) => s.type === roi.type).length < roi.multiplicity.threshold) {
+            errors.push(
+              strings.shapesOfTypeShouldBeGreaterThanOrEqualToThreshold
+                .replace('{type}', String(roi.type))
+                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+            )
+          }
+      }
+    }
+  })
+
+  // check rois metadata
+  Object.keys(shapes).forEach(shapeId => {
+    const type = shapes[shapeId].type
+    const confParameters = configuration.rois.find((r) => r.type === type)?.parameters ?? []
+    confParameters.forEach((p) => {
+      if (p.required && isEmpty(metadata.rois.find((r) => r.id === shapeId)?.parameters.find((p) => p.codename === p.codename)?.value)) {
+        errors.push(strings.missingRequiredValuesInShapeParameters.replace('{id}', shapeId))
+      }
+    })
+  })
+
+
   return [errors.length === 0, errors]
+}
+
+export const fabricShapeToOutputShape = (shape: Shape, type: ShapeType) => {
+  switch (type) {
+    case ToolEnum.Rectangle:
+      return {
+        top: shape.top,
+        left: shape.left,
+        width: shape.width,
+        height: shape.height,
+        color: shape.stroke as string
+      }
+    case ToolEnum.Polygon:
+    case ToolEnum.Polyline:
+      return {
+        points: shape.get('points'),
+        color: shape.stroke as string
+      }
+  }
 }
