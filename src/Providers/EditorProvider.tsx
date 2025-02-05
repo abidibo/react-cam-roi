@@ -3,6 +3,7 @@ import { createContext, PropsWithChildren, useContext } from 'react'
 import { Configuration, Metadata, Shape, Shapes, ShapeType, ToolEnum } from '../Components/RoiEditor/Types'
 
 type EditorContextType = {
+  hideForbiddenTools: boolean
   activeTool: ToolEnum
   setActiveTool: (tool: ToolEnum) => void
   activeColor: string
@@ -29,6 +30,7 @@ export function useEditorContext() {
 
 const EditorProvider = ({
   children,
+  hideForbiddenTools,
   activeTool,
   setActiveTool,
   activeColor,
@@ -44,6 +46,7 @@ const EditorProvider = ({
   return (
     <EditorContext.Provider
       value={{
+        hideForbiddenTools,
         activeTool,
         setActiveTool,
         activeColor,

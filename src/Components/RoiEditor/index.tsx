@@ -71,6 +71,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
   }
   return (
     <EditorProvider
+      hideForbiddenTools={configuration.options?.hideForbiddenTools ?? false}
       activeTool={activeTool}
       setActiveTool={setActiveTool}
       activeColor={activeColor}

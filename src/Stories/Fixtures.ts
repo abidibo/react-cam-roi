@@ -57,4 +57,7 @@ export const configuration: Configuration = {
       ],
     },
   ],
+  options: {
+    hideForbiddenTools: false
+  }
 }

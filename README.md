@@ -149,6 +149,9 @@ export const configuration: Configuration = {
       ],
     },
   ],
+  options?: {
+    hideForbiddenTools?: boolean
+  }
 }
 
 export type Metadata = {
@@ -247,7 +250,7 @@ Here comes the list of components you can override using the `UiProvider`.
 #### Loader
 
 ##### Interface
- 
+
 ```ts
 type LoaderProps = {}
 ```
@@ -370,7 +373,7 @@ type CopyIconProps = {
 
 ##### Interface
 
-`````ts
+``````ts
 type AnnotateIconProps = {
   color?: string
   style?: React.CSSProperties
@@ -556,7 +559,7 @@ type INotify = { // compatible with toast (react-toastify)
   error: (message: string) => void
   success: (message: string) => void
 }
-`````
+``````
 
 ### Styles
 

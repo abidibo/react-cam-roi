@@ -53,6 +53,9 @@ export type RoiConfiguration = {
 export type Configuration = {
   parameters: ConfigurationParameter[],
   rois: RoiConfiguration[],
+  options?: {
+    hideForbiddenTools?: boolean
+  }
 }
 
 export interface INotify {
