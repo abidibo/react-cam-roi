@@ -44,6 +44,7 @@ const EnumField = ({
         onChange={handleChange}
         value={value as string | number | string[]}
         disabled={disabled}
+        multiple={multiple}
       >
         {!required && <option value={''}></option>}
         {options.map((option: EnumOption) => (

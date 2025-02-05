@@ -19,6 +19,7 @@ export const configuration: Configuration = {
           label: 'Ten',
         },
       ],
+      multiple: true,
       required: true, // true | false,
       value: 10, // default value
     },
