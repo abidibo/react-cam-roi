@@ -65,11 +65,13 @@ const Toolbar = () => {
         </IconButton>
       </div>
 
-      <div className={css('toolbar-helper', styles, themeMode)}>
-        <Typography>
-          {strings[activeTool]}: {strings[`${activeTool}HelpText`]}
-        </Typography>
-      </div>
+      {enableRois(configuration) && (
+        <div className={css('toolbar-helper', styles, themeMode)}>
+          <Typography>
+            {strings[activeTool]}: {strings[`${activeTool}HelpText`]}
+          </Typography>
+        </div>
+      )}
 
       {form.isOpen && (
         <ParametersModalForm
