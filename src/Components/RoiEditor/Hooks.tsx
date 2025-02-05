@@ -1,13 +1,27 @@
 import * as fabric from 'fabric'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
+import { log } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
-import { FabricEvent, FabricSelectionEvent, OutputParameter, Shape, ToolEnum } from './Types'
+import {
+  FabricEvent,
+  FabricSelectionEvent,
+  Metadata,
+  Output,
+  OutputParameter,
+  OutputShapePolygon,
+  OutputShapePolyline,
+  OutputShapeRect,
+  Shape,
+  ShapeType,
+  ToolEnum,
+} from './Types'
 import { canDrawShape } from './Utils'
 
 export const useImageSize = (imageUrl: string) => {
@@ -47,18 +61,85 @@ export const useCanvasSize = (imageUrl: string) => {
       }
       if (imageSize.width > 0 && wrapperRef.current) {
         update()
-        // commenting out following lines, dont't want resizing after first load otherwise shapes
-        // will disappear
-        // observe ref for resizing event and in case update canvas dimensions 
-        // const resizeObserver = new ResizeObserver(() => {
-        //   update()
-        // })
-        // resizeObserver.observe(wrapperRef.current)
       }
     }
   }, [imageSize, wrapperRef.current]) // eslint-disable-line
 
   return { imageSize, canvasSize, wrapperRef, isReady }
+}
+
+export const initCanvasData = (
+  canvasRef: React.MutableRefObject<fabric.Canvas | null>,
+  addShapes: (shapes: {id: string, type: ShapeType, shape: Shape}[]) => void,
+  metadata: Metadata,
+  setMetadata: (v: Metadata) => void,
+  initialData?: Output,
+  enableLogs?: boolean,
+) => {
+  log('info', enableLogs ?? false, 'Loading initial shapes data', initialData, canvasRef.current)
+  if (initialData?.rois) {
+    const m: { id: string; parameters: OutputParameter[] }[] = []
+    const s: { id: string; type: ShapeType; shape: Shape }[] = []
+    initialData.rois.forEach((r) => {
+      log('info', enableLogs ?? false, 'Loading initial shape', r)
+      const id = uuidv4()
+      let shape: Shape
+      switch (r.type) {
+        case ToolEnum.Rectangle:
+          shape = new fabric.Rect({
+            left: r.shape.left,
+            top: r.shape.top,
+            originX: 'left',
+            originY: 'top',
+            width: (r.shape as OutputShapeRect).width,
+            height: (r.shape as OutputShapeRect).height,
+            fill: 'transparent',
+            stroke: r.shape.color,
+            strokeWidth: 2,
+            strokeUniform: true,
+            selectable: false,
+            hasControls: true,
+            hoverCursor: 'default',
+            id,
+          })
+          canvasRef.current?.add(shape)
+          break
+        case ToolEnum.Polygon:
+          shape = new fabric.Polygon((r.shape as OutputShapePolygon).points, {
+            top: r.shape.top + 10,
+            left: r.shape.left + 10,
+            fill: 'transparent',
+            stroke: r.shape.color,
+            strokeWidth: 2,
+            selectable: false,
+            hasControls: true,
+            hoverCursor: 'default',
+            // @ts-expect-error id is not included in types but the property is added and it works
+            id,
+          })
+          canvasRef.current?.add(shape)
+          break
+        case ToolEnum.Polyline:
+          shape = new fabric.Polyline((r.shape as OutputShapePolyline).points, {
+            top: r.shape.top + 10,
+            left: r.shape.left + 10,
+            fill: 'transparent',
+            stroke: r.shape.color,
+            strokeWidth: 2,
+            selectable: false,
+            hasControls: true,
+            hoverCursor: 'default',
+            id,
+          })
+          canvasRef.current?.add(shape)
+          break
+      }
+      m.push({ id, parameters: r.parameters })
+      s.push({ id, type: r.type, shape })
+    })
+    addShapes(s)
+    setMetadata({ ...metadata, rois: m })
+  }
 }
 
 export const useTool = (canvas: fabric.Canvas | null) => {
@@ -266,9 +347,11 @@ export const useParametersForm = (parameters: OutputParameter[]) => {
   const [fields, setFields] = useState<Record<string, unknown>>(
     parameters.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {}),
   )
-  const setField = <T,>(key: string) => (value: T) => {
-    setFields({ ...fields, [key]: value })
-  }
+  const setField =
+    <T,>(key: string) =>
+      (value: T) => {
+        setFields({ ...fields, [key]: value })
+      }
 
   return {
     fields,

@@ -3,7 +3,8 @@ import React from 'react'
 
 import RoiEditor from '../Components/RoiEditor'
 import UiProvider from '../Providers/UiProvider'
-import { configuration } from './Fixtures'
+import { configuration, initialData } from './Fixtures'
+import { Output } from '../Components/RoiEditor/Types'
 
 type RoiEditorProps = React.ComponentProps<typeof RoiEditor>
 const meta: Meta<RoiEditorProps> = {
@@ -43,6 +44,7 @@ export const Default: Story = {
   args: {
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
-    onSubmit: () => {}
+    initialData: initialData as Output,
+    onSubmit: (data) => { console.log('output', data) }
   },
 }

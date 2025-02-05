@@ -10,6 +10,7 @@ type EditorContextType = {
   setActiveColor: (color: string) => void
   shapes: Shapes
   addShape: (id: string, type: ShapeType, shape: Shape) => void
+  addShapes: (shapes: {id: string, type: ShapeType, shape: Shape}[]) => void
   removeShape: (id: string) => void
   configuration: Configuration
   metadata: Metadata
@@ -37,6 +38,7 @@ const EditorProvider = ({
   setActiveColor,
   shapes,
   addShape,
+  addShapes,
   removeShape,
   configuration,
   metadata,
@@ -53,6 +55,7 @@ const EditorProvider = ({
         setActiveColor,
         shapes,
         addShape,
+        addShapes,
         removeShape,
         configuration,
         metadata,

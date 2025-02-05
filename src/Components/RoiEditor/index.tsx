@@ -45,6 +45,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
     (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
     [shapes],
   )
+  const addShapes = useCallback(
+    (s: { id: string, type: ShapeType, shape: Shape }[]) => setShapes({ ...shapes, ...s.reduce((r, s) => ({ ...r, [s.id]: s }), {}) }),
+    [shapes],
+  )
 
   const removeShape = useCallback(
     (id: string) => {
@@ -91,6 +95,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
       setActiveColor={setActiveColor}
       shapes={shapes}
       addShape={addShape}
+      addShapes={addShapes}
       removeShape={removeShape}
       configuration={configuration}
       metadata={metadata}
