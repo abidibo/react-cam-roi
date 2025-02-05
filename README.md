@@ -7,7 +7,8 @@ Metadata are dynamic information that can be attached to the whole image and/or 
 
 ![Screenshot](./react-cam-roi.png)
 
-It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached (configured via api).    
+It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached.    
+
 Export and import functionality is also provided.
 
 Features:
@@ -22,7 +23,7 @@ Features:
 
 ## Installation
 
-```
+``` bash
 npm install @abidibo/react-cam-roi
 ```
 
@@ -243,7 +244,7 @@ You can customize many aspects of this library by using the `UiProvider`.
 - You can define custom strings used here and there (some strings require one or more placeholders).
 - You can enable logs in the console by setting the `enableLogs` option to `true`.
 
-```tsx
+``` tsx
 import IconButton from '@mui/material/IconButton'
 import { UiProvider, RoiEditor } from 'react-cam-roi'
 
@@ -441,29 +442,28 @@ type CopyIconProps = {
 
 ##### Interface
 
-``````ts
+```ts
 type AnnotateIconProps = {
   color?: string
   style?: React.CSSProperties
 }
-
+```
 #### SaveIcon
 
 ##### Interface
 
-`````ts
+```ts
 type SaveIconProps = {
   color?: string
   style?: React.CSSProperties
 }
-
-
+```
 
 #### TextField
 
 ##### Interface
 
-````ts
+```ts
 type TextFieldProps = {
   type?: 'text' | 'email' | 'password'
   onChange: (value: string) => void
@@ -475,6 +475,7 @@ type TextFieldProps = {
   readOnly?: boolean
   disabled?: boolean
 }
+```
 
 ##### Classes
 
@@ -499,7 +500,7 @@ type TextFieldProps = {
 
 ##### Interface
 
-````ts
+```ts
 type NumberFieldProps = {
   onChange: (value: number) => void
   value: number
@@ -510,6 +511,7 @@ type NumberFieldProps = {
   readOnly?: boolean
   disabled?: boolean
 }
+```
 
 ##### Classes
 
@@ -533,7 +535,7 @@ type NumberFieldProps = {
 
 ##### Interface
 
-````ts
+```ts
 type BoolFieldProps = {
   onChange: (value: boolean) => void
   value: boolean
@@ -544,6 +546,7 @@ type BoolFieldProps = {
   readOnly?: boolean
   disabled?: boolean
 }
+```
 
 ##### Classes
 
@@ -567,7 +570,7 @@ type BoolFieldProps = {
 
 ##### Interface
 
-````ts
+```ts
 type EnumFieldProps = {
   onChange: (value: string | number | (string | number)[]) => void
   value: string | number | (string | number)[]
@@ -578,6 +581,7 @@ type EnumFieldProps = {
   multiple?: boolean
   disabled?: boolean
 }
+```
 
 ##### Classes
 
@@ -602,12 +606,13 @@ type EnumFieldProps = {
 
 ##### Interface
 
-````ts
+```ts
 type ButtonProps = {
   onClick: (event: React.MouseEvent) => void
   primary?: boolean
   disabled?: boolean
 }
+```
 
 ##### Classes
 
@@ -627,7 +632,7 @@ type INotify = { // compatible with toast (react-toastify)
   error: (message: string) => void
   success: (message: string) => void
 }
-``````
+```
 
 ### Styles
 
