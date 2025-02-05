@@ -46,6 +46,65 @@ const MyComponent: React.FC = () => {
 }
 ```
 
+The `RoiEditor` props and the `Output` interface used both in import and export:
+
+``` ts 
+export type RoiEditorProps = {
+  // the url of the image we want to annotate
+  imageUrl: string
+  configuration: Configuration
+  onSubmit: (data: Output) => void
+  initialData?: Output
+}
+
+export const enum ToolEnum {
+  Pointer = 'pointer',
+  Polyline = 'polyline',
+  Polygon = 'polygon',
+  Rectangle = 'rect',
+}
+
+export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle
+
+export type OutputShapeRect = {
+  top: number
+  left: number
+  width: number
+  height: number
+  color: string
+}
+
+export type OutputShapePolyline = {
+  points: { x: number; y: number }[]
+  top: number
+  left: number
+  color: string
+}
+
+export type OutputShapePolygon = {
+  points: { x: number; y: number }[]
+  top: number
+  left: number
+  color: string
+}
+
+
+export interface OutputParameter {
+  codename: string
+  value: number | string | boolean | string[] | number[] | null
+}
+
+export interface OutputRoi {
+  parameters: OutputParameter[]
+  type: ShapeType
+  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
+}
+export interface Output {
+  parameters: OutputParameter[]
+  rois: OutputRoi[]
+}
+```
+
 Take a look at the `UiProvider` allowed props (below) to see all the customization options.
 
 ## Configuration
