@@ -25,6 +25,15 @@ const meta: Meta<RoiEditorProps> = {
       )
     },
   ],
+  args: {
+    id: 'id',
+    imageUrl: 'https://placecats.com/800/600',
+    configuration: configuration,
+    initialData: initialData as Output,
+    onSubmit: (data) => {
+      console.log('output', data)
+    },
+  },
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
@@ -49,12 +58,6 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     id: 'default',
-    imageUrl: 'https://placecats.com/800/600',
-    configuration: configuration,
-    initialData: initialData as Output,
-    onSubmit: (data) => {
-      console.log('output', data)
-    },
   },
 }
 
@@ -94,11 +97,5 @@ export const Mui: Story = {
   ],
   args: {
     id: 'mui',
-    imageUrl: 'https://placecats.com/800/600',
-    configuration: configuration,
-    initialData: initialData as Output,
-    onSubmit: (data) => {
-      console.log('output', data)
-    },
   },
 }
