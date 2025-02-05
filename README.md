@@ -2,20 +2,20 @@
 
 > Still in development!
 
-This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.
-
-Metadata are dynamic information that can be attached to the whole image or to each ROI. The ROI that can be drawn, and the metadata are controlled through a configuration object.
+This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.    
+Metadata are dynamic information that can be attached to the whole image and/or to each ROI. The number of drawable ROIs can also be configured.
 
 ![Screenshot](./react-cam-roi.png)
 
-It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each has dynamic metadata attached (configured via api).
+It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached (configured via api).    
 Export and import functionality is also provided.
 
 Features:
 
 - Autosizing of the editor: the canvas resizes to the size of the image, but it's also responsive, so if the container width is smaller, then the canvas is resized accordingly keeping the aspect ratio.
 - Draw polylines, polygons and rectangles, change dimensions and rotate them.
-- Support for dynamic metadata information attached to each shape and the whole image.
+- Support for number of drawable ROIs, defining a rule for each type.
+- Support for dynamic metadata information attached to each shape and the whole image (with validation included).
 - Import and export shapes and metadata in json format.
 - Highly customizable: shape colors, custom components and css classes.
 
@@ -28,20 +28,24 @@ npm install @abidibo/react-cam-roi
 ## Usage
 
 ```ts
-import { RoiEditor, UiProvider } from '@abidibo/react-cam-roi'
+import { RoiEditor, UiProvider, Types } from '@abidibo/react-cam-roi'
 import { Typography, IconButton, Delete } from '@mui/material'
 
 const MyComponent: React.FC = () => {
     const themMode = 'light'
-    const config = {} // se below
+    const config = {} // see below
+
+    const handleSubmit = (data: Types.Ouput) =>  console.log(data)
 
     return (
         <UiProvider themeMode={themeMode} IconButton={IconButton} Typography={Typography} DeleteIcon={() => <Delete />}>
-          <RoiEditor imageUrl={'https://placecats.com/800/600'} configuration={config} />
+          <RoiEditor imageUrl={'https://placecats.com/800/600'} configuration={config} onSubmit={handleSubmit} />
         </UiProvider>
     )
 }
 ```
+
+Take a look at the `UiProvider` allowed props (below) to see all the customization options.
 
 ## Configuration
 
@@ -52,6 +56,7 @@ The configuration prop defines which kind and how many ROIs can be drawn, along 
 // import { Types } from '@abidibo/react-cam-roi'
 // const { ToolEnum, ShapeType, DataTypeEnum, OperatorEnum, ConfigurationParameter, RoiConfiguration, Configuration } = Types
 
+// The drawable shapes plus the Pointer tool
 export const enum ToolEnum {
   Pointer = 'pointer',
   Polyline = 'polyline',
@@ -59,8 +64,10 @@ export const enum ToolEnum {
   Rectangle = 'rect',
 }
 
+// Allowed shape types
 export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle
 
+// Data types allowed for metadata values
 export enum DataTypeEnum {
   Integer = 'int',
   Float = 'float',
@@ -68,6 +75,7 @@ export enum DataTypeEnum {
   Boolean = 'bool',
 }
 
+// Operators allowed for multiplicity (control how many shapes should/can be drawn)
 export enum OperatorEnum {
   Lt = 'lt',
   Lte = 'lte',
@@ -76,33 +84,41 @@ export enum OperatorEnum {
   Eq = 'eq',
 }
 
+// Definition of a metadata parameter
 export type ConfigurationParameter = {
-  codename: string
-  label: string
-  description: string
-  unit: string
-  type: DataTypeEnum
-  options: { value: number | string | boolean; label: string }[]
-  multiple?: boolean
-  required: boolean
-  value: number | string | boolean | null
+  codename: string // unique
+  label: string // label of the parameter
+  description: string // helper text
+  unit: string // postponed to the label
+  type: DataTypeEnum // value type
+  options: { value: number | string | boolean; label: string }[] // if filled the component will be a dropdown
+  multiple?: boolean // for multiple selection
+  required: boolean // required parameter
+  value: number | string | boolean | null // default value
 }
 
+// Configuration of ROIs
 export type RoiConfiguration = {
-  role: string
-  type: Omit<ShapeType, 'pointer'>
-  multiplicity: {
+  role: string // for our use case
+  type: Omit<ShapeType, 'pointer'> // shape type
+  multiplicity: { // how many ROIs of this type can be drawn
     operator: OperatorEnum
     threshold: number
   }
-  parameters: ConfigurationParameter[]
+  parameters: ConfigurationParameter[] // ROIs parameters for this shape type
 }
 
+// Whole configuration
 export type Configuration = {
   parameters: ConfigurationParameter[]
   rois: RoiConfiguration[]
+  options: {
+    hideForbiddenTools?: boolean // hide tools controllers for shapes that cannot be drawn
+    description?: string // optional initial text shown in the editor
+  }
 }
 
+// Example
 export const configuration: Configuration = {
   parameters: [
     {
@@ -154,25 +170,17 @@ export const configuration: Configuration = {
     description?: string,
   }
 }
-
-export type Metadata = {
-  parameters: ConfigurationParameter[]
-  rois: {
-    id: string,
-    parameters: ConfigurationParameter[],
-  }[]
-}
 ```
 
-## Customization
+## UiProvider and Customization
 
 You can customize many aspects of this library by using the `UiProvider`.
 
-- You can customize both the styles and the components use in this library. The library provides default components with an interface compatible witu mui components.
+- You can customize both the styles and the components used in this library. The library provides default components with an interface almost compatible witu mui components (maybe you'll need to wrap some of them).
 - You can override them by using the `UiProvider`. But you can also use the default ones and just add your styling.
 - You can pass a theme mode which is used by the default components to determine the color scheme. It is also used to define custom classes you can use for styling.
 - You can define a primary color which is used for color or background of active elements.
-- You can define custom strings used here and there.
+- You can define custom strings used here and there (some strings require one or more placeholders).
 - You can enable logs in the console by setting the `enableLogs` option to `true`.
 
 ```tsx
@@ -195,26 +203,25 @@ Props and types are defined later in this document.
 ```ts
 type UiContextType = {
   children?: React.ReactNode
-  enableLogs: boolean
-  themeMode: 'light' | 'dark'
-  primaryColor: string
-  Typography: React.FC<TypographyProps>
-  Modal: React.FC<ModalProps>
-  IconButton: React.FC<IconButtonProps>
-  DeleteIcon: React.FC<DeleteIconProps>
-  EditIcon: React.FC<EditIconProps>
-  SelectIcon: React.FC<SelectIconProps>
-  CopyIcon: typeof CopyIcon
-  AnnotateIcon: typeof AnnotateIcon
-  CloseIcon: typeof CloseIcon
-  SaveIcon: typeof SaveIcon
-  TextField: typeof TextField
-  NumberField: typeof NumberField
-  BoolField: typeof BoolField
-  EnumField: typeof EnumField
-  Button: typeof Button
-  notify: INotify
-  strings: {
+  enableLogs: boolean // enable console logs
+  themeMode: 'light' | 'dark' // themeMode for internal components
+  primaryColor: string // primary color for internal components
+  Typography: React.FC<TypographyProps> // component used to surround text
+  Modal: React.FC<ModalProps> // modal dialog component (it displays metadata forms)
+  IconButton: React.FC<IconButtonProps> // wrapper for icon buttons
+  DeleteIcon: React.FC<DeleteIconProps> // delete icon
+  SelectIcon: React.FC<SelectIconProps> // select icon
+  CopyIcon: typeof CopyIcon // copy icon (clone a shape)
+  AnnotateIcon: typeof AnnotateIcon // annotate icon (open metadata form)
+  CloseIcon: typeof CloseIcon // close icon
+  SaveIcon: typeof SaveIcon // save icon
+  TextField: typeof TextField // field used for text input
+  NumberField: typeof NumberField // field used for number input
+  BoolField: typeof BoolField // field used for boolean input
+  EnumField: typeof EnumField // field used for enum input (options filled in parameter definition)
+  Button: typeof Button // button
+  notify: INotify // function used to display notifications
+  strings: { // strings used here and there
     cancel: string
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
