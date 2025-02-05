@@ -41,7 +41,7 @@ export const configuration: Configuration = {
       multiplicity: {
         // how many rois of this type can/should be created
         operator: OperatorEnum.Eq, // lt | lte | gt | gte | eq
-        threshold: 2,
+        threshold: 1,
       },
       parameters: [
         {
@@ -56,10 +56,31 @@ export const configuration: Configuration = {
         },
       ],
     },
+    {
+      role: 'limit', // analytics role, do not show in interface
+      type: ToolEnum.Polyline,
+      multiplicity: {
+        // how many rois of this type can/should be created
+        operator: OperatorEnum.Gte, // lt | lte | gt | gte | eq
+        threshold: 1,
+      },
+      parameters: [
+        {
+          codename: 'height', // internal code
+          label: 'Limit height', // to be shown in interface
+          description: 'Height of the limit', // tooltip
+          unit: 'm', // unit
+          type: DataTypeEnum.Float, // int, float, string, bool
+          options: [],
+          required: true, // true / false,
+          value: null, // default value
+        },
+      ],
+    },
   ],
   options: {
     hideForbiddenTools: false,
-    description: 'Draw three polygons and bla bla bla',
+    description: 'Draw a polygon and one or more polylines.',
   },
 }
 
@@ -118,11 +139,11 @@ export const initialData = {
     {
       parameters: [
         {
-          codename: 'threshold',
-          value: 3,
+          codename: 'height',
+          value: 6.8,
         },
       ],
-      type: 'polygon',
+      type: 'polyline',
       shape: {
         points: [
           {
