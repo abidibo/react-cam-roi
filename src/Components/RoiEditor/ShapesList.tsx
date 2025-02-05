@@ -61,10 +61,10 @@ const ShapesList: React.FC = () => {
           <thead>
             <tr>
               <th>
-                <Typography>{strings.id}</Typography>
+                <Typography style={{ fontWeight: 'bold' }}>{strings.id}</Typography>
               </th>
               <th>
-                <Typography>{strings.type}</Typography>
+                <Typography style={{ fontWeight: 'bold' }}>{strings.type}</Typography>
               </th>
               <th />
             </tr>

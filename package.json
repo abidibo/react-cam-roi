@@ -37,7 +37,11 @@
   "license": "MIT",
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@eslint/js": "^9.18.0",
+    "@fontsource/roboto": "^5.1.1",
+    "@mui/material": "^6.4.3",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
@@ -62,7 +66,8 @@
   },
   "dependencies": {
     "fabric": "^6.5.4",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "vite": "^6.1.0"
   },
   "peerDependencies": {
     "react": "^18.0.0",

@@ -372,6 +372,7 @@ type TypographyProps = {
   variant?: any // compatible with mui
   component?: any // compatible with mui
   className?: string
+  style?: React.CSSProperties
 }
 ```
 

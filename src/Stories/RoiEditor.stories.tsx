@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+import { Checkbox, FormControlLabel, IconButton, TextField, Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
 
 import RoiEditor from '../Components/RoiEditor'
+import { Output } from '../Components/RoiEditor/Types'
 import UiProvider from '../Providers/UiProvider'
 import { configuration, initialData } from './Fixtures'
-import { Output } from '../Components/RoiEditor/Types'
 
 type RoiEditorProps = React.ComponentProps<typeof RoiEditor>
 const meta: Meta<RoiEditorProps> = {
@@ -45,6 +51,51 @@ export const Default: Story = {
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
     initialData: initialData as Output,
-    onSubmit: (data) => { console.log('output', data) }
+    onSubmit: (data) => {
+      console.log('output', data)
+    },
+  },
+}
+
+const CustomTextField = ({ onChange, ...props }: any) => (
+  <TextField {...props} onChange={(evt) => onChange(evt.target.value)} variant="outlined" />
+)
+const CustomNumberField = ({ onChange, ...props }: any) => (
+  <TextField {...props} onChange={(evt) => onChange(evt.target.value)} variant="outlined" />
+)
+const CustomBoolField = ({ onChange, checked, ...props }: any) => (
+  <FormControlLabel
+    {...props}
+    control={<Checkbox checked={checked} onChange={(evt) => onChange(evt.target.checked)} />}
+  />
+)
+
+export const Mui: Story = {
+  decorators: [
+    (Story, context) => {
+      return (
+        <div>
+          <h4>Example using some MUI components: TextField, Checkbox, IconButton</h4>
+          <UiProvider
+            themeMode={context.globals.theme}
+            IconButton={IconButton}
+            Typography={Typography}
+            TextField={CustomTextField}
+            NumberField={CustomNumberField}
+            BoolField={CustomBoolField}
+          >
+            <Story />
+          </UiProvider>
+        </div>
+      )
+    },
+  ],
+  args: {
+    imageUrl: 'https://placecats.com/800/600',
+    configuration: configuration,
+    initialData: initialData as Output,
+    onSubmit: (data) => {
+      console.log('output', data)
+    },
   },
 }
