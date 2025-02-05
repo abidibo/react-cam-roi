@@ -75,14 +75,17 @@ export type OutputShapeRect = {
   left: number
   width: number
   height: number
+  color: string
 }
 
 export type OutputShapePolyline = {
   points: { x: number; y: number }[]
+  color: string
 }
 
 export type OutputShapePolygon = {
   points: { x: number; y: number }[]
+  color: string
 }
 
 export interface Output {
