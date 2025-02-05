@@ -21,7 +21,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
 
   useEffect(() => {
     if (canvasSize.width !== 0 && canvasSize.height !== 0 && !initialized) {
-      canvasRef.current = new fabric.Canvas('react-cam-roi-canvas')
+      canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${id}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
       initCanvasData(canvasRef, addShapes, metadata, setMetadata, initialData, enableLogs)
       setInitialized(true)
