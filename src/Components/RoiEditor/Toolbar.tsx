@@ -39,13 +39,22 @@ const Toolbar = () => {
             <IconButton onClick={setTool(ToolEnum.Pointer)}>
               <PointerIcon color={iconColor(ToolEnum.Pointer)} />
             </IconButton>
-            <IconButton onClick={setTool(ToolEnum.Polyline)}>
+            <IconButton
+              onClick={setTool(ToolEnum.Polyline)}
+              disabled={!configuration.rois.find((r) => r.type === ToolEnum.Polyline)}
+            >
               <PolylineIcon color={iconColor(ToolEnum.Polyline)} />
             </IconButton>
-            <IconButton onClick={setTool(ToolEnum.Polygon)}>
+            <IconButton
+              onClick={setTool(ToolEnum.Polygon)}
+              disabled={!configuration.rois.find((r) => r.type === ToolEnum.Polygon)}
+            >
               <PolygonIcon color={iconColor(ToolEnum.Polygon)} />
             </IconButton>
-            <IconButton onClick={setTool(ToolEnum.Rectangle)}>
+            <IconButton
+              onClick={setTool(ToolEnum.Rectangle)}
+              disabled={!configuration.rois.find((r) => r.type === ToolEnum.Rectangle)}
+            >
               <RectangleIcon color={iconColor(ToolEnum.Rectangle)} />
             </IconButton>
             <ColorPicker style={{ marginLeft: 'auto', marginRight: '.5rem' }} />
