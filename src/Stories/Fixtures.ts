@@ -58,6 +58,7 @@ export const configuration: Configuration = {
     },
   ],
   options: {
-    hideForbiddenTools: false
+    hideForbiddenTools: false,
+    description: "Draw three polygons and bla bla bla",
   }
 }

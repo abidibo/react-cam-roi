@@ -55,6 +55,7 @@ export type Configuration = {
   rois: RoiConfiguration[],
   options?: {
     hideForbiddenTools?: boolean
+    description?: string
   }
 }
 

@@ -38,6 +38,11 @@ const Toolbar = () => {
 
   return (
     <>
+      {configuration.options?.description && (
+        <div className={css('toolbar-info', styles, themeMode)}>
+          <Typography>{configuration.options.description}</Typography>
+        </div>
+      )}
       <div className={css('toolbar', styles, themeMode)}>
         {enableRois(configuration) && (
           <>

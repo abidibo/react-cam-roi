@@ -1,3 +1,15 @@
+.toolbar-info {
+  padding: .5rem;
+}
+.toolbar-info-light {
+  background-color: #ddd;;
+  color: #000;
+}
+.toolbar-info-dark {
+  background-color: #222;
+  color: #fff;
+}
+
 .toolbar {
   align-items: center;
   display: flex;

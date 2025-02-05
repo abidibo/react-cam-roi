@@ -150,7 +150,8 @@ export const configuration: Configuration = {
     },
   ],
   options?: {
-    hideForbiddenTools?: boolean
+    hideForbiddenTools?: boolean,
+    description?: string,
   }
 }
 
@@ -572,6 +573,10 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-editor-wrapper-dark`
 
 #### Toolbar
+
+- `react-cam-roi-toolbar-info`
+- `react-cam-roi-toolbar-info-light`
+- `react-cam-roi-toolbar-info-dark`
 
 - `react-cam-roi-toolbar`
 - `react-cam-roi-toolbar-light`
