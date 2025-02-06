@@ -24,7 +24,8 @@ const ShapesList: React.FC = () => {
     }
   }, [shapes])
 
-  const handleCopyShape = (id: string) => () => {
+  const handleCopyShape = (id: string) => (evt: React.MouseEvent) => {
+    evt.stopPropagation()
     Dispatcher.emit('canvas:copyShape', id)
   }
 
@@ -44,10 +45,7 @@ const ShapesList: React.FC = () => {
   const handleSubmitMetadata = (shapeId: string) => (data: OutputParameter[]) => {
     setMetadata({
       ...metadata,
-      rois: [
-        ...metadata.rois.filter((r) => r.id !== shapeId),
-        { id: shapeId, parameters: data },
-      ]
+      rois: [...metadata.rois.filter((r) => r.id !== shapeId), { id: shapeId, parameters: data }],
     })
     setForm({ isOpen: false, shapeId: '' })
   }
@@ -73,7 +71,17 @@ const ShapesList: React.FC = () => {
         <tbody>
           {Object.keys(shapes).map((id, idx) => {
             return (
-              <tr key={id} className={selected.indexOf(id) > -1 ? css('shapes-row-selected', styles, themeMode) : (idx % 2 === 0 ? css('shapes-row-even', styles, themeMode) : css('shapes-row-odd', styles, themeMode))}>
+              <tr
+                onClick={handleSelectShape(id)}
+                key={id}
+                className={
+                  selected.indexOf(id) > -1
+                    ? css('shapes-row-selected', styles, themeMode)
+                    : idx % 2 === 0
+                      ? css('shapes-row-even', styles, themeMode)
+                      : css('shapes-row-odd', styles, themeMode)
+                }
+              >
                 <td>
                   <div>
                     <Typography>{id.substring(0, 6)}</Typography>
