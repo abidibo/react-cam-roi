@@ -675,6 +675,12 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-shapes-table`
 - `react-cam-roi-shapes-table-light`
 - `react-cam-roi-shapes-table-dark`
+- `react-cam-roi-shapes-row-selected-light`
+- `react-cam-roi-shapes-row-selected-dark`
+- `react-cam-roi-shapes-row-even-light`
+- `react-cam-roi-shapes-row-even-dark`
+- `react-cam-roi-shapes-row-odd-light`
+- `react-cam-roi-shapes-row-odd-dark`
 
 #### Colorpicker button
 

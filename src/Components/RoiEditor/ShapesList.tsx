@@ -71,9 +71,9 @@ const ShapesList: React.FC = () => {
           </thead>
         )}
         <tbody>
-          {Object.keys(shapes).map((id) => {
+          {Object.keys(shapes).map((id, idx) => {
             return (
-              <tr key={id} className={selected.indexOf(id) > -1 ? css('shapes-row-selected', styles, themeMode) : ''}>
+              <tr key={id} className={selected.indexOf(id) > -1 ? css('shapes-row-selected', styles, themeMode) : (idx % 2 === 0 ? css('shapes-row-even', styles, themeMode) : css('shapes-row-odd', styles, themeMode))}>
                 <td>
                   <div>
                     <Typography>{id.substring(0, 6)}</Typography>

@@ -34,3 +34,19 @@
 .shapes-row-selected-dark {
   background-color: #666;
 }
+
+.shapes-row-even-light {
+  background-color: #f7f7f7;
+}
+
+.shapes-row-even-dark {
+  background-color: #444;
+}
+
+.shapes-row-odd-light {
+  background-color: #f0f0f0;
+}
+
+.shapes-row-odd-dark {
+  background-color: #555;
+}
