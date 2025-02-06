@@ -45,6 +45,7 @@ type UiContextType = {
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
+    color: string
     id: string
     invalidSubmission: string
     mainParametersMetadata: string
@@ -94,6 +95,7 @@ export const DefaultUiContext: UiContextType = {
     cannotDrawMorePolygons: 'You cannot draw more polygons',
     cannotDrawMorePolylines: 'You cannot draw more polylines',
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
+    color: 'Color',
     id: 'ID',
     invalidSubmission: 'Invalid submission',
     mainParametersMetadata: 'Main parameters',

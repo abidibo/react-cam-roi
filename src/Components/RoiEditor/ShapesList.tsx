@@ -64,6 +64,7 @@ const ShapesList: React.FC = () => {
               <th>
                 <Typography style={{ fontWeight: 'bold' }}>{strings.type}</Typography>
               </th>
+              <th>{strings.color}</th>
               <th />
             </tr>
           </thead>
@@ -90,6 +91,7 @@ const ShapesList: React.FC = () => {
                 <td>
                   <Typography>{strings[shapes[id].type]}</Typography>
                 </td>
+                <td><div className={styles.shapesTableColor} style={{ backgroundColor: shapes[id].shape.stroke as string }} /></td>
                 <td>
                   <IconButton onClick={handleSelectShape(id)}>
                     <SelectIcon color={iconColor} />

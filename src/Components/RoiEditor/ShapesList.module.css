@@ -50,3 +50,11 @@
 .shapes-row-odd-dark {
   background-color: #555;
 }
+
+.shapesTableColor {
+  border: 1px solid #000;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
