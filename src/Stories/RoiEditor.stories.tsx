@@ -19,14 +19,17 @@ const meta: Meta<RoiEditorProps> = {
   decorators: [
     (Story, context) => {
       return (
-        <UiProvider themeMode={context.globals.theme}>
-          <Story />
-        </UiProvider>
+        <div>
+          <h2>react-cam-roi</h2>
+          <UiProvider themeMode={context.globals.theme}>
+            <Story />
+          </UiProvider>
+        </div>
       )
     },
   ],
   args: {
-    id: 'id',
+    id: 'meow',
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
     initialData: initialData as Output,
@@ -39,7 +42,7 @@ const meta: Meta<RoiEditorProps> = {
     layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ['autodocs'],
+  // tags: ['autodocs'],
   // argTypes: {
   //   themeMode: {
   //     options: ['light', 'dark'], // iterator
@@ -57,7 +60,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    id: 'default',
+    id: 'default' + String(new Date().getTime()),
   },
 }
 
@@ -98,4 +101,5 @@ export const Mui: Story = {
   args: {
     id: 'mui',
   },
+  tags: ['autodocs'],
 }
