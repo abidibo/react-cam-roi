@@ -61,6 +61,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
     [shapes, metadata],
   )
 
+  // TODO: go with percentage coordinates or pixel coordinates but relative to original image
   const handleSubmit = useCallback(() => {
     const [isValid, errors] = validate(configuration, shapes, metadata, strings)
     if (isValid) {

@@ -169,7 +169,7 @@ export const initialData = {
         ],
         top: 41.203125,
         left: 485,
-        color: '#ffffff',
+        color: '#ff9900',
       },
     },
   ],
