@@ -2,8 +2,8 @@ import { useContext } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { OperatorEnum } from './Types'
 import { formatString, humanize } from '../../Utils'
+import { OperatorEnum } from './Types'
 
 const RoisInfo = () => {
   const { strings, Typography } = useContext(UiContext)
@@ -15,7 +15,7 @@ const RoisInfo = () => {
     <div>
       <Typography component="div">{strings.roisToBeDrawn}:</Typography>
       <ul>
-        {configuration.rois.map(r => {
+        {configuration.rois.map((r) => {
           let rule: string
           const data = {
             role: humanize(r.role),
@@ -42,7 +42,9 @@ const RoisInfo = () => {
               rule = formatString(strings.roiMultiplicityNoRule, data)
           }
           return (
-          <li key={r.role}><Typography>{rule}</Typography></li>
+            <li key={r.role}>
+              <Typography>{rule}</Typography>
+            </li>
           )
         })}
       </ul>
