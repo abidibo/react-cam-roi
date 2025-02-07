@@ -7,6 +7,7 @@ import styles from './Header.module.css'
 import ParametersModalForm from './ParametersModalForm'
 import { OutputParameter } from './Types'
 import { enableMainMetadata } from './Utils'
+import RoisInfo from './RoisInfo'
 
 const Header = () => {
   const { themeMode, Typography, Button, strings, SaveIcon, primaryFgColor, AnnotateIcon } =
@@ -28,6 +29,7 @@ const Header = () => {
     <div className={css('header', styles, themeMode)}>
       <div className={css('header-info', styles, themeMode)}>
         {configuration.options?.description && <Typography>{configuration.options.description}</Typography>}
+        <RoisInfo />
       </div>
       <div className={styles.headerButtons}>
         {enableMainMetadata(configuration) && (

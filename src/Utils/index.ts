@@ -9,3 +9,11 @@ export const css = (name: string, styles: Record<string, string>, themeMode: 'li
       .replace('_', ' ')
       .replace(/^./, (str) => str.toUpperCase())
   }
+
+export const formatString = (str: string, placeholders: Record<string, string | number>) => {
+  Object.keys(placeholders).forEach((key) => {
+    str = str.replace(`{${key}}`, placeholders[key].toString())
+  })
+
+  return str
+}

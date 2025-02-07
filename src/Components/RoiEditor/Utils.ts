@@ -1,4 +1,15 @@
-import { Configuration, ConfigurationParameter, INotify, Metadata, OperatorEnum, Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { formatString } from '../../Utils'
+import {
+  Configuration,
+  ConfigurationParameter,
+  INotify,
+  Metadata,
+  OperatorEnum,
+  Shape,
+  Shapes,
+  ShapeType,
+  ToolEnum,
+} from './Types'
 
 export const notify: INotify = {
   info: (message: string) => alert(`Info: ${message}`),
@@ -86,11 +97,15 @@ export const validate = (
   shapes: Shapes,
   metadata: Metadata,
   strings: Record<string, string>,
-) : [boolean, string[]] => {
+): [boolean, string[]] => {
   const errors = []
   // check main parameters
   if (configuration.parameters.length) {
-    if (metadata.parameters.find((p) => configuration.parameters.find((p2) => p2.codename === p.codename)?.required && isEmpty(p.value))) {
+    if (
+      metadata.parameters.find(
+        (p) => configuration.parameters.find((p2) => p2.codename === p.codename)?.required && isEmpty(p.value),
+      )
+    ) {
       errors.push(strings.missingRequiredValuesInMainParameters)
     }
   }
@@ -102,45 +117,50 @@ export const validate = (
         case OperatorEnum.Eq:
           if (Object.values(shapes).filter((s) => s.type === roi.type).length !== roi.multiplicity.threshold) {
             errors.push(
-              strings.shapesOfTypeShouldBeEqualToThreshold
-                .replace('{type}', String(roi.type))
-                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+              formatString(strings.shapesOfTypeShouldBeEqualToThreshold, {
+                type: String(roi.type),
+                threshold: roi.multiplicity.threshold,
+              }),
             )
           }
           break
         case OperatorEnum.Lt:
           if (Object.values(shapes).filter((s) => s.type === roi.type).length >= roi.multiplicity.threshold) {
             errors.push(
-              strings.shapesOfTypeShouldBeLessThanThreshold
-                .replace('{type}', String(roi.type))
-                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+              formatString(strings.shapesOfTypeShouldBeLessThanThreshold, {
+                type: String(roi.type),
+                threshold: roi.multiplicity.threshold,
+              }),
             )
           }
           break
         case OperatorEnum.Lte:
           if (Object.values(shapes).filter((s) => s.type === roi.type).length > roi.multiplicity.threshold) {
             errors.push(
-              strings.shapesOfTypeShouldBeLessThanOrEqualToThreshold
-                .replace('{type}', String(roi.type))
-                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+              formatString(strings.shapesOfTypeShouldBeLessThanOrEqualToThreshold, {
+                type: String(roi.type),
+                threshold: roi.multiplicity.threshold,
+              }),
             )
           }
           break
         case OperatorEnum.Gt:
           if (Object.values(shapes).filter((s) => s.type === roi.type).length <= roi.multiplicity.threshold) {
             errors.push(
-              strings.shapesOfTypeShouldBeGreaterThanThreshold
-                .replace('{type}', String(roi.type))
-                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+              formatString(strings.shapesOfTypeShouldBeGreaterThanThreshold, {
+                type: String(roi.type),
+                threshold: roi.multiplicity.threshold,
+              }),
             )
           }
           break
         case OperatorEnum.Gte:
           if (Object.values(shapes).filter((s) => s.type === roi.type).length < roi.multiplicity.threshold) {
             errors.push(
-              strings.shapesOfTypeShouldBeGreaterThanOrEqualToThreshold
-                .replace('{type}', String(roi.type))
-                .replace('{threshold}', roi.multiplicity.threshold.toString()),
+              formatString(strings.shapesOfTypeShouldBeGreaterThanOrEqualToThreshold, {
+                type: String(roi.type),
+                threshold: roi.multiplicity.threshold,
+              }),
             )
           }
       }
@@ -148,16 +168,18 @@ export const validate = (
   })
 
   // check rois metadata
-  Object.keys(shapes).forEach(shapeId => {
+  Object.keys(shapes).forEach((shapeId) => {
     const type = shapes[shapeId].type
     const confParameters = configuration.rois.find((r) => r.type === type)?.parameters ?? []
     confParameters.forEach((p) => {
-      if (p.required && isEmpty(metadata.rois.find((r) => r.id === shapeId)?.parameters.find((p) => p.codename === p.codename)?.value)) {
+      if (
+        p.required &&
+        isEmpty(metadata.rois.find((r) => r.id === shapeId)?.parameters.find((p) => p.codename === p.codename)?.value)
+      ) {
         errors.push(strings.missingRequiredValuesInShapeParameters.replace('{id}', shapeId))
       }
     })
   })
-
 
   return [errors.length === 0, errors]
 }
@@ -170,7 +192,7 @@ export const fabricShapeToOutputShape = (shape: Shape, type: ShapeType) => {
         left: shape.left,
         width: shape.width,
         height: shape.height,
-        color: shape.stroke as string
+        color: shape.stroke as string,
       }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
@@ -178,7 +200,7 @@ export const fabricShapeToOutputShape = (shape: Shape, type: ShapeType) => {
         points: shape.get('points'),
         top: shape.top,
         left: shape.left,
-        color: shape.stroke as string
+        color: shape.stroke as string,
       }
   }
 }

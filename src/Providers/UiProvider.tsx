@@ -51,6 +51,12 @@ type UiContextType = {
     mainParametersMetadata: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string
+    roiMultiplicityEqRule: string
+    roiMultiplicityGtRule: string
+    roiMultiplicityGteRule: string
+    roiMultiplicityLtRule: string
+    roiMultiplicityLteRule: string
+    roiMultiplicityNoRule: string
     name: string
     polygon: string
     polygonHelpText: string
@@ -60,6 +66,7 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    roisToBeDrawn: string
     role: string
     requiredField: string
     save: string
@@ -114,6 +121,13 @@ export const DefaultUiContext: UiContextType = {
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
     requiredField: 'This field is required',
+    roiMultiplicityEqRule: 'a number of {role} ({type}) equal to {threshold}',
+    roiMultiplicityGtRule: 'a number of {role} ({type}) greater than {threshold}',
+    roiMultiplicityGteRule: 'a number of {role} ({type}) greater than or equal to {threshold}',
+    roiMultiplicityLtRule: 'a number of {role} ({type}) less than {threshold}',
+    roiMultiplicityLteRule: 'a number of {role} ({type}) less than or equal to {threshold}',
+    roiMultiplicityNoRule: 'a number of {role} ({type})',
+    roisToBeDrawn: 'ROIs to be drawn',
     role: 'Role',
     save: 'Save',
     shapeParametersMetadata: 'Shape parameters',

@@ -301,6 +301,12 @@ type UiContextType = {
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string // with {id} placeholder
     mainParametersMetadata: strings
+    roiMultiplicityEqRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityGtRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityGteRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityLtRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityLteRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityNoRule: string // with {role}, {type}
     name: string
     polygon: string
     polygonHelpText: string
@@ -311,6 +317,7 @@ type UiContextType = {
     rect: string
     rectHelpText: string
     requiredField: string
+    roisToBeDrawn: string
     role: string
     save: string
     shapeParametersMetadata: string
