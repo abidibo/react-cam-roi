@@ -9,7 +9,7 @@ import { OutputParameter } from './Types'
 import { enableMainMetadata } from './Utils'
 
 const Header = () => {
-  const { themeMode, Typography, Button, strings, SaveIcon, primaryFgColor, AnnotateIcon, IconButton } =
+  const { themeMode, Typography, Button, strings, SaveIcon, primaryFgColor, AnnotateIcon } =
     useContext(UiContext)
   const { configuration, onSubmit, metadata, setMetadata } = useEditorContext()
   const [form, setForm] = useState<{ isOpen: boolean }>({ isOpen: false })
