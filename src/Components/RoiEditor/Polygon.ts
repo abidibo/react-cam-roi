@@ -2,6 +2,7 @@ import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
 
 import { FabricEvent, IAddShape, Shape, ToolEnum } from './Types'
+import Dispatcher from '../../Utils/Dispatcher';
 
 const addPoint = (
   event: FabricEvent,
@@ -72,7 +73,6 @@ export const handleDoubleClickPolygon = (
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
   setLines: (v: fabric.Line[]) => void,
-  addShape: IAddShape,
 ) => {
   if (points.length > 2) {
     const id = uuidv4()
@@ -87,7 +87,7 @@ export const handleDoubleClickPolygon = (
       id,
     })
     canvas.add(polygon)
-    addShape((polygon as Shape).id!, ToolEnum.Polygon, polygon)
+    Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polygon, shape: polygon })
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines
@@ -97,7 +97,7 @@ export const handleDoubleClickPolygon = (
   }
 }
 
-export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon, addShape: IAddShape) => {
+export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon) => {
   const id = uuidv4()
   const copy = new fabric.Polygon(polygon.points, {
     top: polygon.top + 10,
@@ -112,6 +112,6 @@ export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon, addS
     id,
   })
   canvas.add(copy)
-  addShape(id, ToolEnum.Polygon, copy)
+  Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polygon, shape: copy })
   return copy
 }

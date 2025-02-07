@@ -2,6 +2,7 @@ import * as fabric from 'fabric'
 import { v4 as uuidv4 } from 'uuid'
 
 import { FabricEvent, IAddShape, Shape, ShapeType, ToolEnum } from './Types'
+import Dispatcher from '../../Utils/Dispatcher'
 
 export const handleMouseDownRect = (
   event: FabricEvent,
@@ -66,16 +67,15 @@ export const handleMouseUpRect = (
   setIsDrawing: (v: boolean) => void,
   shape: Shape,
   setShape: (v: Shape | null) => void,
-  addShape: (id: string, type: ShapeType, shape: Shape) => void,
 ) => {
   setIsDrawing(false)
   shape.setCoords()
-  addShape(shape.id!, ToolEnum.Rectangle, shape)
+  Dispatcher.emit('canvas:shapeAdded', { id: shape!.id, type: ToolEnum.Rectangle, shape })
   setShape(null)
   canvas.defaultCursor = 'default'
 }
 
-export const copyRectangle = (canvas: fabric.Canvas, rectangle: fabric.Rect, addShape: IAddShape) => {
+export const copyRectangle = (canvas: fabric.Canvas, rectangle: fabric.Rect) => {
   const id = uuidv4()
   const copy = new fabric.Rect({
     left: rectangle.left + 10,
@@ -95,6 +95,6 @@ export const copyRectangle = (canvas: fabric.Canvas, rectangle: fabric.Rect, add
   })
 
   canvas.add(copy)
-  addShape(id, ToolEnum.Rectangle, copy)
+  Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Rectangle, shape: copy })
   return copy
 }

@@ -6,14 +6,30 @@ import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import ParametersModalForm from './ParametersModalForm'
 import styles from './ShapesList.module.css'
-import { OutputParameter, Shape } from './Types'
+import { OutputParameter, Shape, ShapeType } from './Types'
 
 const ShapesList: React.FC = () => {
   const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, SelectIcon, CopyIcon, themeMode } =
     useContext(UiContext)
-  const { shapes, removeShape, configuration, metadata, setMetadata } = useEditorContext()
+  const { shapes, removeShape, configuration, metadata, setMetadata, addShape } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
-  const [form, setForm] = useState<{ isOpen: boolean; shapeId: string }>({ isOpen: false, shapeId: '' })
+  const [form, setForm] = useState<{ isOpen: boolean; shapeId: string; type: ShapeType | null; shape: Shape | null }>({
+    isOpen: false,
+    shapeId: '',
+    type: null,
+    shape: null,
+  })
+
+  // open metadata form immediately after drawing the shape
+  useEffect(() => {
+    const openForm = (_: unknown, { id, type, shape }: { id: string; type: ShapeType; shape: Shape }) =>
+      setForm({ isOpen: true, shapeId: id, type, shape })
+    Dispatcher.register<{ id: string; type: ShapeType; shape: Shape }>('canvas:shapeAdded', openForm)
+
+    return () => {
+      Dispatcher.unregister('canvas:shapeAdded', openForm)
+    }
+  }, [])
 
   useEffect(() => {
     const setSelectedShapes = (_: string, event: Shape[]) => setSelected(event?.map((s: Shape) => s.id!) ?? [])
@@ -39,15 +55,27 @@ const ShapesList: React.FC = () => {
   }
 
   const handleEditShapeMetadata = (id: string) => () => {
-    setForm({ isOpen: true, shapeId: id })
+    setForm({ isOpen: true, shapeId: id, type: null, shape: null })
   }
 
   const handleSubmitMetadata = (shapeId: string) => (data: OutputParameter[]) => {
+    // if in creation mode, add the shape
+    if (form.type !== null) {
+      addShape(shapeId, form.type, form.shape!)
+    }
     setMetadata({
       ...metadata,
       rois: [...metadata.rois.filter((r) => r.id !== shapeId), { id: shapeId, parameters: data }],
     })
-    setForm({ isOpen: false, shapeId: '' })
+    setForm({ isOpen: false, shapeId: '', type: null, shape: null })
+  }
+
+  const handleCloseMetadataForm = () => {
+    // if in creation mode do not add shape and delete shape from canvas
+    if (form.type !== null) {
+      Dispatcher.emit('canvas:removeShape', form.shapeId)
+    }
+    setForm({ isOpen: false, shapeId: '', type: null, shape: null })
   }
 
   const iconColor = themeMode === 'light' ? 'black' : 'white'
@@ -91,7 +119,12 @@ const ShapesList: React.FC = () => {
                 <td>
                   <Typography>{strings[shapes[id].type]}</Typography>
                 </td>
-                <td><div className={styles.shapesTableColor} style={{ backgroundColor: shapes[id].shape.stroke as string }} /></td>
+                <td>
+                  <div
+                    className={styles.shapesTableColor}
+                    style={{ backgroundColor: shapes[id].shape.stroke as string }}
+                  />
+                </td>
                 <td>
                   <IconButton onClick={handleSelectShape(id)}>
                     <SelectIcon color={iconColor} />
@@ -116,14 +149,16 @@ const ShapesList: React.FC = () => {
       </table>
       {form.isOpen && (
         <ParametersModalForm
-          parameters={configuration.rois.find((roi) => roi.type === shapes[form.shapeId].type)?.parameters ?? []}
+          parameters={
+            configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ?? []
+          }
           data={
             metadata.rois.find((roi) => roi.id === form.shapeId)?.parameters ??
-            configuration.rois.find((roi) => roi.type === shapes[form.shapeId].type)?.parameters ??
+            configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ??
             []
           }
           title={strings.mainParametersMetadata}
-          onClose={() => setForm({ isOpen: false, shapeId: '' })}
+          onClose={handleCloseMetadataForm}
           onSubmit={handleSubmitMetadata(form.shapeId)}
         />
       )}

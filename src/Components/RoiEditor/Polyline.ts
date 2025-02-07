@@ -2,6 +2,7 @@ import * as fabric from 'fabric';
 import { v4 as uuidv4 } from 'uuid'
 
 import { FabricEvent, IAddShape, ShapeType, ToolEnum } from './Types';
+import Dispatcher from '../../Utils/Dispatcher';
 
 const addPoint = (
   event: FabricEvent,
@@ -72,7 +73,6 @@ export const handleDoubleClickPolyline = (
   setPoints: (v: { x: number; y: number }[]) => void,
   lines: fabric.Line[],
   setLines: (v: fabric.Line[]) => void,
-  addShape: (id: string, type: ShapeType, shape: fabric.Polyline) => void,
 ) => {
   if (points.length > 2) {
     const id = uuidv4()
@@ -86,7 +86,7 @@ export const handleDoubleClickPolyline = (
       id,
     })
     canvas.add(polyline)
-    addShape(id, ToolEnum.Polyline, polyline)
+    Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polyline, shape: polyline })
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines
@@ -96,7 +96,7 @@ export const handleDoubleClickPolyline = (
   }
 }
 
-export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline, addShape: IAddShape) => {
+export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline) => {
   const id = uuidv4()
   const copy = new fabric.Polyline(polyline.points, {
     top: polyline.top + 10,
@@ -110,6 +110,6 @@ export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline, a
     id,
   })
   canvas.add(copy)
-  addShape(id, ToolEnum.Polyline, copy)
+  Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polyline, shape: copy })
   return copy
 }

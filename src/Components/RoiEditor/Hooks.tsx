@@ -222,7 +222,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     const handleMouseUp = () => {
       switch (activeTool) {
         case ToolEnum.Rectangle:
-          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape, addShape)
+          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape)
           break
         default:
           break
@@ -232,10 +232,10 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     const handleDoubleClick = () => {
       switch (activeTool) {
         case ToolEnum.Polygon:
-          handleDoubleClickPolygon(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines, addShape)
+          handleDoubleClickPolygon(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         case ToolEnum.Polyline:
-          handleDoubleClickPolyline(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines, addShape)
+          handleDoubleClickPolyline(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         default:
           break
@@ -299,19 +299,19 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
       switch (obj?.type) {
         case ToolEnum.Polygon:
           if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
-          copy = copyPolygon(canvas!, obj as fabric.Polygon, addShape)
+          copy = copyPolygon(canvas!, obj as fabric.Polygon)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
           break
         case ToolEnum.Polyline:
           if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, notify, strings.cannotDrawMorePolylines)) return
-          copy = copyPolyline(canvas!, obj as fabric.Polyline, addShape)
+          copy = copyPolyline(canvas!, obj as fabric.Polyline)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
           break
         case ToolEnum.Rectangle:
           if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
-          copy = copyRectangle(canvas!, obj as fabric.Rect, addShape)
+          copy = copyRectangle(canvas!, obj as fabric.Rect)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit('canvas:selectShape', copy.id)
           break
