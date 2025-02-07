@@ -66,6 +66,7 @@ export const handleMouseMovePolygon = (
 }
 
 export const handleDoubleClickPolygon = (
+  editorId: string,
   canvas: fabric.Canvas,
   activeColor: string,
   setIsDrawing: (v: boolean) => void,
@@ -87,7 +88,7 @@ export const handleDoubleClickPolygon = (
       id,
     })
     canvas.add(polygon)
-    Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polygon, shape: polygon })
+    Dispatcher.emit(`canvas:${editorId}:shapeAdded`, { id, type: ToolEnum.Polygon, shape: polygon })
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines
@@ -97,7 +98,7 @@ export const handleDoubleClickPolygon = (
   }
 }
 
-export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon) => {
+export const copyPolygon = (editorId: string, canvas: fabric.Canvas, polygon: fabric.Polygon) => {
   const id = uuidv4()
   const copy = new fabric.Polygon(polygon.points, {
     top: polygon.top + 10,
@@ -112,6 +113,6 @@ export const copyPolygon = (canvas: fabric.Canvas, polygon: fabric.Polygon) => {
     id,
   })
   canvas.add(copy)
-  Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polygon, shape: copy })
+  Dispatcher.emit(`canvas:${editorId}:shapeAdded`, { id, type: ToolEnum.Polygon, shape: copy })
   return copy
 }

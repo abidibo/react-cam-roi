@@ -11,7 +11,7 @@ type CanvasProps = {
   initialData?: Output
 }
 const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
-  const { metadata, setMetadata, addShapes, id } = useEditorContext()
+  const { metadata, setMetadata, addShapes, editorId } = useEditorContext()
   const { enableLogs } = useContext(UiContext)
   const [initialized, setInitialized] = useState(false)
   const canvasRef = useRef<fabric.Canvas | null>(null)
@@ -21,7 +21,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
 
   useEffect(() => {
     if (canvasSize.width !== 0 && canvasSize.height !== 0 && !initialized) {
-      canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${id}`)
+      canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${editorId}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
       initCanvasData(canvasRef, addShapes, metadata, setMetadata, initialData, enableLogs)
       setInitialized(true)
@@ -33,7 +33,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
   }, [canvasSize.width, canvasSize.height]) // eslint-disable-line
 
   return (
-    <canvas id={`react-cam-roi-canvas-${id}`} style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }} />
+    <canvas id={`react-cam-roi-canvas-${editorId}`} style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }} />
   )
 }
 export default Canvas

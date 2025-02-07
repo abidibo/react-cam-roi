@@ -29,7 +29,7 @@ const meta: Meta<RoiEditorProps> = {
     },
   ],
   args: {
-    id: 'meow',
+    editorId: 'meow',
     imageUrl: 'https://placecats.com/800/600',
     configuration: configuration,
     initialData: initialData as Output,
@@ -60,7 +60,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    id: 'default' + String(new Date().getTime()),
+    editorId: 'default' + String(new Date().getTime()),
   },
 }
 
@@ -99,7 +99,7 @@ export const Mui: Story = {
     },
   ],
   args: {
-    id: 'mui',
+    editorId: 'mui',
   },
   tags: ['autodocs'],
 }

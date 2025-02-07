@@ -11,7 +11,7 @@ import { OutputParameter, Shape, ShapeType } from './Types'
 const ShapesList: React.FC = () => {
   const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, SelectIcon, CopyIcon, themeMode } =
     useContext(UiContext)
-  const { shapes, removeShape, configuration, metadata, setMetadata, addShape } = useEditorContext()
+  const { shapes, removeShape, configuration, metadata, setMetadata, addShape, editorId } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
   const [form, setForm] = useState<{ isOpen: boolean; shapeId: string; type: ShapeType | null; shape: Shape | null }>({
     isOpen: false,
@@ -24,34 +24,34 @@ const ShapesList: React.FC = () => {
   useEffect(() => {
     const openForm = (_: unknown, { id, type, shape }: { id: string; type: ShapeType; shape: Shape }) =>
       setForm({ isOpen: true, shapeId: id, type, shape })
-    Dispatcher.register<{ id: string; type: ShapeType; shape: Shape }>('canvas:shapeAdded', openForm)
+    Dispatcher.register<{ id: string; type: ShapeType; shape: Shape }>(`canvas:${editorId}:shapeAdded`, openForm)
 
     return () => {
-      Dispatcher.unregister('canvas:shapeAdded', openForm)
+      Dispatcher.unregister(`canvas:${editorId}:shapeAdded`, openForm)
     }
-  }, [])
+  }, [editorId])
 
   useEffect(() => {
     const setSelectedShapes = (_: string, event: Shape[]) => setSelected(event?.map((s: Shape) => s.id!) ?? [])
-    Dispatcher.register('canvas:shapeSelected', setSelectedShapes)
+    Dispatcher.register(`canvas:${editorId}:shapeSelected`, setSelectedShapes)
 
     return () => {
-      Dispatcher.unregister('canvas:shapeSelected', setSelectedShapes)
+      Dispatcher.unregister(`canvas:${editorId}:shapeSelected`, setSelectedShapes)
     }
-  }, [shapes])
+  }, [shapes, editorId])
 
   const handleCopyShape = (id: string) => (evt: React.MouseEvent) => {
     evt.stopPropagation()
-    Dispatcher.emit('canvas:copyShape', id)
+    Dispatcher.emit(`canvas:${editorId}:copyShape`, id)
   }
 
   const handleRemoveShape = (id: string) => () => {
-    Dispatcher.emit('canvas:removeShape', id)
+    Dispatcher.emit(`canvas:${editorId}:removeShape`, id)
     removeShape(id)
   }
 
   const handleSelectShape = (id: string) => () => {
-    Dispatcher.emit('canvas:selectShape', id)
+    Dispatcher.emit(`canvas:${editorId}:selectShape`, id)
   }
 
   const handleEditShapeMetadata = (id: string) => () => {
@@ -73,7 +73,7 @@ const ShapesList: React.FC = () => {
   const handleCloseMetadataForm = () => {
     // if in creation mode do not add shape and delete shape from canvas
     if (form.type !== null) {
-      Dispatcher.emit('canvas:removeShape', form.shapeId)
+      Dispatcher.emit(`canvas:${editorId}:removeShape`, form.shapeId)
     }
     setForm({ isOpen: false, shapeId: '', type: null, shape: null })
   }

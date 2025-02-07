@@ -143,7 +143,7 @@ export const initCanvasData = (
 }
 
 export const useTool = (canvas: fabric.Canvas | null) => {
-  const { configuration, activeTool, activeColor, shapes, addShape } = useEditorContext()
+  const { editorId, configuration, activeTool, activeColor, shapes, addShape } = useEditorContext()
   const { notify, strings } = useContext(UiContext)
 
   const [isDrawing, setIsDrawing] = useState(false)
@@ -156,13 +156,13 @@ export const useTool = (canvas: fabric.Canvas | null) => {
 
   // Handler for object selected event to update style settings
   const handleObjectSelected = useCallback((event: FabricSelectionEvent) => {
-    Dispatcher.emit('canvas:shapeSelected', event.selected ?? null)
-  }, [])
+    Dispatcher.emit(`canvas:${editorId}:shapeSelected`, event.selected ?? null)
+  }, [editorId])
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
-    Dispatcher.emit('canvas:shapeSelected', null)
-  }, [])
+    Dispatcher.emit(`canvas:${editorId}:shapeSelected`, null)
+  }, [editorId])
 
   useEffect(() => {
     if (!canvas) {
@@ -180,7 +180,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
       // disable selection
       canvas.selection = false
       canvas.discardActiveObject()
-      Dispatcher.emit('canvas:shapeSelected', null)
+      Dispatcher.emit(`canvas:${editorId}:shapeSelected`, null)
       canvas.renderAll()
     }
 
@@ -222,7 +222,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     const handleMouseUp = () => {
       switch (activeTool) {
         case ToolEnum.Rectangle:
-          handleMouseUpRect(canvas, setIsDrawing, shape as Shape, setShape)
+          handleMouseUpRect(editorId, canvas, setIsDrawing, shape as Shape, setShape)
           break
         default:
           break
@@ -232,10 +232,10 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     const handleDoubleClick = () => {
       switch (activeTool) {
         case ToolEnum.Polygon:
-          handleDoubleClickPolygon(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
+          handleDoubleClickPolygon(editorId, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         case ToolEnum.Polyline:
-          handleDoubleClickPolyline(canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
+          handleDoubleClickPolyline(editorId, canvas, activeColor, setIsDrawing, points, setPoints, lines, setLines)
           break
         default:
           break
@@ -277,11 +277,12 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     notify,
     strings,
     shapes,
+    editorId,
   ])
 }
 
 export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
-  const { configuration, shapes, addShape, setActiveTool } = useEditorContext()
+  const { configuration, shapes, addShape, setActiveTool, editorId } = useEditorContext()
   const { notify, strings } = useContext(UiContext)
 
   useEffect(() => {
@@ -299,21 +300,21 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
       switch (obj?.type) {
         case ToolEnum.Polygon:
           if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
-          copy = copyPolygon(canvas!, obj as fabric.Polygon)
+          copy = copyPolygon(id, canvas!, obj as fabric.Polygon)
           // @ts-expect-error id exists but his stupid ts does not know
-          Dispatcher.emit('canvas:selectShape', copy.id)
+          Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break
         case ToolEnum.Polyline:
           if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, notify, strings.cannotDrawMorePolylines)) return
-          copy = copyPolyline(canvas!, obj as fabric.Polyline)
+          copy = copyPolyline(id, canvas!, obj as fabric.Polyline)
           // @ts-expect-error id exists but his stupid ts does not know
-          Dispatcher.emit('canvas:selectShape', copy.id)
+          Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break
         case ToolEnum.Rectangle:
           if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
-          copy = copyRectangle(canvas!, obj as fabric.Rect)
+          copy = copyRectangle(id, canvas!, obj as fabric.Rect)
           // @ts-expect-error id exists but his stupid ts does not know
-          Dispatcher.emit('canvas:selectShape', copy.id)
+          Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break
         default:
           break
@@ -330,16 +331,16 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
       }
     }
 
-    Dispatcher.register('canvas:removeShape', removeShape)
-    Dispatcher.register('canvas:copyShape', copyShape)
-    Dispatcher.register('canvas:selectShape', selectShape)
+    Dispatcher.register(`canvas:${editorId}:removeShape`, removeShape)
+    Dispatcher.register(`canvas:${editorId}:copyShape`, copyShape)
+    Dispatcher.register(`canvas:${editorId}:selectShape`, selectShape)
 
     return () => {
-      Dispatcher.unregister('canvas:removeShape', removeShape)
-      Dispatcher.unregister('canvas:copyShape', copyShape)
-      Dispatcher.unregister('canvas:selectShape', selectShape)
+      Dispatcher.unregister(`canvas:${editorId}:removeShape`, removeShape)
+      Dispatcher.unregister(`canvas:${editorId}:copyShape`, copyShape)
+      Dispatcher.unregister(`canvas:${editorId}:selectShape`, selectShape)
     }
-  }, [setActiveTool, canvas, addShape, configuration, shapes, notify, strings])
+  }, [setActiveTool, canvas, addShape, configuration, shapes, notify, strings, editorId])
 }
 
 export const useParametersForm = (parameters: OutputParameter[]) => {

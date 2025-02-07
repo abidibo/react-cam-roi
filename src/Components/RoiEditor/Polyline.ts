@@ -66,6 +66,7 @@ export const handleMouseMovePolyline = (
 }
 
 export const handleDoubleClickPolyline = (
+  editorId: string,
   canvas: fabric.Canvas,
   activeColor: string,
   setIsDrawing: (v: boolean) => void,
@@ -86,7 +87,7 @@ export const handleDoubleClickPolyline = (
       id,
     })
     canvas.add(polyline)
-    Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polyline, shape: polyline })
+    Dispatcher.emit(`canvas:${editorId}:shapeAdded`, { id, type: ToolEnum.Polyline, shape: polyline })
     setPoints([])
     for (const line of lines) {
       canvas.remove(line) // Remove temporary lines
@@ -96,7 +97,7 @@ export const handleDoubleClickPolyline = (
   }
 }
 
-export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline) => {
+export const copyPolyline = (editorId: string, canvas: fabric.Canvas, polyline: fabric.Polyline) => {
   const id = uuidv4()
   const copy = new fabric.Polyline(polyline.points, {
     top: polyline.top + 10,
@@ -110,6 +111,6 @@ export const copyPolyline = (canvas: fabric.Canvas, polyline: fabric.Polyline) =
     id,
   })
   canvas.add(copy)
-  Dispatcher.emit('canvas:shapeAdded', { id, type: ToolEnum.Polyline, shape: copy })
+  Dispatcher.emit(`canvas:${editorId}:shapeAdded`, { id, type: ToolEnum.Polyline, shape: copy })
   return copy
 }

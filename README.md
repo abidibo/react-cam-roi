@@ -52,7 +52,7 @@ The `RoiEditor` props and the `Output` interface used both in import and export:
 ``` ts 
 export type RoiEditorProps = {
   // id of this editor instance, should be unique
-  id: string
+  editorId: string
   // the url of the image we want to annotate
   imageUrl: string
   // configuration object
