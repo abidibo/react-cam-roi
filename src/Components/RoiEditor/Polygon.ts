@@ -1,7 +1,7 @@
-import * as fabric from 'fabric'
-import { v4 as uuidv4 } from 'uuid'
+import * as fabric from 'fabric';
+import { v4 as uuidv4 } from 'uuid';
 
-import { FabricEvent, IAddShape, Shape, ToolEnum } from './Types'
+import { FabricEvent, ToolEnum } from './Types';
 import Dispatcher from '../../Utils/Dispatcher';
 
 const addPoint = (

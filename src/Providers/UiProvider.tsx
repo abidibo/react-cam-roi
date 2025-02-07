@@ -45,12 +45,12 @@ type UiContextType = {
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
-    color: string
     id: string
     invalidSubmission: string
     mainParametersMetadata: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string
+    name: string
     polygon: string
     polygonHelpText: string
     polyline: string
@@ -59,8 +59,10 @@ type UiContextType = {
     rectHelpText: string
     pointer: string
     pointerHelpText: string
+    role: string
     requiredField: string
     save: string
+    shapeParametersMetadata: string
     shapesOfTypeShouldBeEqualToThreshold: string
     shapesOfTypeShouldBeGreaterThanThreshold: string
     shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: string
@@ -95,12 +97,12 @@ export const DefaultUiContext: UiContextType = {
     cannotDrawMorePolygons: 'You cannot draw more polygons',
     cannotDrawMorePolylines: 'You cannot draw more polylines',
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
-    color: 'Color',
     id: 'ID',
     invalidSubmission: 'Invalid submission',
     mainParametersMetadata: 'Main parameters',
     missingRequiredValuesInMainParameters: 'Missing required values in main parameters',
     missingRequiredValuesInShapeParameters: 'Missing required values in shape {id} parameters',
+    name: 'Name',
     polygon: 'Polygon',
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',
@@ -110,7 +112,9 @@ export const DefaultUiContext: UiContextType = {
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
     requiredField: 'This field is required',
+    role: 'Role',
     save: 'Save',
+    shapeParametersMetadata: 'Shape parameters',
     shapesOfTypeShouldBeEqualToThreshold: 'Shapes of type {type} should be equal to {threshold}',
     shapesOfTypeShouldBeGreaterThanThreshold: 'Shapes of type {type} should be greater than {threshold}',
     shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: 'Shapes of type {type} should be greater than or equal to {threshold}',

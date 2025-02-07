@@ -6,11 +6,11 @@ import { FieldProps } from '../../Types'
 import { css } from '../../Utils'
 import styles from './EnumField.module.css'
 
-export type EnumOption = {
-  value: string | number
+export type EnumOption<T> = {
+  value: T
   label: string
 }
-const EnumField = ({
+const EnumField = <T extends string | number,>({
   onChange,
   value,
   label,
@@ -20,14 +20,14 @@ const EnumField = ({
   disabled = false,
   required = false,
   multiple = false
-}: Omit<FieldProps<string | number | (string | number)[]>, 'readOnly'> & { options: EnumOption[], multiple?: boolean }) => {
+}: Omit<FieldProps<T | T[]>, 'readOnly'> & { options: EnumOption<T>[], multiple?: boolean }) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValues = Array.from(e.target.selectedOptions, (option) => {
       return isNaN(Number(option.value)) ? option.value : (Number(option.value) as (string | number));
     });
 
-    onChange(multiple ? selectedValues as (string | number)[] : (selectedValues[0] as (string | number)));
+    onChange(multiple ? selectedValues as T[] : (selectedValues[0] as T));
   }
   return (
     <div className={css('enum-field-wrapper', styles, themeMode)}>
@@ -47,7 +47,7 @@ const EnumField = ({
         multiple={multiple}
       >
         {!required && <option value={''}></option>}
-        {options.map((option: EnumOption) => (
+        {options.map((option: EnumOption<T>) => (
           <option key={option.value} value={option.value}>
             {option.label}
           </option>

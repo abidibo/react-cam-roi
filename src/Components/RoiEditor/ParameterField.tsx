@@ -2,6 +2,7 @@ import { useContext } from 'react'
 
 import { UiContext } from '../../Providers/UiProvider'
 import { ConfigurationParameter } from './Types'
+import { EnumOption } from '../EnumField'
 
 export type ParameterFieldProps<T> = {
   value: T
@@ -24,10 +25,10 @@ const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFie
   switch (parameter.type) {
     case 'string':
       return parameter.options?.length ? (
-        <EnumField
+        <EnumField<string>
           value={value as string}
           onChange={(v) => onChange(v as T)}
-          options={parameter.options}
+          options={parameter.options as EnumOption<string>[]}
           multiple={parameter.multiple}
           {...props}
         />
@@ -37,10 +38,10 @@ const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFie
     case 'int':
     case 'float':
       return parameter.options?.length ? (
-        <EnumField
+        <EnumField<number>
           value={value as number}
           onChange={(v) => onChange(v as T)}
-          options={parameter.options}
+          options={parameter.options as EnumOption<number>[]}
           multiple={parameter.multiple}
           {...props}
         />

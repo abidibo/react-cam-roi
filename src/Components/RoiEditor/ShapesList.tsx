@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { css } from '../../Utils'
+import { css, humanize } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import ParametersModalForm from './ParametersModalForm'
 import styles from './ShapesList.module.css'
@@ -22,8 +22,9 @@ const ShapesList: React.FC = () => {
 
   // open metadata form immediately after drawing the shape
   useEffect(() => {
-    const openForm = (_: unknown, { id, type, shape }: { id: string; type: ShapeType; shape: Shape }) =>
+    const openForm = (_: unknown, { id, type, shape }: { id: string; type: ShapeType; shape: Shape }) => {
       setForm({ isOpen: true, shapeId: id, type, shape })
+    }
     Dispatcher.register<{ id: string; type: ShapeType; shape: Shape }>(`canvas:${editorId}:shapeAdded`, openForm)
 
     return () => {
@@ -58,17 +59,18 @@ const ShapesList: React.FC = () => {
     setForm({ isOpen: true, shapeId: id, type: null, shape: null })
   }
 
-  const handleSubmitMetadata = (shapeId: string) => (data: OutputParameter[]) => {
-    // if in creation mode, add the shape
-    if (form.type !== null) {
-      addShape(shapeId, form.type, form.shape!)
+  const handleSubmitMetadata =
+    (shapeId: string) => (data: OutputParameter[], properties?: { name: string; role: string }) => {
+      // if in creation mode, add the shape
+      if (form.type !== null) {
+        addShape(shapeId, form.type, form.shape!)
+      }
+      setMetadata({
+        ...metadata,
+        rois: [...metadata.rois.filter((r) => r.id !== shapeId), { id: shapeId, parameters: data, ...properties! }],
+      })
+      setForm({ isOpen: false, shapeId: '', type: null, shape: null })
     }
-    setMetadata({
-      ...metadata,
-      rois: [...metadata.rois.filter((r) => r.id !== shapeId), { id: shapeId, parameters: data }],
-    })
-    setForm({ isOpen: false, shapeId: '', type: null, shape: null })
-  }
 
   const handleCloseMetadataForm = () => {
     // if in creation mode do not add shape and delete shape from canvas
@@ -87,18 +89,21 @@ const ShapesList: React.FC = () => {
           <thead>
             <tr>
               <th>
-                <Typography style={{ fontWeight: 'bold' }}>{strings.id}</Typography>
+                <Typography style={{ fontWeight: 'bold' }}>{strings.name}</Typography>
+              </th>
+              <th>
+                <Typography style={{ fontWeight: 'bold' }}>{strings.role}</Typography>
               </th>
               <th>
                 <Typography style={{ fontWeight: 'bold' }}>{strings.type}</Typography>
               </th>
-              <th>{strings.color}</th>
               <th />
             </tr>
           </thead>
         )}
         <tbody>
           {Object.keys(shapes).map((id, idx) => {
+            const m = metadata.rois.find((roi) => roi.id === id)
             return (
               <tr
                 onClick={handleSelectShape(id)}
@@ -112,18 +117,19 @@ const ShapesList: React.FC = () => {
                 }
               >
                 <td>
-                  <div>
-                    <Typography>{id.substring(0, 6)}</Typography>
+                  <div className={styles.shapesTableName}>
+                    <div
+                      className={styles.shapesTableColor}
+                      style={{ backgroundColor: shapes[id].shape.stroke as string }}
+                    />
+                    <Typography>{m?.name}</Typography>
                   </div>
                 </td>
                 <td>
-                  <Typography>{strings[shapes[id].type]}</Typography>
+                  <Typography>{humanize(m?.role ?? '')}</Typography>
                 </td>
                 <td>
-                  <div
-                    className={styles.shapesTableColor}
-                    style={{ backgroundColor: shapes[id].shape.stroke as string }}
-                  />
+                  <Typography>{strings[shapes[id].type]}</Typography>
                 </td>
                 <td>
                   <IconButton onClick={handleSelectShape(id)}>
@@ -134,7 +140,6 @@ const ShapesList: React.FC = () => {
                   </IconButton>
                   <IconButton
                     onClick={handleEditShapeMetadata(id)}
-                    disabled={!configuration.rois.find((roi) => roi.type === shapes[id].type)}
                   >
                     <AnnotateIcon color={iconColor} />
                   </IconButton>
@@ -149,6 +154,9 @@ const ShapesList: React.FC = () => {
       </table>
       {form.isOpen && (
         <ParametersModalForm
+          shapeType={form.type || shapes[form.shapeId].type}
+          shapeName={metadata.rois.find((roi) => roi.id === form.shapeId)?.name ?? ''}
+          shapeRole={metadata.rois.find((roi) => roi.id === form.shapeId)?.role ?? ''}
           parameters={
             configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ?? []
           }
@@ -157,7 +165,7 @@ const ShapesList: React.FC = () => {
             configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ??
             []
           }
-          title={strings.mainParametersMetadata}
+          title={strings.shapeParametersMetadata}
           onClose={handleCloseMetadataForm}
           onSubmit={handleSubmitMetadata(form.shapeId)}
         />

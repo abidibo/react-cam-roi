@@ -300,19 +300,19 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
       switch (obj?.type) {
         case ToolEnum.Polygon:
           if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
-          copy = copyPolygon(id, canvas!, obj as fabric.Polygon)
+          copy = copyPolygon(editorId, canvas!, obj as fabric.Polygon)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break
         case ToolEnum.Polyline:
           if (!canDrawShape(configuration, ToolEnum.Polyline, shapes, notify, strings.cannotDrawMorePolylines)) return
-          copy = copyPolyline(id, canvas!, obj as fabric.Polyline)
+          copy = copyPolyline(editorId, canvas!, obj as fabric.Polyline)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break
         case ToolEnum.Rectangle:
           if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
-          copy = copyRectangle(id, canvas!, obj as fabric.Rect)
+          copy = copyRectangle(editorId, canvas!, obj as fabric.Rect)
           // @ts-expect-error id exists but his stupid ts does not know
           Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
           break

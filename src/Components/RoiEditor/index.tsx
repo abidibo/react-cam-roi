@@ -72,6 +72,8 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
             metadata.rois
               .find((r) => r.id === shapeId)
               ?.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
+          name: metadata.rois.find((r) => r.id === shapeId)?.name ?? '',
+          role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
           type: shapes[shapeId].type,
           shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType),
         })),

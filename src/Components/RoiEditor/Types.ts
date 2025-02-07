@@ -71,6 +71,8 @@ export type Metadata = {
   rois: {
     id: string,
     parameters: OutputParameter[],
+    name: string
+    role: string
   }[]
 }
 
@@ -104,6 +106,8 @@ export interface OutputParameter {
 export interface OutputRoi {
   parameters: OutputParameter[]
   type: ShapeType
+  name: string
+  role: string
   shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
 }
 export interface Output {

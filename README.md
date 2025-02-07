@@ -103,6 +103,8 @@ export interface OutputParameter {
 export interface OutputRoi {
   parameters: OutputParameter[]
   type: ShapeType
+  name: string
+  role: string
   shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
 }
 export interface Output {
@@ -165,7 +167,7 @@ export type ConfigurationParameter = {
 
 // Configuration of ROIs
 export type RoiConfiguration = {
-  role: string // for our use case
+  role: string // let's say the category of the roi
   type: Omit<ShapeType, 'pointer'> // shape type
   multiplicity: { // how many ROIs of this type can be drawn
     operator: OperatorEnum
@@ -210,7 +212,7 @@ export const configuration: Configuration = {
   ],
   rois: [
     {
-      role: 'invasion_area', // analytics role, do not show in interface
+      role: 'invasion_area', // analytics role
       type: ToolEnum.Polygon,
       multiplicity: {
         // how many rois of this type can/should be created
@@ -297,16 +299,19 @@ type UiContextType = {
     mainParametersMetadata: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string // with {id} placeholder
+    name: string
     polygon: string
     polygonHelpText: string
     polyline: string
     polylineHelpText: string
-    rect: string
-    rectHelpText: string
     pointer: string
     pointerHelpText: string
+    rect: string
+    rectHelpText: string
     requiredField: string
+    role: string
     save: string
+    shapeParametersMetadata: string
     shapesOfTypeShouldBeEqualToThreshold: string // with {type} and {threshold} placeholders
     shapesOfTypeShouldBeGreaterThanThreshold: string // with {type} and {threshold} placeholders
     shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: string // with {type} and {threshold} placeholders
