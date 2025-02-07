@@ -42,7 +42,7 @@ const RoisInfo = () => {
               rule = formatString(strings.roiMultiplicityNoRule, data)
           }
           return (
-          <li key={r.role}>{rule}</li>
+          <li key={r.role}><Typography>{rule}</Typography></li>
           )
         })}
       </ul>
