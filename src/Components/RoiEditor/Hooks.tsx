@@ -78,7 +78,7 @@ export const initCanvasData = (
 ) => {
   log('info', enableLogs ?? false, 'Loading initial shapes data', initialData, canvasRef.current)
   if (initialData?.rois) {
-    const m: { id: string; parameters: OutputParameter[] }[] = []
+    const m: { id: string; parameters: OutputParameter[], name: string, role: string }[] = []
     const s: { id: string; type: ShapeType; shape: Shape }[] = []
     initialData.rois.forEach((r) => {
       log('info', enableLogs ?? false, 'Loading initial shape', r)
@@ -134,7 +134,7 @@ export const initCanvasData = (
           canvasRef.current?.add(shape)
           break
       }
-      m.push({ id, parameters: r.parameters })
+      m.push({ id, parameters: r.parameters, name: r.name, role: r.role })
       s.push({ id, type: r.type, shape })
     })
     addShapes(s)

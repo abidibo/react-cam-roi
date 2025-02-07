@@ -105,94 +105,98 @@ export const configuration: Configuration = {
   },
 }
 
-export const initialData = undefined
-// export const initialData = {
-//   parameters: [
-//     {
-//       codename: 'analytics_1',
-//       value: 'seven',
-//     },
-//     {
-//       codename: 'analytics_2',
-//       value: 10,
-//     },
-//     {
-//       codename: 'analytics_3',
-//       value: true,
-//     },
-//   ],
-//   rois: [
-//     {
-//       parameters: [
-//         {
-//           codename: 'threshold',
-//           value: 9,
-//         },
-//       ],
-//       type: 'polygon',
-//       shape: {
-//         points: [
-//           {
-//             x: 169,
-//             y: 211.203125,
-//           },
-//           {
-//             x: 292,
-//             y: 350.203125,
-//           },
-//           {
-//             x: 338,
-//             y: 110.203125,
-//           },
-//           {
-//             x: 221,
-//             y: 105.203125,
-//           },
-//           {
-//             x: 221,
-//             y: 105.203125,
-//           },
-//         ],
-//         top: 104.203125,
-//         left: 168,
-//         color: '#ffffff',
-//       },
-//     },
-//     {
-//       parameters: [
-//         {
-//           codename: 'height',
-//           value: 6.8,
-//         },
-//       ],
-//       type: 'polyline',
-//       shape: {
-//         points: [
-//           {
-//             x: 511,
-//             y: 42.203125,
-//           },
-//           {
-//             x: 486,
-//             y: 173.203125,
-//           },
-//           {
-//             x: 672,
-//             y: 168.203125,
-//           },
-//           {
-//             x: 626,
-//             y: 55.203125,
-//           },
-//           {
-//             x: 626,
-//             y: 55.203125,
-//           },
-//         ],
-//         top: 41.203125,
-//         left: 485,
-//         color: '#ff9900',
-//       },
-//     },
-//   ],
-// }
+// export const initialData = undefined
+export const initialData = {
+  parameters: [
+    {
+      codename: 'analytics_1',
+      value: 'seven',
+    },
+    {
+      codename: 'analytics_2',
+      value: 10,
+    },
+    {
+      codename: 'analytics_3',
+      value: true,
+    },
+  ],
+  rois: [
+    {
+      parameters: [
+        {
+          codename: 'threshold',
+          value: 9,
+        },
+      ],
+      role: 'invasion_area',
+      name: 'Pub',
+      type: 'polygon',
+      shape: {
+        points: [
+          {
+            x: 169,
+            y: 211.203125,
+          },
+          {
+            x: 292,
+            y: 350.203125,
+          },
+          {
+            x: 338,
+            y: 110.203125,
+          },
+          {
+            x: 221,
+            y: 105.203125,
+          },
+          {
+            x: 221,
+            y: 105.203125,
+          },
+        ],
+        top: 104.203125,
+        left: 168,
+        color: '#ffffff',
+      },
+    },
+    {
+      parameters: [
+        {
+          codename: 'height',
+          value: 6.8,
+        },
+      ],
+      type: 'polyline',
+      role: 'limit',
+      name: 'Something',
+      shape: {
+        points: [
+          {
+            x: 511,
+            y: 42.203125,
+          },
+          {
+            x: 486,
+            y: 173.203125,
+          },
+          {
+            x: 672,
+            y: 168.203125,
+          },
+          {
+            x: 626,
+            y: 55.203125,
+          },
+          {
+            x: 626,
+            y: 55.203125,
+          },
+        ],
+        top: 41.203125,
+        left: 485,
+        color: '#ff9900',
+      },
+    },
+  ],
+}
