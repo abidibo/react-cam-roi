@@ -23,6 +23,7 @@ type UiContextType = {
   enableLogs: boolean
   themeMode: 'light' | 'dark'
   primaryColor: string
+  primaryFgColor: string
   Typography: typeof Typography
   IconButton: typeof IconButton
   Modal: typeof Modal
@@ -75,6 +76,7 @@ export const DefaultUiContext: UiContextType = {
   enableLogs: true,
   themeMode: 'light',
   primaryColor: '#1976d2',
+  primaryFgColor: '#fff',
   Typography,
   IconButton,
   Modal,
@@ -131,6 +133,7 @@ const UiProvider = ({
   enableLogs,
   themeMode,
   primaryColor,
+  primaryFgColor,
   Typography,
   Modal,
   IconButton,
@@ -169,6 +172,7 @@ const UiProvider = ({
     Button: Button ?? DefaultUiContext.Button,
     themeMode: themeMode ?? DefaultUiContext.themeMode,
     primaryColor: primaryColor ?? DefaultUiContext.primaryColor,
+    primaryFgColor: primaryFgColor ?? DefaultUiContext.primaryFgColor,
     pickerColors: pickerColors ?? DefaultUiContext.pickerColors,
     notify: notify ?? DefaultUiContext.notify,
     strings: strings ? { ...DefaultUiContext.strings, ...strings } : DefaultUiContext.strings,

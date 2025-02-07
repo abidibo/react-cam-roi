@@ -11,6 +11,7 @@ import ShapesList from './ShapesList'
 import Toolbar from './Toolbar'
 import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } from './Types'
 import { fabricShapeToOutputShape, validate } from './Utils'
+import Header from './Header'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -108,6 +109,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({ imageUrl, configuration, onSubmit
       onSubmit={handleSubmit}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
+        <Header />
         <Toolbar />
         <div
           className={css('canvasWrapper', styles, themeMode)}

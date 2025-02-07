@@ -20,7 +20,6 @@ export type ParametersModalFormProps = {
   shapeRole?: string
 }
 
-// TODO: role field pass shape type
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   title,
   onClose,

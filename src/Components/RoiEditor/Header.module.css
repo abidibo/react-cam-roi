@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem;
+}
+
+.header-light {
+  background-color: #ddd;;
+}
+
+.header-dark {
+  background-color: #222;
+}
+
+.header-info {
+  padding: .5rem;
+}
+.header-info-light {
+  background-color: #ddd;;
+  color: #000;
+}
+.header-info-dark {
+  background-color: #222;
+  color: #fff;
+}
+
+.headerButtons {
+  display: flex;
+  align-items: center;
+  gap: .5rem
+}

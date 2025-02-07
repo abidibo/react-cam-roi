@@ -257,7 +257,7 @@ import { UiProvider, RoiEditor } from 'react-cam-roi'
 
 const MyView: React.FC = () => {
   return (
-    <UiProvider themeMode={'dark'} IconButton={IconButton} primaryColor={'#1976d2'} enableLogs>
+    <UiProvider themeMode={'dark'} IconButton={IconButton} primaryColor={'#1976d2'} primaryFgColor={'#fff'} enableLogs>
       <RoiEditor imageUrl={'whatever'} />
     </UiProvider>
   )
@@ -274,6 +274,7 @@ type UiContextType = {
   enableLogs: boolean // enable console logs
   themeMode: 'light' | 'dark' // themeMode for internal components
   primaryColor: string // primary color for internal components
+  primaryFgColor: string // text color above primary bg for internal components
   Typography: React.FC<TypographyProps> // component used to surround text
   Modal: React.FC<ModalProps> // modal dialog component (it displays metadata forms)
   IconButton: React.FC<IconButtonProps> // wrapper for icon buttons
@@ -299,6 +300,7 @@ type UiContextType = {
     mainParametersMetadata: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string // with {id} placeholder
+    mainParametersMetadata: strings
     name: string
     polygon: string
     polygonHelpText: string
@@ -655,11 +657,17 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-editor-wrapper-light`
 - `react-cam-roi-editor-wrapper-dark`
 
-#### Toolbar
+#### Header
 
-- `react-cam-roi-toolbar-info`
-- `react-cam-roi-toolbar-info-light`
-- `react-cam-roi-toolbar-info-dark`
+- `react-cam-roi-header`
+- `react-cam-roi-header-light`
+- `react-cam-roi-header-dark`
+
+- `react-cam-roi-header-info`
+- `react-cam-roi-header-info-light`
+- `react-cam-roi-header-info-dark`
+
+#### Toolbar
 
 - `react-cam-roi-toolbar`
 - `react-cam-roi-toolbar-light`
