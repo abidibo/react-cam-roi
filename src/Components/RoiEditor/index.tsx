@@ -18,7 +18,7 @@ export type RoiEditorProps = {
   imageUrl: string
   configuration: Configuration
   onSubmit: (data: Output) => void
-  onUpdate: (data: Output) => void
+  onUpdate?: (data: Output) => void
   initialData?: Output
   editorId: string
 }
@@ -32,13 +32,14 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   initialData,
   editorId,
 }) => {
+  const firstUpdate = useRef(true)
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
-  const firstUpdate = useRef(true)
 
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [activeColor, setActiveColor] = useState(pickerColors[0])
 
+  // metadata
   const [metadata, setMetadata] = useState<Metadata>({
     parameters: [
       ...(configuration.parameters.map((p) => {
@@ -51,6 +52,8 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     ],
     rois: [],
   })
+
+  // fabric shapes
   const [shapes, setShapes] = useState<Shapes>({})
   const addShape = useCallback(
     (id: string, type: ShapeType, shape: Shape) => setShapes({ ...shapes, [id]: { type, shape } }),
@@ -61,7 +64,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       setShapes({ ...shapes, ...s.reduce((r, s) => ({ ...r, [s.id]: s }), {}) }),
     [shapes],
   )
-
   const removeShape = useCallback(
     (id: string) => {
       const newShapes = { ...shapes }
@@ -84,6 +86,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
         name: metadata.rois.find((r) => r.id === shapeId)?.name ?? '',
         role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
         type: shapes[shapeId].type,
+        id: shapeId,
         shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType),
       })),
     }
@@ -94,9 +97,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     if (firstUpdate.current) {
       firstUpdate.current = false
       return
+    } else if (onUpdate) {
+      // notify every update
+      onUpdate(prepareOutput(metadata, shapes))
     }
-    // notify every update
-    onUpdate(prepareOutput(metadata, shapes))
   }, [metadata, shapes, onUpdate, prepareOutput])
 
   const handleSubmit = useCallback(() => {

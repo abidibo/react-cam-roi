@@ -108,6 +108,7 @@ export interface OutputRoi {
   type: ShapeType
   name: string
   role: string
+  id: string
   shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
 }
 export interface Output {

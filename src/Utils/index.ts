@@ -17,3 +17,6 @@ export const formatString = (str: string, placeholders: Record<string, string | 
 
   return str
 }
+
+export const abs2Perc = (value: number, ref: number) => Math.round((value / ref) * 100 * 100) / 100
+export const perc2Abs = (value: number, ref: number) => Math.round(ref * value * 100 / 100) / 100

@@ -1,6 +1,5 @@
 import * as fabric from 'fabric'
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
@@ -82,7 +81,7 @@ export const initCanvasData = (
     const s: { id: string; type: ShapeType; shape: Shape }[] = []
     initialData.rois.forEach((r) => {
       log('info', enableLogs ?? false, 'Loading initial shape', r)
-      const id = uuidv4()
+      const id = r.id
       let shape: Shape
       switch (r.type) {
         case ToolEnum.Rectangle:

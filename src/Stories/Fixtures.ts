@@ -127,6 +127,7 @@ export const initialData = {
       ],
       role: 'invasion_area',
       name: 'Pub',
+      id: 'acbe5d5d-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
       type: 'polygon',
       shape: {
         points: [
@@ -165,6 +166,7 @@ export const initialData = {
       ],
       type: 'polyline',
       role: 'limit',
+      id: '878436d2-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
       name: 'Something',
       shape: {
         points: [
