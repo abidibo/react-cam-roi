@@ -14,10 +14,11 @@ export type ParametersModalFormProps = {
   title: string
   parameters: ConfigurationParameter[]
   data: OutputParameter[]
-  onSubmit: (data: OutputParameter[], properties?: { name: string, role: string }) => void
+  onSubmit: (data: OutputParameter[], properties?: { name: string; role: string }) => void
   shapeType?: ShapeType
   shapeName?: string
   shapeRole?: string
+  shapeId?: string
 }
 
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
@@ -37,7 +38,9 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
 
   const handleSubmit = () => {
     if (validateParametersForm(parameters, fields, setErrors)) {
-      const data = [...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] }))] as OutputParameter[]
+      const data = [
+        ...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] })),
+      ] as OutputParameter[]
       if (shapeType) {
         onSubmit(data, { name, role })
       } else {
@@ -60,7 +63,14 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
               error={!!errors.name}
               helperText={errors.name}
             />
-            <RoleField required value={role} onChange={setRole} error={!!errors.name} helperText={errors.name} shapeType={shapeType} />
+            <RoleField
+              required
+              value={role}
+              onChange={setRole}
+              error={!!errors.name}
+              helperText={errors.name}
+              shapeType={shapeType}
+            />
           </>
         )}
         {parameters.map((parameter: ConfigurationParameter) => {

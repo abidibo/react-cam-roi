@@ -157,6 +157,7 @@ const ShapesList: React.FC = () => {
           shapeType={form.type || shapes[form.shapeId].type}
           shapeName={metadata.rois.find((roi) => roi.id === form.shapeId)?.name ?? ''}
           shapeRole={metadata.rois.find((roi) => roi.id === form.shapeId)?.role ?? ''}
+          shapeId={form.shapeId}
           parameters={
             configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ?? []
           }

@@ -36,6 +36,9 @@ const meta: Meta<RoiEditorProps> = {
     onSubmit: (data) => {
       console.log('output', data)
     },
+    onUpdate: (data) => {
+      console.log('update', data)
+    }
   },
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout

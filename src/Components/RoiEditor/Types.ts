@@ -114,3 +114,11 @@ export interface Output {
   parameters: OutputParameter[]
   rois: OutputRoi[]
 }
+
+export enum UpdateEventType {
+  AddRoi = 'AddRoi',
+  RemoveRoi = 'RemoveRoi',
+  UpdateRoi = 'UpdateRoi',
+  UpdateRoiParameters = 'UpdateRoiParameters',
+  UpdateMainParameters = 'UpdateMainParameters',
+}
