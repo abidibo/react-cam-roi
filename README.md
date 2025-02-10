@@ -321,11 +321,11 @@ type UiContextType = {
     role: string
     save: string
     shapeParametersMetadata: string
-    shapesOfTypeShouldBeEqualToThreshold: string // with {type} and {threshold} placeholders
-    shapesOfTypeShouldBeGreaterThanThreshold: string // with {type} and {threshold} placeholders
-    shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: string // with {type} and {threshold} placeholders
-    shapesOfTypeShouldBeLessThanThreshold: string // with {type} and {threshold} placeholders
-    shapesOfTypeShouldBeLessThanOrEqualToThreshold: string // with {type} and {threshold} placeholders
+    shapesOfRoleShouldBeEqualToThreshold: string // with {role} and {threshold} placeholders
+    shapesOfRoleShouldBeGreaterThanThreshold: string // with {role} and {threshold} placeholders
+    shapesOfRoleShouldBeGreaterThanOrEqualToThreshold: string // with {role} and {threshold} placeholders
+    shapesOfRoleShouldBeLessThanThreshold: string // with {role} and {threshold} placeholders
+    shapesOfRoleShouldBeLessThanOrEqualToThreshold: string // with {role} and {threshold} placeholders
     type: string
   }
 }

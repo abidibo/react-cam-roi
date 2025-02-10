@@ -121,50 +121,50 @@ export const validate = (
     if (roi.multiplicity) {
       switch (roi.multiplicity.operator) {
         case OperatorEnum.Eq:
-          if (Object.values(shapes).filter((s) => s.type === roi.type).length !== roi.multiplicity.threshold) {
+          if ((metadata.rois || []).filter((m) => m.role === roi.role).length !== roi.multiplicity.threshold) {
             errors.push(
-              formatString(strings.shapesOfTypeShouldBeEqualToThreshold, {
-                type: String(roi.type),
+              formatString(strings.shapesOfRoleShouldBeEqualToThreshold, {
+                role: String(roi.role),
                 threshold: roi.multiplicity.threshold,
               }),
             )
           }
           break
         case OperatorEnum.Lt:
-          if (Object.values(shapes).filter((s) => s.type === roi.type).length >= roi.multiplicity.threshold) {
+          if ((metadata.rois || []).filter((m) => m.role === roi.role).length >= roi.multiplicity.threshold) {
             errors.push(
-              formatString(strings.shapesOfTypeShouldBeLessThanThreshold, {
-                type: String(roi.type),
+              formatString(strings.shapesOfRoleShouldBeLessThanThreshold, {
+                role: String(roi.role),
                 threshold: roi.multiplicity.threshold,
               }),
             )
           }
           break
         case OperatorEnum.Lte:
-          if (Object.values(shapes).filter((s) => s.type === roi.type).length > roi.multiplicity.threshold) {
+          if ((metadata.rois || []).filter((m) => m.role === roi.role).length > roi.multiplicity.threshold) {
             errors.push(
-              formatString(strings.shapesOfTypeShouldBeLessThanOrEqualToThreshold, {
-                type: String(roi.type),
+              formatString(strings.shapesOfRoleShouldBeLessThanOrEqualToThreshold, {
+                role: String(roi.role),
                 threshold: roi.multiplicity.threshold,
               }),
             )
           }
           break
         case OperatorEnum.Gt:
-          if (Object.values(shapes).filter((s) => s.type === roi.type).length <= roi.multiplicity.threshold) {
+          if ((metadata.rois || []).filter((m) => m.role === roi.role).length <= roi.multiplicity.threshold) {
             errors.push(
-              formatString(strings.shapesOfTypeShouldBeGreaterThanThreshold, {
-                type: String(roi.type),
+              formatString(strings.shapesOfRoleShouldBeGreaterThanThreshold, {
+                role: String(roi.role),
                 threshold: roi.multiplicity.threshold,
               }),
             )
           }
           break
         case OperatorEnum.Gte:
-          if (Object.values(shapes).filter((s) => s.type === roi.type).length < roi.multiplicity.threshold) {
+          if ((metadata.rois || []).filter((m) => m.role === roi.role).length < roi.multiplicity.threshold) {
             errors.push(
-              formatString(strings.shapesOfTypeShouldBeGreaterThanOrEqualToThreshold, {
-                type: String(roi.type),
+              formatString(strings.shapesOfRoleShouldBeGreaterThanOrEqualToThreshold, {
+                role: String(roi.role),
                 threshold: roi.multiplicity.threshold,
               }),
             )

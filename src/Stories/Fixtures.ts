@@ -31,7 +31,7 @@ export const configuration: Configuration = {
       type: DataTypeEnum.Boolean, // int, float, string, bool
       options: [],
       required: true, // true | false,
-      value: '', // default value
+      value: null, // default value
     },
   ],
   rois: [
@@ -110,15 +110,11 @@ export const initialData = {
   parameters: [
     {
       codename: 'analytics_1',
-      value: 'seven',
+      value: [10, 7]
     },
     {
       codename: 'analytics_2',
-      value: 10,
-    },
-    {
-      codename: 'analytics_3',
-      value: true,
+      value: false
     },
   ],
   rois: [

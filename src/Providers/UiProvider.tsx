@@ -71,11 +71,11 @@ type UiContextType = {
     requiredField: string
     save: string
     shapeParametersMetadata: string
-    shapesOfTypeShouldBeEqualToThreshold: string
-    shapesOfTypeShouldBeGreaterThanThreshold: string
-    shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: string
-    shapesOfTypeShouldBeLessThanThreshold: string
-    shapesOfTypeShouldBeLessThanOrEqualToThreshold: string
+    shapesOfRoleShouldBeEqualToThreshold: string
+    shapesOfRoleShouldBeGreaterThanThreshold: string
+    shapesOfRoleShouldBeGreaterThanOrEqualToThreshold: string
+    shapesOfRoleShouldBeLessThanThreshold: string
+    shapesOfRoleShouldBeLessThanOrEqualToThreshold: string
     type: string
   }
 }
@@ -131,11 +131,11 @@ export const DefaultUiContext: UiContextType = {
     role: 'Role',
     save: 'Save',
     shapeParametersMetadata: 'Shape parameters',
-    shapesOfTypeShouldBeEqualToThreshold: 'Shapes of type {type} should be equal to {threshold}',
-    shapesOfTypeShouldBeGreaterThanThreshold: 'Shapes of type {type} should be greater than {threshold}',
-    shapesOfTypeShouldBeGreaterThanOrEqualToThreshold: 'Shapes of type {type} should be greater than or equal to {threshold}',
-    shapesOfTypeShouldBeLessThanThreshold: 'Shapes of type {type} should be less than {threshold}',
-    shapesOfTypeShouldBeLessThanOrEqualToThreshold: 'Shapes of type {type} should be less than or equal to {threshold}',
+    shapesOfRoleShouldBeEqualToThreshold: 'Shapes of role {role} should be equal to {threshold}',
+    shapesOfRoleShouldBeGreaterThanThreshold: 'Shapes of role {role} should be greater than {threshold}',
+    shapesOfRoleShouldBeGreaterThanOrEqualToThreshold: 'Shapes of role {role} should be greater than or equal to {threshold}',
+    shapesOfRoleShouldBeLessThanThreshold: 'Shapes of role {role} should be less than {threshold}',
+    shapesOfRoleShouldBeLessThanOrEqualToThreshold: 'Shapes of role {role} should be less than or equal to {threshold}',
     type: 'Type',
   },
 }
