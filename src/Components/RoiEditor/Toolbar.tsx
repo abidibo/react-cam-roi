@@ -10,19 +10,24 @@ import { css } from '../../Utils'
 import ColorPicker from './ColorPicker'
 import styles from './Toolbar.module.css'
 import { ToolEnum } from './Types'
-import { enableRois } from './Utils'
+import { canDrawShape, enableRois } from './Utils'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
-  const { activeTool, setActiveTool, configuration } = useEditorContext()
+  const { activeTool, setActiveTool, configuration, shapes } = useEditorContext()
 
   const iconColor = (tool: ToolEnum) => (tool === activeTool ? primaryColor : themeMode === 'light' ? 'black' : 'white')
   const setTool = (tool: ToolEnum) => () => setActiveTool(tool)
 
   const hideForbiddenTools = configuration.options?.hideForbiddenTools
-  const polylineEnabled = configuration.rois.find((r) => r.type === ToolEnum.Polyline)
-  const polygonEnabled = configuration.rois.find((r) => r.type === ToolEnum.Polygon)
-  const rectangleEnabled = configuration.rois.find((r) => r.type === ToolEnum.Rectangle)
+  const polylineEnabled =
+    configuration.rois.find((r) => r.type === ToolEnum.Polyline) &&
+    canDrawShape(configuration, ToolEnum.Polyline, shapes)
+  const polygonEnabled =
+    configuration.rois.find((r) => r.type === ToolEnum.Polygon) && canDrawShape(configuration, ToolEnum.Polygon, shapes)
+  const rectangleEnabled =
+    configuration.rois.find((r) => r.type === ToolEnum.Rectangle) &&
+    canDrawShape(configuration, ToolEnum.Rectangle, shapes)
 
   return (
     <>

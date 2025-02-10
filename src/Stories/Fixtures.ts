@@ -61,7 +61,7 @@ export const configuration: Configuration = {
       type: ToolEnum.Polygon,
       multiplicity: {
         // how many rois of this type can/should be created
-        operator: OperatorEnum.Gte, // lt | lte | gt | gte | eq
+        operator: OperatorEnum.Eq, // lt | lte | gt | gte | eq
         threshold: 1,
       },
       parameters: [
