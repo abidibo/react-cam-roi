@@ -4,7 +4,6 @@ import Typography from '../Components/Typography'
 import IconButton from '../Components/IconButton'
 import DeleteIcon from '../Icons/DeleteIcon'
 import EditIcon from '../Icons/EditIcon'
-import SelectIcon from '../Icons/SelectIcon'
 import { INotify } from '../Components/RoiEditor/Types'
 import { notify } from '../Components/RoiEditor/Utils'
 import CopyIcon from '../Icons/CopyIcon'
@@ -29,7 +28,6 @@ type UiContextType = {
   Modal: typeof Modal
   DeleteIcon: typeof DeleteIcon
   EditIcon: typeof EditIcon
-  SelectIcon: typeof SelectIcon
   CopyIcon: typeof CopyIcon
   AnnotateIcon: typeof AnnotateIcon
   SaveIcon: typeof SaveIcon
@@ -89,7 +87,6 @@ export const DefaultUiContext: UiContextType = {
   Modal,
   DeleteIcon,
   EditIcon,
-  SelectIcon,
   CopyIcon,
   AnnotateIcon,
   SaveIcon,
@@ -153,7 +150,6 @@ const UiProvider = ({
   IconButton,
   DeleteIcon,
   EditIcon,
-  SelectIcon,
   CopyIcon,
   AnnotateIcon,
   SaveIcon,
@@ -174,7 +170,6 @@ const UiProvider = ({
     IconButton: IconButton ?? DefaultUiContext.IconButton,
     DeleteIcon: DeleteIcon ?? DefaultUiContext.DeleteIcon,
     EditIcon: EditIcon ?? DefaultUiContext.EditIcon,
-    SelectIcon: SelectIcon ?? DefaultUiContext.SelectIcon,
     CopyIcon: CopyIcon ?? DefaultUiContext.CopyIcon,
     AnnotateIcon: AnnotateIcon ?? DefaultUiContext.AnnotateIcon,
     SaveIcon: SaveIcon ?? DefaultUiContext.SaveIcon,

@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.shapes-table tr {
+  cursor: pointer;
+}
+
 .shapes-table th {
   padding: .8rem .3rem;
   text-align: left;

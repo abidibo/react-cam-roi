@@ -280,7 +280,6 @@ type UiContextType = {
   Modal: React.FC<ModalProps> // modal dialog component (it displays metadata forms)
   IconButton: React.FC<IconButtonProps> // wrapper for icon buttons
   DeleteIcon: React.FC<DeleteIconProps> // delete icon
-  SelectIcon: React.FC<SelectIconProps> // select icon
   CopyIcon: typeof CopyIcon // copy icon (clone a shape)
   AnnotateIcon: typeof AnnotateIcon // annotate icon (open metadata form)
   CloseIcon: typeof CloseIcon // close icon
@@ -432,17 +431,6 @@ type DeleteIconProps = {
 
 ```ts
 type EditIconProps = {
-  color?: string
-  style?: React.CSSProperties
-}
-```
-
-#### SelectIcon
-
-##### Interface
-
-```ts
-type SelectIconProps = {
   color?: string
   style?: React.CSSProperties
 }

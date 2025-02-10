@@ -9,7 +9,7 @@ import styles from './ShapesList.module.css'
 import { OutputParameter, Shape, ShapeType } from './Types'
 
 const ShapesList: React.FC = () => {
-  const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, SelectIcon, CopyIcon, themeMode } =
+  const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, CopyIcon, themeMode } =
     useContext(UiContext)
   const { shapes, removeShape, configuration, metadata, setMetadata, addShape, editorId } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
@@ -132,9 +132,6 @@ const ShapesList: React.FC = () => {
                   <Typography>{strings[shapes[id].type]}</Typography>
                 </td>
                 <td>
-                  <IconButton onClick={handleSelectShape(id)}>
-                    <SelectIcon color={iconColor} />
-                  </IconButton>
                   <IconButton onClick={handleCopyShape(id)}>
                     <CopyIcon color={iconColor} />
                   </IconButton>
