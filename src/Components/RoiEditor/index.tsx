@@ -87,10 +87,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
         role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
         type: shapes[shapeId].type,
         id: shapeId,
-        shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType),
+        shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
       })),
     }
-  }, [])
+  }, [imageSize])
 
   useEffect(() => {
     // do not run on first update
@@ -147,7 +147,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
             backgroundImage: `url(${imageUrl})`,
           }}
         >
-          <Canvas canvasSize={canvasSize} initialData={initialData} />
+          <Canvas imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
         </div>
         <ShapesList />
       </div>

@@ -110,11 +110,11 @@ export const initialData = {
   parameters: [
     {
       codename: 'analytics_1',
-      value: [10, 7]
+      value: [10, 7],
     },
     {
       codename: 'analytics_2',
-      value: false
+      value: false,
     },
   ],
   rois: [
@@ -125,35 +125,35 @@ export const initialData = {
           value: 9,
         },
       ],
-      role: 'invasion_area',
       name: 'Pub',
-      id: 'acbe5d5d-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
+      role: 'invasion_area',
       type: 'polygon',
+      id: 'acbe5d5d-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
       shape: {
         points: [
           {
-            x: 169,
-            y: 211.203125,
+            x: 21.13,
+            y: 35.2,
           },
           {
-            x: 292,
-            y: 350.203125,
+            x: 36.5,
+            y: 58.37,
           },
           {
-            x: 338,
-            y: 110.203125,
+            x: 42.25,
+            y: 18.37,
           },
           {
-            x: 221,
-            y: 105.203125,
+            x: 27.63,
+            y: 17.53,
           },
           {
-            x: 221,
-            y: 105.203125,
+            x: 27.63,
+            y: 17.53,
           },
         ],
-        top: 104.203125,
-        left: 168,
+        top: 19.03,
+        left: 22.25,
         color: '#ffffff',
       },
     },
@@ -164,35 +164,35 @@ export const initialData = {
           value: 6.8,
         },
       ],
-      type: 'polyline',
-      role: 'limit',
-      id: '878436d2-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
       name: 'Something',
+      role: 'limit',
+      type: 'polyline',
+      id: '878436d2-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
       shape: {
         points: [
           {
-            x: 511,
-            y: 42.203125,
+            x: 63.88,
+            y: 7.03,
           },
           {
-            x: 486,
-            y: 173.203125,
+            x: 60.75,
+            y: 28.87,
           },
           {
-            x: 672,
-            y: 168.203125,
+            x: 84,
+            y: 28.03,
           },
           {
-            x: 626,
-            y: 55.203125,
+            x: 78.25,
+            y: 9.2,
           },
           {
-            x: 626,
-            y: 55.203125,
+            x: 78.25,
+            y: 9.2,
           },
         ],
-        top: 41.203125,
-        left: 485,
+        top: 8.53,
+        left: 61.88,
         color: '#ff9900',
       },
     },

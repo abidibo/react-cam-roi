@@ -3,7 +3,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { log } from '../../Utils'
+import { log, perc2Abs } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
@@ -69,7 +69,8 @@ export const useCanvasSize = (imageUrl: string) => {
 
 export const initCanvasData = (
   canvasRef: React.MutableRefObject<fabric.Canvas | null>,
-  addShapes: (shapes: {id: string, type: ShapeType, shape: Shape}[]) => void,
+  imageSize: { width: number; height: number },
+  addShapes: (shapes: { id: string; type: ShapeType; shape: Shape }[]) => void,
   metadata: Metadata,
   setMetadata: (v: Metadata) => void,
   initialData?: Output,
@@ -77,7 +78,7 @@ export const initCanvasData = (
 ) => {
   log('info', enableLogs ?? false, 'Loading initial shapes data', initialData, canvasRef.current)
   if (initialData?.rois) {
-    const m: { id: string; parameters: OutputParameter[], name: string, role: string }[] = []
+    const m: { id: string; parameters: OutputParameter[]; name: string; role: string }[] = []
     const s: { id: string; type: ShapeType; shape: Shape }[] = []
     initialData.rois.forEach((r) => {
       log('info', enableLogs ?? false, 'Loading initial shape', r)
@@ -86,12 +87,12 @@ export const initCanvasData = (
       switch (r.type) {
         case ToolEnum.Rectangle:
           shape = new fabric.Rect({
-            left: r.shape.left,
-            top: r.shape.top,
+            left: perc2Abs(r.shape.left, imageSize.width),
+            top: perc2Abs(r.shape.top, imageSize.height),
             originX: 'left',
             originY: 'top',
-            width: (r.shape as OutputShapeRect).width,
-            height: (r.shape as OutputShapeRect).height,
+            width: perc2Abs((r.shape as OutputShapeRect).width, imageSize.width),
+            height: perc2Abs((r.shape as OutputShapeRect).height, imageSize.height),
             fill: 'transparent',
             stroke: r.shape.color,
             strokeWidth: 2,
@@ -104,32 +105,44 @@ export const initCanvasData = (
           canvasRef.current?.add(shape)
           break
         case ToolEnum.Polygon:
-          shape = new fabric.Polygon((r.shape as OutputShapePolygon).points, {
-            top: r.shape.top + 10,
-            left: r.shape.left + 10,
-            fill: 'transparent',
-            stroke: r.shape.color,
-            strokeWidth: 2,
-            selectable: false,
-            hasControls: true,
-            hoverCursor: 'default',
-            // @ts-expect-error id is not included in types but the property is added and it works
-            id,
-          })
+          shape = new fabric.Polygon(
+            (r.shape as OutputShapePolygon).points.map(({ x, y }: { x: number; y: number }) => ({
+              x: perc2Abs(x, imageSize.width),
+              y: perc2Abs(y, imageSize.height),
+            })),
+            {
+              top: perc2Abs(r.shape.top, imageSize.height),
+              left: perc2Abs(r.shape.left, imageSize.width),
+              fill: 'transparent',
+              stroke: r.shape.color,
+              strokeWidth: 2,
+              selectable: false,
+              hasControls: true,
+              hoverCursor: 'default',
+              // @ts-expect-error id is not included in types but the property is added and it works
+              id,
+            },
+          )
           canvasRef.current?.add(shape)
           break
         case ToolEnum.Polyline:
-          shape = new fabric.Polyline((r.shape as OutputShapePolyline).points, {
-            top: r.shape.top + 10,
-            left: r.shape.left + 10,
-            fill: 'transparent',
-            stroke: r.shape.color,
-            strokeWidth: 2,
-            selectable: false,
-            hasControls: true,
-            hoverCursor: 'default',
-            id,
-          })
+          shape = new fabric.Polyline(
+            (r.shape as OutputShapePolyline).points.map(({ x, y }: { x: number; y: number }) => ({
+              x: perc2Abs(x, imageSize.width),
+              y: perc2Abs(y, imageSize.height),
+            })),
+            {
+              top: perc2Abs(r.shape.top, imageSize.height),
+              left: perc2Abs(r.shape.left, imageSize.width),
+              fill: 'transparent',
+              stroke: r.shape.color,
+              strokeWidth: 2,
+              selectable: false,
+              hasControls: true,
+              hoverCursor: 'default',
+              id,
+            },
+          )
           canvasRef.current?.add(shape)
           break
       }
@@ -154,9 +167,12 @@ export const useTool = (canvas: fabric.Canvas | null) => {
   const [lines, setLines] = useState<fabric.Line[]>([])
 
   // Handler for object selected event to update style settings
-  const handleObjectSelected = useCallback((event: FabricSelectionEvent) => {
-    Dispatcher.emit(`canvas:${editorId}:shapeSelected`, event.selected ?? null)
-  }, [editorId])
+  const handleObjectSelected = useCallback(
+    (event: FabricSelectionEvent) => {
+      Dispatcher.emit(`canvas:${editorId}:shapeSelected`, event.selected ?? null)
+    },
+    [editorId],
+  )
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {

@@ -8,9 +8,10 @@ import { Output } from './Types'
 
 type CanvasProps = {
   canvasSize: { width: number; height: number }
+  imageSize: { width: number; height: number }
   initialData?: Output
 }
-const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
+const Canvas: React.FC<CanvasProps> = ({ canvasSize, imageSize, initialData }) => {
   const { metadata, setMetadata, addShapes, editorId } = useEditorContext()
   const { enableLogs } = useContext(UiContext)
   const [initialized, setInitialized] = useState(false)
@@ -23,7 +24,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize, initialData }) => {
     if (canvasSize.width !== 0 && canvasSize.height !== 0 && !initialized) {
       canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${editorId}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
-      initCanvasData(canvasRef, addShapes, metadata, setMetadata, initialData, enableLogs)
+      initCanvasData(canvasRef, imageSize, addShapes, metadata, setMetadata, initialData, enableLogs)
       setInitialized(true)
     }
 

@@ -1,4 +1,4 @@
-import { formatString } from '../../Utils'
+import { abs2Perc, formatString } from '../../Utils'
 import {
   Configuration,
   ConfigurationParameter,
@@ -40,20 +40,19 @@ export const canDrawShape = (
   for (let i = 0; i < rules.length; i++) {
     const rule = rules[i]
     if (rule.multiplicity) {
-
       switch (rule.multiplicity.operator) {
         case OperatorEnum.Eq:
         case OperatorEnum.Lte:
           if (currentShapeCount < rule.multiplicity.threshold) {
-             return true;
+            return true
           }
-          currentShapeCount -= rule.multiplicity.threshold 
+          currentShapeCount -= rule.multiplicity.threshold
           break
         case OperatorEnum.Lt:
           if (currentShapeCount < rule.multiplicity.threshold - 1) {
-             return true;
+            return true
           }
-          currentShapeCount -= rule.multiplicity.threshold 
+          currentShapeCount -= rule.multiplicity.threshold
           break
         default:
           return true
@@ -190,22 +189,31 @@ export const validate = (
   return [errors.length === 0, errors]
 }
 
-export const fabricShapeToOutputShape = (shape: Shape, type: ShapeType) => {
+export const fabricShapeToOutputShape = (
+  shape: Shape,
+  type: ShapeType,
+  imageSize: { width: number; height: number },
+) => {
   switch (type) {
     case ToolEnum.Rectangle:
       return {
-        top: shape.top,
-        left: shape.left,
-        width: shape.width,
-        height: shape.height,
+        top: abs2Perc(shape.top, imageSize.height),
+        left: abs2Perc(shape.left, imageSize.width),
+        width: abs2Perc(shape.width, imageSize.width),
+        height: abs2Perc(shape.height, imageSize.height),
         color: shape.stroke as string,
       }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
-        points: shape.get('points'),
-        top: shape.top,
-        left: shape.left,
+        points: shape
+          .get('points')
+          .map(({ x, y }: { x: number; y: number }) => ({
+            x: abs2Perc(x, imageSize.width),
+            y: abs2Perc(y, imageSize.height),
+          })),
+        top: abs2Perc(shape.top, imageSize.height),
+        left: abs2Perc(shape.left, imageSize.width),
         color: shape.stroke as string,
       }
   }
