@@ -30,36 +30,42 @@ export const canDrawShape = (
   configuration: Configuration,
   shapeType: Omit<ToolEnum, ToolEnum.Pointer>,
   shapes: Shapes,
-  notify: INotify,
-  message: string,
+  notify?: INotify,
+  message?: string,
 ): boolean => {
-  const rule = configuration.rois.find((roi) => roi.type === shapeType)
+  const rules = configuration.rois.filter((roi) => roi.type === shapeType)
 
-  // no rule
-  if (!rule || !rule.multiplicity || Object.keys(rule.multiplicity).length === 0) {
-    return true
+  let currentShapeCount = Object.values(shapes).filter((s) => s.type === shapeType).length
+
+  for (let i = 0; i < rules.length; i++) {
+    const rule = rules[i]
+    if (rule.multiplicity) {
+
+      switch (rule.multiplicity.operator) {
+        case OperatorEnum.Eq:
+        case OperatorEnum.Lte:
+          if (currentShapeCount < rule.multiplicity.threshold) {
+             return true;
+          }
+          currentShapeCount -= rule.multiplicity.threshold 
+          break
+        case OperatorEnum.Lt:
+          if (currentShapeCount < rule.multiplicity.threshold - 1) {
+             return true;
+          }
+          currentShapeCount -= rule.multiplicity.threshold 
+          break
+        default:
+          return true
+      }
+    }
   }
 
-  const currentShapeCount = Object.values(shapes).filter((s) => s.type === shapeType).length
-
-  let res = true
-  switch (rule.multiplicity.operator) {
-    case OperatorEnum.Eq:
-    case OperatorEnum.Lte:
-      res = currentShapeCount + 1 <= rule.multiplicity.threshold
-      break
-    case OperatorEnum.Lt:
-      res = currentShapeCount + 1 < rule.multiplicity.threshold
-      break
-    default:
-      return true
+  if (notify) {
+    notify.warn(message || '')
   }
 
-  if (!res && notify) {
-    notify.warn(message)
-  }
-
-  return res
+  return false
 }
 
 export const validateParametersForm = (
