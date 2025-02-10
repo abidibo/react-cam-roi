@@ -37,11 +37,12 @@ const MyComponent: React.FC = () => {
     const themMode = 'light'
     const config = {} // see below
 
-    const handleSubmit = (data: Types.Output) =>  console.log(data)
+    const handleSubmit = (data: Types.Output) =>  console.log(data) // onSubmit runs validation
+    const handleUpdate = (data: Types.Output) =>  console.log(data) // onUpdate runs without validation
 
     return (
         <UiProvider themeMode={themeMode} IconButton={IconButton} Typography={Typography} DeleteIcon={() => <Delete />}>
-          <RoiEditor imageUrl={'https://placecats.com/800/600'} configuration={config} onSubmit={handleSubmit} />
+          <RoiEditor imageUrl={'https://placecats.com/800/600'} configuration={config} onSubmit={handleSubmit} onUpdate={handleUpdate} />
         </UiProvider>
     )
 }
