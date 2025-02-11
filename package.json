@@ -33,6 +33,30 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o docs"
   },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md"
+          ]
+        }
+      ],
+      "@semantic-release/npm"
+    ]
+  },
   "author": "abidibo",
   "license": "MIT",
   "devDependencies": {
@@ -60,6 +84,7 @@
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
+    "semantic-release": "^24.2.2",
     "storybook": "^8.4.7",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
