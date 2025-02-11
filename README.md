@@ -730,12 +730,6 @@ Then rebuild this library to see your changes in the project.
 
 ## CI
 
-A github action pipeline is provided, it will publish the package to npm when a new tag is pushed. You need to add the `NPM_TOKEN` secret to your repository settings.
-
-Example of deployment:
-
-```bash
-$ npm version patch
-$ git push
-$ git push --tags
-```
+A github action pipeline is provided, which is triggered by every push to the main branch.    
+The pipeline will publish the package to npm and update the CHANGELOG following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).    
+You need to add the `NODE_AUTH_TOKEN` and `GH_TOKEN` secrets to your repository settings, see [semantic-release](https://github.com/semantic-release/semantic-release) for more information.
