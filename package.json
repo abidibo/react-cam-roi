@@ -67,6 +67,7 @@
     "@fontsource/roboto": "^5.1.1",
     "@mui/material": "^6.4.3",
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",
     "@storybook/addon-onboarding": "^8.4.7",
