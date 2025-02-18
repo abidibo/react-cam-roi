@@ -5,7 +5,7 @@
 This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.    
 Metadata are dynamic information that can be attached to the whole image and/or to each ROI. The number of drawable ROIs can also be configured.
 
-![Screenshot](./react-cam-roi.png)
+![Screenshot](./react-cam-roi-s.png)
 
 It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached.    
 
