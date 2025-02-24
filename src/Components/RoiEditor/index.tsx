@@ -10,10 +10,9 @@ import { useCanvasSize } from './Hooks'
 import styles from './RoiEditor.module.css'
 import ShapesList from './ShapesList'
 import Toolbar from './Toolbar'
-import { Configuration, Metadata, Output, OutputParameter, Shape, Shapes, ShapeType, ToolEnum } from './Types'
-import { enableMainMetadata, fabricShapeToOutputShape, validate } from './Utils'
-import ParametersModalForm from './ParametersModalForm'
-import SaveIcon from '../../Icons/SaveIcon'
+import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { fabricShapeToOutputShape, validate } from './Utils'
+import TopBar from './TopBar'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -35,13 +34,11 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   editorId,
 }) => {
   const firstUpdate = useRef(true)
-  const { themeMode, enableLogs, pickerColors, strings, notify, AnnotateIcon, Button, primaryFgColor } = useContext(UiContext)
+  const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [activeColor, setActiveColor] = useState(pickerColors[0])
-
-  const [form, setForm] = useState<{ isOpen: boolean }>({ isOpen: false })
 
   // metadata
   const [metadata, setMetadata] = useState<Metadata>({
@@ -56,14 +53,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     ],
     rois: [],
   })
-
-  const handleSubmitMetadata = (data: OutputParameter[]) => {
-    setMetadata({
-      ...metadata,
-      parameters: data,
-    })
-    setForm({ isOpen: false })
-  }
 
   // fabric shapes
   const [shapes, setShapes] = useState<Shapes>({})
@@ -123,8 +112,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     }
   }, [onSubmit, configuration, shapes, metadata, prepareOutput, strings, notify])
 
-  const iconColor = themeMode === 'light' ? 'black' : 'white'
-
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
   log('info', enableLogs, 'react-cam-roi', 'metadata', metadata)
@@ -150,20 +137,11 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       onSubmit={handleSubmit}
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
-      <div className={styles.mainHeader}>
-        {enableMainMetadata(configuration) && (
-          <Button onClick={() => setForm({ isOpen: true })}>
-            <AnnotateIcon color={iconColor} /> {strings.mainParametersMetadata}
-          </Button>
-        )}
-        <Button primary onClick={handleSubmit}>
-          <SaveIcon color={primaryFgColor} /> {strings.save}
-        </Button>
-      </div>
+        <TopBar />
         <Header />
         <Toolbar />
         <div
-          className={css('canvasWrapper', styles, themeMode)}
+          className={css('canvas-wrapper', styles, themeMode)}
           style={{
             width: `${canvasSize.width}px`,
             height: `${canvasSize.height}px`,
@@ -174,15 +152,6 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
         </div>
         <ShapesList />
       </div>
-      {form.isOpen && (
-        <ParametersModalForm
-          parameters={configuration.parameters}
-          data={metadata.parameters}
-          title={strings.mainParametersMetadata}
-          onClose={() => setForm({ isOpen: false })}
-          onSubmit={handleSubmitMetadata}
-        />
-      )}
     </EditorProvider>
   )
 }

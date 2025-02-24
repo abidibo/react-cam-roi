@@ -647,11 +647,17 @@ type INotify = { // compatible with toast (react-toastify)
 
 There are components that cannot be overridden. But still you can use classes to style them.
 
-#### Wrapper
+#### Top bar
 
-- `react-cam-roi-editor-wrapper`
-- `react-cam-roi-editor-wrapper-light`
-- `react-cam-roi-editor-wrapper-dark`
+- `react-cam-roi-top-bar`
+- `react-cam-roi-top-bar-light`
+- `react-cam-roi-top-bar-dark`
+
+#### Canvas wrapper
+
+- `react-cam-roi-canvas-wrapper`
+- `react-cam-roi-canvas-wrapper-light`
+- `react-cam-roi-canvas-wrapper-dark`
 
 #### Header
 
