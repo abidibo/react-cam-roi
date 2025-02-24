@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { formatString, humanize } from '../../Utils'
+import { formatString } from '../../Utils'
 import { OperatorEnum } from './Types'
 
 const RoisInfo = () => {
@@ -18,7 +18,7 @@ const RoisInfo = () => {
         {configuration.rois.map((r) => {
           let rule: string
           const data = {
-            role: humanize(r.role),
+            role: r.label,
             type: r.type as string,
             threshold: r.multiplicity?.threshold,
           }

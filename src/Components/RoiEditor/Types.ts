@@ -42,6 +42,7 @@ export type ConfigurationParameter = {
 }
 export type RoiConfiguration = {
   role: string
+  label: string
   type: Omit<ShapeType, 'pointer'>
   multiplicity: {
     operator: OperatorEnum

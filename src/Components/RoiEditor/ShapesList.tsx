@@ -126,7 +126,7 @@ const ShapesList: React.FC = () => {
                   </div>
                 </td>
                 <td>
-                  <Typography>{humanize(m?.role ?? '')}</Typography>
+                  <Typography>{configuration.rois.find(r => r.role === m?.role)?.label}</Typography>
                 </td>
                 <td>
                   <Typography>{strings[shapes[id].type]}</Typography>

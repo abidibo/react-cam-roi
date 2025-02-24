@@ -37,6 +37,7 @@ export const configuration: Configuration = {
   rois: [
     {
       role: 'invasion_area', // analytics role, do not show in interface
+      label: 'Invasion area',
       type: ToolEnum.Polygon,
       multiplicity: {
         // how many rois of this type can/should be created
@@ -58,6 +59,7 @@ export const configuration: Configuration = {
     },
     {
       role: 'profile', // analytics role, do not show in interface
+      label: 'Profile',
       type: ToolEnum.Polygon,
       multiplicity: {
         // how many rois of this type can/should be created
@@ -79,6 +81,7 @@ export const configuration: Configuration = {
     },
     {
       role: 'limit', // analytics role, do not show in interface
+      label: 'Limit area',
       type: ToolEnum.Polyline,
       multiplicity: {
         // how many rois of this type can/should be created
