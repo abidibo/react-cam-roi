@@ -24,9 +24,3 @@
   background-color: #222;
   color: #fff;
 }
-
-.headerButtons {
-  display: flex;
-  align-items: center;
-  gap: .5rem
-}
