@@ -5,6 +5,7 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { Checkbox, FormControlLabel, IconButton, TextField, Typography } from '@mui/material'
 import type { Meta, StoryObj } from '@storybook/react'
+import { useArgs } from '@storybook/preview-api';
 import React from 'react'
 
 import RoiEditor from '../Components/RoiEditor'
@@ -19,7 +20,7 @@ const meta: Meta<RoiEditorProps> = {
   decorators: [
     (Story, context) => {
       return (
-        <div>
+        <div style={{ maxWidth: '1000px' }}>
           <h2>react-cam-roi</h2>
           <UiProvider themeMode={context.globals.theme}>
             <Story />
@@ -38,7 +39,7 @@ const meta: Meta<RoiEditorProps> = {
     },
     onUpdate: (data) => {
       console.log('update', data)
-    }
+    },
   },
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -62,6 +63,21 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
+  render: function Render (args) {
+    const [{ imageUrl }, updateArgs] = useArgs();
+
+    const handleUpdate = () => {
+      updateArgs({ imageUrl: `https://picsum.photos/800/600/?${new Date().getTime()}` })
+    }
+    return (
+      <div>
+        <p>
+          <button onClick={handleUpdate}>change image</button>
+        </p>
+        <RoiEditor {...args} imageUrl={imageUrl} />
+      </div>
+    )
+  },
   args: {
     editorId: 'default' + String(new Date().getTime()),
   },
