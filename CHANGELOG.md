@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/abidibo/react-cam-roi/compare/v0.1.0...v0.2.0) (2025-02-24)
+
+
+### Features
+
+* add support for roi label configuration ([dec8c21](https://github.com/abidibo/react-cam-roi/commit/dec8c212b0360cd8c8895b1bc1a0aa2dc0f016bd))
+* add top bar ([5e7dd2e](https://github.com/abidibo/react-cam-roi/commit/5e7dd2e80e5dca0db0fbf199ec55c2f374d01843))
+* move main form button and save outside header ([7e15f22](https://github.com/abidibo/react-cam-roi/commit/7e15f226c54ebf4ba8f0337a5c6fa591d7fb127a))
+
 # [0.1.0](https://github.com/abidibo/react-cam-roi/compare/v0.0.13...v0.1.0) (2025-02-11)
 
 
