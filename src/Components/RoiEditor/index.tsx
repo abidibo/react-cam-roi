@@ -44,7 +44,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   const [metadata, setMetadata] = useState<Metadata>({
     parameters: [
       ...(configuration.parameters.map((p) => {
-        const initial = initialData?.parameters.find((initP) => initP.codename === p.codename)
+        const initial = initialData?.parameters?.find((initP) => initP.codename === p.codename)
         return {
           codename: p.codename,
           value: initial ? initial.value : p.value,
