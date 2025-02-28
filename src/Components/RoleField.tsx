@@ -4,7 +4,6 @@ import { useEditorContext } from '../Providers/EditorProvider'
 import { UiContext } from '../Providers/UiProvider'
 import { FieldProps } from '../Types'
 import { humanize } from '../Utils'
-import EnumField from './EnumField'
 import { Metadata, OperatorEnum, ShapeType } from './RoiEditor/Types'
 
 type RoleFieldProps = Omit<FieldProps<string>, 'readonly' | 'label'> & { shapeType: ShapeType }
@@ -22,7 +21,7 @@ const isAllowed = (role: string, multiplicity: { operator: string; threshold: nu
 }
 
 const RoleField: React.FC<RoleFieldProps> = ({ onChange, value, required, shapeType, ...props }) => {
-  const { strings } = useContext(UiContext)
+  const { strings, EnumField } = useContext(UiContext)
   const { configuration, metadata } = useEditorContext()
   const options: string[] = []
   const rois = configuration.rois || []
