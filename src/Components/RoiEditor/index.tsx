@@ -90,7 +90,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
         shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
       })),
     }
-  }, [imageSize])
+  }, [imageSize.width, imageSize.height]) // eslint-disable-line
 
   useEffect(() => {
     // do not run on first update
@@ -99,6 +99,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       return
     } else if (onUpdate) {
       // notify every update
+      console.log('CALLED', JSON.stringify({ metadata, shapes })) // eslint-disable-line
       onUpdate(prepareOutput(metadata, shapes))
     }
   }, [metadata, shapes, onUpdate, prepareOutput])
