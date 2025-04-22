@@ -1,3 +1,11 @@
+## [0.2.1](https://github.com/abidibo/react-cam-roi/compare/v0.2.0...v0.2.1) (2025-04-22)
+
+
+### Bug Fixes
+
+* crash when initial data parameters is undefined ([7f5435c](https://github.com/abidibo/react-cam-roi/commit/7f5435c89f30f08f3d24b0feec21506f95634656))
+* use context enum field as role select ([e270646](https://github.com/abidibo/react-cam-roi/commit/e27064677d15a89997deaa650055f9bf5d1b5eb6))
+
 # [0.2.0](https://github.com/abidibo/react-cam-roi/compare/v0.1.0...v0.2.0) (2025-02-24)
 
 
