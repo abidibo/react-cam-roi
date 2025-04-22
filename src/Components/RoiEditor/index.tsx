@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
@@ -33,6 +33,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   initialData,
   editorId,
 }) => {
+  log('info', true, 'react-cam-roi', 'React', React)
   const firstUpdate = useRef(true)
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
