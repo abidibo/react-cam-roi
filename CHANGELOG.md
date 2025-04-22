@@ -1,3 +1,10 @@
+## [0.2.3](https://github.com/abidibo/react-cam-roi/compare/v0.2.2...v0.2.3) (2025-04-22)
+
+
+### Bug Fixes
+
+* attempt to fix useRef problem ([458689b](https://github.com/abidibo/react-cam-roi/commit/458689bdeae2cad684c093ec4fe18bed7bef00e4))
+
 ## [0.2.2](https://github.com/abidibo/react-cam-roi/compare/v0.2.1...v0.2.2) (2025-04-22)
 
 
