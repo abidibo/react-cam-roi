@@ -38,7 +38,9 @@ export const useImageSize = (imageUrl: string) => {
 }
 
 export const useCanvasSize = (imageUrl: string) => {
+  console.log('before wrapper ref')
   const wrapperRef = useRef<HTMLDivElement>(null)
+  console.log('after wrapper ref')
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
   const { imageSize, isReady } = useImageSize(imageUrl)
 

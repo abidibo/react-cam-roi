@@ -35,6 +35,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
 }) => {
   log('info', true, 'react-cam-roi', 'React', React)
   const firstUpdate = useRef(true)
+  log('info', true, 'react-cam-roi', 'After first useRef')
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
