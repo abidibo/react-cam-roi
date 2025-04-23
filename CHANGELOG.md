@@ -1,3 +1,12 @@
+## [0.2.5](https://github.com/abidibo/react-cam-roi/compare/v0.2.4...v0.2.5) (2025-04-23)
+
+
+### Bug Fixes
+
+* call onUpdate after modifying shape with selection tool ([383b582](https://github.com/abidibo/react-cam-roi/commit/383b5827093a4f1a6cfbaff7ed62c176b99bf15d))
+* exported coordinates ([1ef9cef](https://github.com/abidibo/react-cam-roi/commit/1ef9cefc4daef4de9105922578543cbc1c1a6fe3))
+* remove unnecessary comments ([65bf690](https://github.com/abidibo/react-cam-roi/commit/65bf690ca003bce5e7226f35931b5eaf655c2d20))
+
 ## [0.2.4](https://github.com/abidibo/react-cam-roi/compare/v0.2.3...v0.2.4) (2025-04-23)
 
 
