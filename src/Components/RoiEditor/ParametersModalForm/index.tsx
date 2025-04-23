@@ -37,7 +37,9 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   const { fields, setField, errors, setErrors } = useParametersForm(data)
 
   const handleSubmit = () => {
-    if (validateParametersForm(parameters, fields, setErrors)) {
+    if (shapeType && name === '') {
+      setErrors({ name: strings.requiredField })
+    } else if (validateParametersForm(parameters, fields, setErrors, strings)) {
       const data = [
         ...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] })),
       ] as OutputParameter[]

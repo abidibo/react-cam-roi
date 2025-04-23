@@ -73,11 +73,12 @@ export const validateParametersForm = (
   parameters: ConfigurationParameter[],
   fields: Record<string, unknown>,
   setErrors: (errors: Record<string, string>) => void,
+  strings: Record<string, string>,
 ) => {
   const err: Record<string, string> = {}
   parameters.forEach((p) => {
     if (p.required && isEmpty(fields[p.codename] as string | number | boolean | string[] | number[])) {
-      err[p.codename] = 'requiredField'
+      err[p.codename] = strings.requiredField
     }
   })
 
