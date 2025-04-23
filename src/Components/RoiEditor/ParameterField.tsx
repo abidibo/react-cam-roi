@@ -49,7 +49,7 @@ const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFie
         <NumberField value={value as number} onChange={(v) => onChange(v as T)} {...props} />
       )
     case 'bool':
-      return <BoolField value={value as boolean} onChange={(v) => onChange(v as T)} {...props} />
+      return <BoolField checked={value as boolean} onChange={(v) => onChange(v as T)} {...props} />
     default:
       return null
   }

@@ -4,9 +4,9 @@ import { UiContext } from "../../Providers/UiProvider"
 import { css } from "../../Utils"
 import styles from './BoolField.module.css'
 
-const BoolField: React.FC<Omit<FieldProps<boolean>, 'onChange'> & { onChange: (value: boolean) => void }> = ({
+const BoolField: React.FC<Omit<FieldProps<boolean>, 'onChange' | 'value'> & { onChange: (value: boolean) => void, checked: boolean }> = ({
   onChange,
-  value,
+  checked,
   label,
   helperText,
   error,
@@ -30,7 +30,7 @@ const BoolField: React.FC<Omit<FieldProps<boolean>, 'onChange'> & { onChange: (v
         type={'checkbox'}
         className={`${css('bool-field', styles, themeMode)} ${error ? css('bool-field-error', styles, null) : ''}`}
         onChange={handleChange}
-        checked={value}
+        checked={checked}
         readOnly={readOnly}
         disabled={disabled}
       />
