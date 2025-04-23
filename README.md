@@ -32,6 +32,7 @@ npm install @abidibo/react-cam-roi
 ```ts
 import { RoiEditor, UiProvider, Types } from '@abidibo/react-cam-roi'
 import { Typography, IconButton, Delete } from '@mui/material'
+import '@abidibo/react-cam-roi/dist/index.esm.css' // !Important you must include the css
 
 const MyComponent: React.FC = () => {
     const themMode = 'light'
