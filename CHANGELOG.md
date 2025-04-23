@@ -1,3 +1,10 @@
+## [0.2.4](https://github.com/abidibo/react-cam-roi/compare/v0.2.3...v0.2.4) (2025-04-23)
+
+
+### Bug Fixes
+
+* build ([9183334](https://github.com/abidibo/react-cam-roi/commit/918333425d32ab150c0a9e5bf8d89c8a28938ce1))
+
 ## [0.2.3](https://github.com/abidibo/react-cam-roi/compare/v0.2.2...v0.2.3) (2025-04-22)
 
 
