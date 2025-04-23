@@ -1,3 +1,10 @@
+## [0.2.7](https://github.com/abidibo/react-cam-roi/compare/v0.2.6...v0.2.7) (2025-04-23)
+
+
+### Bug Fixes
+
+* use role label in errors ([c46c99e](https://github.com/abidibo/react-cam-roi/commit/c46c99eb81ef80924dec43f06eac3fc187b181d3))
+
 ## [0.2.6](https://github.com/abidibo/react-cam-roi/compare/v0.2.5...v0.2.6) (2025-04-23)
 
 
