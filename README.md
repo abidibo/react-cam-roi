@@ -1,7 +1,5 @@
 # React Cam ROI
 
-> Still in development!
-
 This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.    
 Metadata are dynamic information that can be attached to the whole image and/or to each ROI. The number of drawable ROIs can also be configured.
 
