@@ -15,9 +15,7 @@ const Canvas: React.FC<CanvasProps> = ({ canvasSize, imageSize, initialData }) =
   const { metadata, setMetadata, addShapes, editorId } = useEditorContext()
   const { enableLogs } = useContext(UiContext)
   const [initialized, setInitialized] = useState(false)
-  console.log('before canvas ref')
   const canvasRef = useRef<fabric.Canvas | null>(null)
-  console.log('after canvas ref')
 
   useTool(canvasRef.current)
   useDispatcherEvents(canvasRef.current)
