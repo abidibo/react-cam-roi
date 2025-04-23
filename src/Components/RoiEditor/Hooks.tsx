@@ -155,7 +155,7 @@ export const initCanvasData = (
 }
 
 export const useTool = (canvas: fabric.Canvas | null) => {
-  const { editorId, configuration, activeTool, activeColor, shapes, addShape } = useEditorContext()
+  const { editorId, configuration, activeTool, activeColor, shapes, addShape, setShapes } = useEditorContext()
   const { notify, strings } = useContext(UiContext)
 
   const [isDrawing, setIsDrawing] = useState(false)
@@ -174,6 +174,8 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     [editorId],
   )
 
+  const handleRefreshShapes = useCallback(() => setShapes({ ...shapes }), [shapes])
+
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
     Dispatcher.emit(`canvas:${editorId}:shapeSelected`, null)
@@ -191,6 +193,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
         object.selectable = true
       })
       canvas.renderAll()
+      canvas.on('object:modified', handleRefreshShapes)
     } else {
       // disable selection
       canvas.selection = false
@@ -273,6 +276,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
       canvas.off('selection:created', handleObjectSelected)
       canvas.off('selection:updated', handleObjectSelected)
       canvas.off('selection:cleared', handleSelectionCleared)
+      canvas.off('object:modified', handleRefreshShapes)
     }
   }, [
     activeTool,
@@ -288,6 +292,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     addShape,
     handleObjectSelected,
     handleSelectionCleared,
+    handleRefreshShapes,
     configuration,
     notify,
     strings,

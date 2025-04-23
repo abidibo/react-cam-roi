@@ -34,8 +34,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   editorId,
 }) => {
   log('info', true, 'react-cam-roi', 'React', React)
-  const firstUpdate = useRef(true)
-  log('info', true, 'react-cam-roi', 'After first useRef')
+  const firstUpdate = useRef(0)
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -96,8 +95,8 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
 
   useEffect(() => {
     // do not run on first update
-    if (firstUpdate.current) {
-      firstUpdate.current = false
+    if (firstUpdate.current < 3) {
+      firstUpdate.current += 1
       return
     } else if (onUpdate) {
       // notify every update
@@ -130,6 +129,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       activeColor={activeColor}
       setActiveColor={setActiveColor}
       shapes={shapes}
+      setShapes={setShapes}
       addShape={addShape}
       addShapes={addShapes}
       removeShape={removeShape}
