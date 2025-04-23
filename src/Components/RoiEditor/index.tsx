@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
+import * as fabric from 'fabric'
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css, log } from '../../Utils'
@@ -10,9 +11,9 @@ import { useCanvasSize } from './Hooks'
 import styles from './RoiEditor.module.css'
 import ShapesList from './ShapesList'
 import Toolbar from './Toolbar'
-import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } from './Types'
-import { fabricShapeToOutputShape, validate } from './Utils'
 import TopBar from './TopBar'
+import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } from './Types'
+import { fabricShapeToOutputCoords, fabricShapeToOutputShape, validate } from './Utils'
 
 export type RoiEditorProps = {
   // the url of the image we want to annotate
@@ -35,6 +36,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
 }) => {
   log('info', true, 'react-cam-roi', 'React', React)
   const firstUpdate = useRef(0)
+  const canvasRef = useRef<fabric.Canvas | null>(null)
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
 
@@ -76,22 +78,26 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     [shapes, metadata],
   )
 
-  const prepareOutput = useCallback((metadata: Metadata, shapes: Shapes) => {
-    return {
-      parameters: metadata.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
-      rois: Object.keys(shapes).map((shapeId) => ({
-        parameters:
-          metadata.rois
-            .find((r) => r.id === shapeId)
-            ?.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
-        name: metadata.rois.find((r) => r.id === shapeId)?.name ?? '',
-        role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
-        type: shapes[shapeId].type,
-        id: shapeId,
-        shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
-      })),
-    }
-  }, [imageSize.width, imageSize.height]) // eslint-disable-line
+  const prepareOutput = useCallback(
+    (metadata: Metadata, shapes: Shapes) => {
+      return {
+        parameters: metadata.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
+        rois: Object.keys(shapes).map((shapeId) => ({
+          parameters:
+            metadata.rois
+              .find((r) => r.id === shapeId)
+              ?.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
+          name: metadata.rois.find((r) => r.id === shapeId)?.name ?? '',
+          role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
+          type: shapes[shapeId].type,
+          id: shapeId,
+          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
+          coords: fabricShapeToOutputCoords(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
+        })),
+      }
+    },
+    [imageSize.width, imageSize.height, canvasRef], // eslint-disable-line
+  )
 
   useEffect(() => {
     // do not run on first update
@@ -150,7 +156,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
             backgroundImage: `url(${imageUrl})`,
           }}
         >
-          <Canvas imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
+          <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
         </div>
         <ShapesList />
       </div>

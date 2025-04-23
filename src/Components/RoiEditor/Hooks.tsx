@@ -87,6 +87,11 @@ export const initCanvasData = (
       switch (r.type) {
         case ToolEnum.Rectangle:
           shape = new fabric.Rect({
+            angle: r.shape.angle || 0,
+            scaleX: r.shape.scaleX || 1,
+            scaleY: r.shape.scaleY || 1,
+            skewX: r.shape.skewX || 0,
+            skewY: r.shape.skewY || 0,
             left: perc2Abs(r.shape.left, imageSize.width),
             top: perc2Abs(r.shape.top, imageSize.height),
             originX: 'left',
@@ -111,6 +116,11 @@ export const initCanvasData = (
               y: perc2Abs(y, imageSize.height),
             })),
             {
+              angle: r.shape.angle || 0,
+              scaleX: r.shape.scaleX || 1,
+              scaleY: r.shape.scaleY || 1,
+              skewX: r.shape.skewX || 0,
+              skewY: r.shape.skewY || 0,
               top: perc2Abs(r.shape.top, imageSize.height),
               left: perc2Abs(r.shape.left, imageSize.width),
               fill: 'transparent',
@@ -132,6 +142,11 @@ export const initCanvasData = (
               y: perc2Abs(y, imageSize.height),
             })),
             {
+              angle: r.shape.angle || 0,
+              scaleX: r.shape.scaleX || 1,
+              scaleY: r.shape.scaleY || 1,
+              skewX: r.shape.skewX || 0,
+              skewY: r.shape.skewY || 0,
               top: perc2Abs(r.shape.top, imageSize.height),
               left: perc2Abs(r.shape.left, imageSize.width),
               fill: 'transparent',

@@ -94,6 +94,17 @@ export type OutputShapePolygon = {
   color: string
 }
 
+export type OutputRectCoords = {
+  points: { x: number; y: number }[]
+}
+
+export type OutputPolylineCoords = {
+  points: { x: number; y: number }[]
+}
+
+export type OutputPolygonCoords = {
+  points: { x: number; y: number }[]
+}
 
 export interface OutputParameter {
   codename: string
@@ -105,7 +116,8 @@ export interface OutputRoi {
   type: ShapeType
   name: string
   role: string
-  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
+  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon // fabric obj coords
+  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords // canvas coords
 }
 export interface Output {
   parameters: OutputParameter[]

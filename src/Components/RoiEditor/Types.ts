@@ -78,6 +78,11 @@ export type Metadata = {
 }
 
 export type OutputShapeRect = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   top: number
   left: number
   width: number
@@ -86,6 +91,11 @@ export type OutputShapeRect = {
 }
 
 export type OutputShapePolyline = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   points: { x: number; y: number }[]
   top: number
   left: number
@@ -93,10 +103,27 @@ export type OutputShapePolyline = {
 }
 
 export type OutputShapePolygon = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   points: { x: number; y: number }[]
   top: number
   left: number
   color: string
+}
+
+export type OutputRectCoords = {
+  points: { x: number; y: number }[]
+}
+
+export type OutputPolylineCoords = {
+  points: { x: number; y: number }[]
+}
+
+export type OutputPolygonCoords = {
+  points: { x: number; y: number }[]
 }
 
 export interface OutputParameter {
@@ -111,6 +138,7 @@ export interface OutputRoi {
   role: string
   id: string
   shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
+  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords
 }
 export interface Output {
   parameters: OutputParameter[]

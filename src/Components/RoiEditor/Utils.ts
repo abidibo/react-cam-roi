@@ -1,3 +1,5 @@
+import * as fabric from 'fabric'
+
 import { abs2Perc, formatString } from '../../Utils'
 import {
   Configuration,
@@ -197,6 +199,11 @@ export const fabricShapeToOutputShape = (
   switch (type) {
     case ToolEnum.Rectangle:
       return {
+        angle: shape.angle,
+        scaleX: shape.scaleX,
+        scaleY: shape.scaleY,
+        skewX: shape.skewX,
+        skewY: shape.skewY,
         top: abs2Perc(shape.top, imageSize.height),
         left: abs2Perc(shape.left, imageSize.width),
         width: abs2Perc(shape.width, imageSize.width),
@@ -206,15 +213,85 @@ export const fabricShapeToOutputShape = (
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
-        points: shape
-          .get('points')
-          .map(({ x, y }: { x: number; y: number }) => ({
-            x: abs2Perc(x, imageSize.width),
-            y: abs2Perc(y, imageSize.height),
-          })),
+        points: shape.get('points').map(({ x, y }: { x: number; y: number }) => ({
+          x: abs2Perc(x, imageSize.width),
+          y: abs2Perc(y, imageSize.height),
+        })),
         top: abs2Perc(shape.top, imageSize.height),
         left: abs2Perc(shape.left, imageSize.width),
         color: shape.stroke as string,
+        angle: shape.angle,
+        scaleX: shape.scaleX,
+        scaleY: shape.scaleY,
+        skewX: shape.skewX,
+        skewY: shape.skewY,
+      }
+  }
+}
+
+export function getAbsoluteRectData(rect: fabric.Rect) {
+  const points: { x: number; y: number }[] = [];
+  const matrix = rect.calcTransformMatrix();
+
+  // Define the local coordinates of the rectangle's vertices, relative to its center
+  const localPoints = [
+    new fabric.Point(-rect.width / 2, -rect.height / 2),       // top-left
+    new fabric.Point(rect.width / 2, -rect.height / 2),  // top-right
+    new fabric.Point(rect.width / 2, rect.height / 2), // bottom-right
+    new fabric.Point(-rect.width / 2, rect.height / 2)  // bottom-left
+  ];
+
+  // Transform each local point to global coordinates
+  localPoints.forEach(function(point) {
+    const transformedPoint = point.transform(matrix);
+    points.push(transformedPoint);
+  });
+
+  return points;
+}
+
+function getAbsolutePoints(shape: fabric.Polygon | fabric.Polyline) {
+ if (!shape.points || !shape.calcTransformMatrix) return [];
+
+  const matrix = shape.calcTransformMatrix();
+
+  const prevPoints: string[] = [];
+  return shape.points.filter(point => {
+    if (!prevPoints.includes(JSON.stringify(point))) {
+      prevPoints.push(JSON.stringify(point));
+      return true;
+    }
+    return false;
+  }).map(point => {
+    const localPoint = new fabric.Point(
+      point.x - shape.pathOffset.x,
+      point.y - shape.pathOffset.y
+    );
+    const transformedPoint = localPoint.transform(matrix);
+    return { x: transformedPoint.x, y: transformedPoint.y };
+  });
+}
+
+export const fabricShapeToOutputCoords = (
+  shape: Shape,
+  type: ShapeType,
+  imageSize: { width: number; height: number },
+) => {
+  switch (type) {
+    case ToolEnum.Rectangle:
+      return {
+        points: getAbsoluteRectData(shape as fabric.Rect).map(({ x, y }: { x: number; y: number }) => ({
+          x: abs2Perc(x, imageSize.width),
+          y: abs2Perc(y, imageSize.height),
+        }))
+      }
+    case ToolEnum.Polygon:
+    case ToolEnum.Polyline:
+      return {
+        points: getAbsolutePoints(shape as fabric.Polyline | fabric.Polygon).map(({ x, y }: { x: number; y: number }) => ({
+          x: abs2Perc(x, imageSize.width),
+          y: abs2Perc(y, imageSize.height),
+        }))
       }
   }
 }

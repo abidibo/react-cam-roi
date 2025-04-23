@@ -60,7 +60,7 @@ export const configuration: Configuration = {
     {
       role: 'profile', // analytics role, do not show in interface
       label: 'Profile',
-      type: ToolEnum.Polygon,
+      type: ToolEnum.Rectangle,
       multiplicity: {
         // how many rois of this type can/should be created
         operator: OperatorEnum.Eq, // lt | lte | gt | gte | eq
@@ -79,28 +79,28 @@ export const configuration: Configuration = {
         },
       ],
     },
-    {
-      role: 'limit', // analytics role, do not show in interface
-      label: 'Limit area',
-      type: ToolEnum.Polyline,
-      multiplicity: {
-        // how many rois of this type can/should be created
-        operator: OperatorEnum.Gte, // lt | lte | gt | gte | eq
-        threshold: 1,
-      },
-      parameters: [
-        {
-          codename: 'height', // internal code
-          label: 'Limit height', // to be shown in interface
-          description: 'Height of the limit', // tooltip
-          unit: 'm', // unit
-          type: DataTypeEnum.Float, // int, float, string, bool
-          options: [],
-          required: true, // true / false,
-          value: null, // default value
-        },
-      ],
-    },
+    // {
+    //   role: 'limit', // analytics role, do not show in interface
+    //   label: 'Limit area',
+    //   type: ToolEnum.Polyline,
+    //   multiplicity: {
+    //     // how many rois of this type can/should be created
+    //     operator: OperatorEnum.Gte, // lt | lte | gt | gte | eq
+    //     threshold: 1,
+    //   },
+    //   parameters: [
+    //     {
+    //       codename: 'height', // internal code
+    //       label: 'Limit height', // to be shown in interface
+    //       description: 'Height of the limit', // tooltip
+    //       unit: 'm', // unit
+    //       type: DataTypeEnum.Float, // int, float, string, bool
+    //       options: [],
+    //       required: true, // true / false,
+    //       value: null, // default value
+    //     },
+    //   ],
+    // },
   ],
   options: {
     hideForbiddenTools: false,
@@ -135,8 +135,8 @@ export const initialData = {
       shape: {
         points: [
           {
-            x: 21.13,
-            y: 35.2,
+            x: 0,
+            y: 0,
           },
           {
             x: 36.5,
@@ -155,49 +155,49 @@ export const initialData = {
             y: 17.53,
           },
         ],
-        top: 19.03,
-        left: 22.25,
+        top: 0,
+        left: 0,
         color: '#ffffff',
       },
     },
-    {
-      parameters: [
-        {
-          codename: 'height',
-          value: 6.8,
-        },
-      ],
-      name: 'Something',
-      role: 'limit',
-      type: 'polyline',
-      id: '878436d2-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
-      shape: {
-        points: [
-          {
-            x: 63.88,
-            y: 7.03,
-          },
-          {
-            x: 60.75,
-            y: 28.87,
-          },
-          {
-            x: 84,
-            y: 28.03,
-          },
-          {
-            x: 78.25,
-            y: 9.2,
-          },
-          {
-            x: 78.25,
-            y: 9.2,
-          },
-        ],
-        top: 8.53,
-        left: 61.88,
-        color: '#ff9900',
-      },
-    },
+    // {
+    //   parameters: [
+    //     {
+    //       codename: 'height',
+    //       value: 6.8,
+    //     },
+    //   ],
+    //   name: 'Something',
+    //   role: 'limit',
+    //   type: 'polyline',
+    //   id: '878436d2-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
+    //   shape: {
+    //     points: [
+    //       {
+    //         x: 63.88,
+    //         y: 7.03,
+    //       },
+    //       {
+    //         x: 60.75,
+    //         y: 28.87,
+    //       },
+    //       {
+    //         x: 84,
+    //         y: 28.03,
+    //       },
+    //       {
+    //         x: 78.25,
+    //         y: 9.2,
+    //       },
+    //       {
+    //         x: 78.25,
+    //         y: 9.2,
+    //       },
+    //     ],
+    //     top: 8.53,
+    //     left: 61.88,
+    //     color: '#ff9900',
+    //   },
+    // },
   ],
 }

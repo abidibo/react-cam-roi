@@ -1,5 +1,5 @@
 import * as fabric from 'fabric'
-import { useRef, useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
@@ -10,12 +10,12 @@ type CanvasProps = {
   canvasSize: { width: number; height: number }
   imageSize: { width: number; height: number }
   initialData?: Output
+  canvasRef: React.MutableRefObject<fabric.Canvas | null>
 }
-const Canvas: React.FC<CanvasProps> = ({ canvasSize, imageSize, initialData }) => {
+const Canvas: React.FC<CanvasProps> = ({ canvasRef, canvasSize, imageSize, initialData }) => {
   const { metadata, setMetadata, addShapes, editorId } = useEditorContext()
   const { enableLogs } = useContext(UiContext)
   const [initialized, setInitialized] = useState(false)
-  const canvasRef = useRef<fabric.Canvas | null>(null)
 
   useTool(canvasRef.current)
   useDispatcherEvents(canvasRef.current)
