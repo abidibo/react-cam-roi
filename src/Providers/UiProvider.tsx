@@ -77,7 +77,7 @@ type UiContextType = {
     type: string
   }
 }
-export const DefaultUiContext: UiContextType = {
+export const DefaultUiContext: UiContextType = { // eslint-disable-line
   enableLogs: true,
   themeMode: 'light',
   primaryColor: '#1976d2',
@@ -137,7 +137,7 @@ export const DefaultUiContext: UiContextType = {
   },
 }
 
-export const UiContext = createContext<UiContextType>(DefaultUiContext)
+export const UiContext = createContext<UiContextType>(DefaultUiContext) // eslint-disable-line
 
 const UiProvider = ({
   children,
