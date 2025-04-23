@@ -1,3 +1,11 @@
+## [0.2.6](https://github.com/abidibo/react-cam-roi/compare/v0.2.5...v0.2.6) (2025-04-23)
+
+
+### Bug Fixes
+
+* boolean parameter value ([52141b9](https://github.com/abidibo/react-cam-roi/commit/52141b917181f9b947365cca1d5175f29021bc83))
+* check required shape name ([8c0ec45](https://github.com/abidibo/react-cam-roi/commit/8c0ec458937c974bca767a459c3988c312fd3be8))
+
 ## [0.2.5](https://github.com/abidibo/react-cam-roi/compare/v0.2.4...v0.2.5) (2025-04-23)
 
 
