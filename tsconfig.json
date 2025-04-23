@@ -13,16 +13,17 @@
     "react-cam-roi.png"
   ],
   "compilerOptions": {
-    "target": "es2017" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "es6" /* Specify what module code is generated. */,
+    "target": "ES5" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "ESNext" /* Specify what module code is generated. */,
     "moduleResolution":"node",
     "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "declarationDir": "dist/types",
+    "outDir": "dist",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "outDir": "dist",
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
