@@ -126,7 +126,7 @@ export const validate = (
           if ((metadata.rois || []).filter((m) => m.role === roi.role).length !== roi.multiplicity.threshold) {
             errors.push(
               formatString(strings.shapesOfRoleShouldBeEqualToThreshold, {
-                role: String(roi.role),
+                role: String(roi.label),
                 threshold: roi.multiplicity.threshold,
               }),
             )
@@ -136,7 +136,7 @@ export const validate = (
           if ((metadata.rois || []).filter((m) => m.role === roi.role).length >= roi.multiplicity.threshold) {
             errors.push(
               formatString(strings.shapesOfRoleShouldBeLessThanThreshold, {
-                role: String(roi.role),
+                role: String(roi.label),
                 threshold: roi.multiplicity.threshold,
               }),
             )
