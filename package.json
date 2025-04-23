@@ -9,7 +9,9 @@
   "bugs": {
     "url": "https://github.com/abidibo/react-cam-roi/issues"
   },
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/types/index.d.ts",
   "type": "module",
   "files": [
     "dist"
@@ -19,14 +21,17 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/index.d.ts",
+      "style": "./dist/index.esm.css"
+    },
+    "./dist/index.esm.css": "./dist/index.esm.css"
   },
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "rollup -c",
     "postbuild": "npm run copy-files",
     "copy-files": "copyfiles -u 1 src/**/*.module.css dist/",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -66,6 +71,9 @@
     "@eslint/js": "^9.18.0",
     "@fontsource/roboto": "^5.1.1",
     "@mui/material": "^6.4.3",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-essentials": "^8.4.7",
@@ -86,6 +94,9 @@
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
+    "rollup": "^4.40.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "semantic-release": "^24.2.2",
     "storybook": "^8.4.7",
     "typescript": "^5.7.3",
