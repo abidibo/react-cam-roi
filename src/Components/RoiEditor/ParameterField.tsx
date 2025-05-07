@@ -9,8 +9,9 @@ export type ParameterFieldProps<T> = {
   onChange: (value: T) => void
   parameter: ConfigurationParameter
   errors: Record<string, string>
+  readOnly?: boolean
 }
-const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFieldProps<T>) => {
+const ParameterField = <T,>({ value, onChange, parameter, errors, readOnly }: ParameterFieldProps<T>) => {
   const { TextField, NumberField, BoolField, EnumField, strings } = useContext(UiContext)
 
   const props = {
@@ -30,10 +31,11 @@ const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFie
           onChange={(v) => onChange(v as T)}
           options={parameter.options as EnumOption<string>[]}
           multiple={parameter.multiple}
+          disabled={readOnly}
           {...props}
         />
       ) : (
-        <TextField type="text" value={value as string} onChange={(v) => onChange(v as T)} {...props} />
+        <TextField type="text" readOnly={readOnly} value={value as string} onChange={(v) => onChange(v as T)} {...props} />
       )
     case 'int':
     case 'float':
@@ -43,13 +45,14 @@ const ParameterField = <T,>({ value, onChange, parameter, errors }: ParameterFie
           onChange={(v) => onChange(v as T)}
           options={parameter.options as EnumOption<number>[]}
           multiple={parameter.multiple}
+          disabled={readOnly}
           {...props}
         />
       ) : (
-        <NumberField value={value as number} onChange={(v) => onChange(v as T)} {...props} />
+        <NumberField value={value as number} readOnly={readOnly} onChange={(v) => onChange(v as T)} {...props} />
       )
     case 'bool':
-      return <BoolField checked={value as boolean} onChange={(v) => onChange(v as T)} {...props} />
+      return <BoolField checked={value as boolean} disabled={readOnly} onChange={(v) => onChange(v as T)} {...props} />
     default:
       return null
   }

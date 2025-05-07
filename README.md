@@ -195,6 +195,7 @@ export type Configuration = {
   options: {
     hideForbiddenTools?: boolean // hide tools controllers for shapes that cannot be drawn
     description?: string // optional initial text shown in the editor
+    viewMainParameters?: boolean // show main parameters readonly form
   }
 }
 
@@ -248,6 +249,7 @@ export const configuration: Configuration = {
   options?: {
     hideForbiddenTools?: boolean,
     description?: string,
+    viewMainParameters?: boolean
   }
 }
 ```
@@ -663,6 +665,15 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-top-bar`
 - `react-cam-roi-top-bar-light`
 - `react-cam-roi-top-bar-dark`
+
+#### Main parameters view
+
+- `react-cam-roi-main-parameters-view`
+- `react-cam-roi-main-parameters-view-light`
+- `react-cam-roi-main-parameters-view-dark`
+- `react-cam-roi-main-parameters-button`
+- `react-cam-roi-main-parameters-button-light`
+- `react-cam-roi-main-parameters-button-dark`
 
 #### Canvas wrapper
 

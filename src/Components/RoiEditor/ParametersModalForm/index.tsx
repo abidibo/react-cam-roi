@@ -19,6 +19,8 @@ export type ParametersModalFormProps = {
   shapeName?: string
   shapeRole?: string
   shapeId?: string
+  readOnly?: boolean
+  noModal?: boolean
 }
 
 const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
@@ -30,11 +32,14 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   shapeType,
   shapeName,
   shapeRole,
+  noModal,
+  readOnly,
 }) => {
   const { Modal, TextField, strings } = useContext(UiContext)
   const [name, setName] = useState(shapeName ?? '')
   const [role, setRole] = useState(shapeRole ?? '')
   const { fields, setField, errors, setErrors } = useParametersForm(data)
+  const readonlyFields: Record<string, unknown> = data.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {})
 
   const handleSubmit = () => {
     if (shapeType && name === '') {
@@ -51,70 +56,76 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
     }
   }
 
-  return (
-    <Modal onClose={onClose} title={title} isOpen maxWidth="sm" onSubmit={handleSubmit}>
-      <div className={css('form', styles, null)}>
-        {shapeType && (
-          <>
-            <TextField
-              required
-              label={strings.name}
-              type="text"
-              value={name}
-              onChange={setName}
-              error={!!errors.name}
-              helperText={errors.name}
-            />
-            <RoleField
-              required
-              value={role}
-              onChange={setRole}
-              error={!!errors.name}
-              helperText={errors.name}
-              shapeType={shapeType}
-            />
-          </>
-        )}
-        {parameters.map((parameter: ConfigurationParameter) => {
-          switch (parameter.type) {
-            case 'string':
-              return (
-                <ParameterField<string>
-                  key={parameter.codename}
-                  value={String(fields[parameter.codename])}
-                  onChange={setField<string>(parameter.codename)}
-                  parameter={parameter}
-                  errors={errors}
-                />
-              )
-            case 'int':
-            case 'float':
-              return (
-                <ParameterField<number>
-                  key={parameter.codename}
-                  value={fields[parameter.codename] as number}
-                  onChange={setField<number>(parameter.codename)}
-                  parameter={parameter}
-                  errors={errors}
-                />
-              )
-            case 'bool':
-              return (
-                <ParameterField<boolean>
-                  key={parameter.codename}
-                  value={fields[parameter.codename] as boolean}
-                  onChange={setField<boolean>(parameter.codename)}
-                  parameter={parameter}
-                  errors={errors}
-                />
-              )
-            default:
-              return null
-          }
-        })}
-      </div>
-    </Modal>
+  const form = (
+    <div className={css('form', styles, null)}>
+      {shapeType && (
+        <>
+          <TextField
+            required
+            label={strings.name}
+            type="text"
+            value={name}
+            onChange={setName}
+            error={!!errors.name}
+            helperText={errors.name}
+            readOnly={readOnly}
+          />
+          <RoleField
+            required
+            value={role}
+            onChange={setRole}
+            error={!!errors.name}
+            helperText={errors.name}
+            shapeType={shapeType}
+            readOnly={readOnly}
+            disabled={readOnly}
+          />
+        </>
+      )}
+      {parameters.map((parameter: ConfigurationParameter) => {
+        switch (parameter.type) {
+          case 'string':
+            return (
+              <ParameterField<string>
+                key={parameter.codename}
+                value={String((readOnly ? readonlyFields : fields)[parameter.codename])}
+                onChange={setField<string>(parameter.codename)}
+                parameter={parameter}
+                errors={errors}
+                readOnly={readOnly}
+              />
+            )
+          case 'int':
+          case 'float':
+            return (
+              <ParameterField<number>
+                key={parameter.codename}
+                value={(readOnly ? readonlyFields : fields)[parameter.codename] as number}
+                onChange={setField<number>(parameter.codename)}
+                parameter={parameter}
+                errors={errors}
+                readOnly={readOnly}
+              />
+            )
+          case 'bool':
+            return (
+              <ParameterField<boolean>
+                key={parameter.codename}
+                value={(readOnly ? readonlyFields : fields)[parameter.codename] as boolean}
+                onChange={setField<boolean>(parameter.codename)}
+                parameter={parameter}
+                errors={errors}
+                readOnly={readOnly}
+              />
+            )
+          default:
+            return null
+        }
+      })}
+    </div>
   )
+
+  return noModal ? form : <Modal onClose={onClose} title={title} isOpen maxWidth="sm" onSubmit={handleSubmit}>{form}</Modal>
 }
 
 export default ParametersModalForm

@@ -105,6 +105,7 @@ export const configuration: Configuration = {
   options: {
     hideForbiddenTools: false,
     description: 'Draw a polygon and one or more polylines.',
+    viewMainParameters: true,
   },
 }
 
