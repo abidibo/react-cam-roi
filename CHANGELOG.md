@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/abidibo/react-cam-roi/compare/v0.2.8...v0.3.0) (2025-05-07)
+
+
+### Features
+
+* add view main parameters option ([448f022](https://github.com/abidibo/react-cam-roi/commit/448f0224d79f1b81b544fac0d324fc55c6034f3b))
+
 ## [0.2.8](https://github.com/abidibo/react-cam-roi/compare/v0.2.7...v0.2.8) (2025-05-07)
 
 
