@@ -1,3 +1,15 @@
+# [0.4.0](https://github.com/abidibo/react-cam-roi/compare/v0.3.0...v0.4.0) (2025-05-07)
+
+
+### Bug Fixes
+
+* hide main parameters view if no parameters connfigured ([bc13468](https://github.com/abidibo/react-cam-roi/commit/bc134680704e2097007d686da93e54e14f2e0c97))
+
+
+### Features
+
+* add view main parameters option ([0a67e7a](https://github.com/abidibo/react-cam-roi/commit/0a67e7aa31a9a1cf63062977416b76d791f472e9))
+
 # [0.3.0](https://github.com/abidibo/react-cam-roi/compare/v0.2.8...v0.3.0) (2025-05-07)
 
 
