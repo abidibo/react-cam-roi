@@ -57,6 +57,7 @@ export type Configuration = {
   options?: {
     hideForbiddenTools?: boolean
     description?: string
+    viewMainParameters?: boolean
   }
 }
 

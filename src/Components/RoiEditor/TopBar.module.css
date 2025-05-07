@@ -5,3 +5,20 @@
   justify-content: flex-end;
   margin-bottom: .5rem;
 }
+
+.main-parameters-view {
+  padding: 1rem;
+}
+.main-parameters-view-light {
+  background-color: #eee;
+}
+.main-parameters-view-dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.main-parameters-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
