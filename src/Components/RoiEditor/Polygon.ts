@@ -81,6 +81,7 @@ export const handleDoubleClickPolygon = (
       fill: 'transparent',
       stroke: activeColor,
       strokeWidth: 2,
+      strokeUniform: true,
       selectable: false,
       hasControls: true,
       hoverCursor: 'default',
