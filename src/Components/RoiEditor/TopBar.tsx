@@ -21,9 +21,6 @@ const TopBar = () => {
       ...metadata,
       parameters: data,
     })
-    console.log('SAVE', {
-      parameters: data,
-    }) // eslint-disable-line
     setForm({ isOpen: false })
   }
 
@@ -48,7 +45,7 @@ const TopBar = () => {
           />
         )}
       </div>
-      {configuration.options?.viewMainParameters && (
+      {enableMainMetadata(configuration) && configuration.options?.viewMainParameters && (
         <div className={css('main-parameters-view', styles, themeMode)}>
           <div className={css('main-parameters-button', styles, themeMode)}>
             <Button onClick={() => setForm({ isOpen: true })}>
