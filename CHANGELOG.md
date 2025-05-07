@@ -1,3 +1,11 @@
+## [0.2.8](https://github.com/abidibo/react-cam-roi/compare/v0.2.7...v0.2.8) (2025-05-07)
+
+
+### Bug Fixes
+
+* add quotes around role in description ([6dc832e](https://github.com/abidibo/react-cam-roi/commit/6dc832e9ebf6ac78b5a80f39da5b1f278fae7b5e))
+* add stroke uniform to all shapes ([c294df9](https://github.com/abidibo/react-cam-roi/commit/c294df98ffd6f7a4e429eda3cab1258f76e173cf))
+
 ## [0.2.7](https://github.com/abidibo/react-cam-roi/compare/v0.2.6...v0.2.7) (2025-04-23)
 
 
