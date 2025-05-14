@@ -60,7 +60,7 @@ export const configuration: Configuration = {
     {
       role: 'profile', // analytics role, do not show in interface
       label: 'Profile',
-      type: ToolEnum.Rectangle,
+      type: ToolEnum.Point,
       multiplicity: {
         // how many rois of this type can/should be created
         operator: OperatorEnum.Eq, // lt | lte | gt | gte | eq
@@ -122,6 +122,23 @@ export const initialData = {
     },
   ],
   rois: [
+    {
+      parameters: [
+        {
+          codename: 'threshold',
+          value: 2,
+        },
+      ],
+      name: 'Point',
+      role: 'profile',
+      type: 'point',
+      id: '9cbe5d5d-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
+      shape: {
+        left: 27.63,
+        top: 17.53,
+        color: '#ff9900',
+      },
+    },
     {
       parameters: [
         {

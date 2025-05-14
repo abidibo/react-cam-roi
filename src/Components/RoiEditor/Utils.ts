@@ -211,6 +211,17 @@ export const fabricShapeToOutputShape = (
         height: abs2Perc(shape.height, imageSize.height),
         color: shape.stroke as string,
       }
+    case ToolEnum.Point:
+      return {
+        angle: shape.angle,
+        scaleX: shape.scaleX,
+        scaleY: shape.scaleY,
+        skewX: shape.skewX,
+        skewY: shape.skewY,
+        top: abs2Perc(shape.top, imageSize.height),
+        left: abs2Perc(shape.left, imageSize.width),
+        color: shape.stroke as string,
+      }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
@@ -285,6 +296,11 @@ export const fabricShapeToOutputCoords = (
           x: abs2Perc(x, imageSize.width),
           y: abs2Perc(y, imageSize.height),
         }))
+      }
+    case ToolEnum.Point:
+      return {
+        x: abs2Perc(shape.left, imageSize.width),
+        y: abs2Perc(shape.top, imageSize.height),
       }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:

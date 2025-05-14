@@ -91,7 +91,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
           role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
           type: shapes[shapeId].type,
           id: shapeId,
-          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
+          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].type as ShapeType, imageSize),
           coords: fabricShapeToOutputCoords(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
         })),
       }

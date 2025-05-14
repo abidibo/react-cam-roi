@@ -11,6 +11,7 @@ import ColorPicker from './ColorPicker'
 import styles from './Toolbar.module.css'
 import { ToolEnum } from './Types'
 import { canDrawShape, enableRois } from './Utils'
+import PointIcon from '../../Icons/PointIcon'
 
 const Toolbar = () => {
   const { IconButton, themeMode, primaryColor, Typography, strings } = useContext(UiContext)
@@ -20,6 +21,9 @@ const Toolbar = () => {
   const setTool = (tool: ToolEnum) => () => setActiveTool(tool)
 
   const hideForbiddenTools = configuration.options?.hideForbiddenTools
+  const pointEnabled =
+    configuration.rois.find((r) => r.type === ToolEnum.Point) &&
+    canDrawShape(configuration, ToolEnum.Point, shapes)
   const polylineEnabled =
     configuration.rois.find((r) => r.type === ToolEnum.Polyline) &&
     canDrawShape(configuration, ToolEnum.Polyline, shapes)
@@ -37,6 +41,11 @@ const Toolbar = () => {
             <IconButton onClick={setTool(ToolEnum.Pointer)}>
               <PointerIcon color={iconColor(ToolEnum.Pointer)} />
             </IconButton>
+            {(!hideForbiddenTools || pointEnabled) && (
+              <IconButton onClick={setTool(ToolEnum.Point)} disabled={!pointEnabled}>
+                <PointIcon color={iconColor(ToolEnum.Point)} />
+              </IconButton>
+            )}
             {(!hideForbiddenTools || polylineEnabled) && (
               <IconButton onClick={setTool(ToolEnum.Polyline)} disabled={!polylineEnabled}>
                 <PolylineIcon color={iconColor(ToolEnum.Polyline)} />

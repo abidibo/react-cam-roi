@@ -65,14 +65,31 @@ export type RoiEditorProps = {
 
 export const enum ToolEnum {
   Pointer = 'pointer',
+  Point = 'point',
   Polyline = 'polyline',
   Polygon = 'polygon',
   Rectangle = 'rect',
 }
 
-export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle
+export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle | ToolEnum.Point
+
+export type OutputShapePoint = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
+  top: number
+  left: number
+  color: string
+}
 
 export type OutputShapeRect = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   top: number
   left: number
   width: number
@@ -81,6 +98,11 @@ export type OutputShapeRect = {
 }
 
 export type OutputShapePolyline = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   points: { x: number; y: number }[]
   top: number
   left: number
@@ -88,10 +110,20 @@ export type OutputShapePolyline = {
 }
 
 export type OutputShapePolygon = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
   points: { x: number; y: number }[]
   top: number
   left: number
   color: string
+}
+
+export type OutputPointCoords = {
+  x: number
+  y: number
 }
 
 export type OutputRectCoords = {
@@ -116,8 +148,8 @@ export interface OutputRoi {
   type: ShapeType
   name: string
   role: string
-  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon // fabric obj coords
-  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords // canvas coords
+  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon | OutputShapePoint // fabric obj coords
+  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords | OutputPointCoords // canvas coords
 }
 export interface Output {
   parameters: OutputParameter[]
@@ -305,6 +337,7 @@ type UiContextType = {
   notify: INotify // function used to display notifications
   strings: { // strings used here and there
     cancel: string
+    cannotDrawMorePoints: string
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
@@ -321,6 +354,8 @@ type UiContextType = {
     roiMultiplicityLteRule: string // with {role}, {type} and {threshold} placeholder
     roiMultiplicityNoRule: string // with {role}, {type}
     name: string
+    point: string
+    pointHelpText: string
     polygon: string
     polygonHelpText: string
     polyline: string

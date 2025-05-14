@@ -22,6 +22,7 @@ import {
   ToolEnum,
 } from './Types'
 import { canDrawShape } from './Utils'
+import { copyPoint, handleMouseDownPoint } from './Point'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -85,6 +86,29 @@ export const initCanvasData = (
       const id = r.id
       let shape: Shape
       switch (r.type) {
+       case ToolEnum.Point:
+          shape = new fabric.Circle({
+            angle: r.shape.angle || 0,
+            scaleX: r.shape.scaleX || 1,
+            scaleY: r.shape.scaleY || 1,
+            skewX: r.shape.skewX || 0,
+            skewY: r.shape.skewY || 0,
+            left: perc2Abs(r.shape.left, imageSize.width),
+            top: perc2Abs(r.shape.top, imageSize.height),
+            originX: 'center',
+            originY: 'center',
+            radius: 6,
+            fill: r.shape.color,
+            stroke: r.shape.color,
+            strokeWidth: 2,
+            strokeUniform: true,
+            selectable: false,
+            hasControls: false,
+            hoverCursor: 'default',
+            id,
+          })
+          canvasRef.current?.add(shape)
+          break
         case ToolEnum.Rectangle:
           shape = new fabric.Rect({
             angle: r.shape.angle || 0,
@@ -191,7 +215,7 @@ export const useTool = (canvas: fabric.Canvas | null) => {
     [editorId],
   )
 
-  const handleRefreshShapes = useCallback(() => setShapes({ ...shapes }), [shapes])
+  const handleRefreshShapes = useCallback(() => setShapes({ ...shapes }), [shapes]) // eslint-disable-line
 
   // Handler for selection cleared event to reset selected shapes state
   const handleSelectionCleared = useCallback(() => {
@@ -221,6 +245,10 @@ export const useTool = (canvas: fabric.Canvas | null) => {
 
     const handleMouseDown = (event: FabricEvent) => {
       switch (activeTool) {
+        case ToolEnum.Point:
+          if (!canDrawShape(configuration, ToolEnum.Point, shapes, notify, strings.cannotDrawMorePoints)) return
+          handleMouseDownPoint(event, editorId, canvas, activeColor, setOriginX, setOriginY)
+          break
         case ToolEnum.Rectangle:
           if (!canDrawShape(configuration, ToolEnum.Rectangle, shapes, notify, strings.cannotDrawMoreRectangles)) return
           handleMouseDownRect(event, canvas, activeColor, setOriginX, setOriginY, setShape, setIsDrawing)
@@ -335,6 +363,12 @@ export const useDispatcherEvents = (canvas: fabric.Canvas | null) => {
       let copy: fabric.Object
 
       switch (obj?.type) {
+        case 'circle': // a ToolEnum.Point is drawed like a circle with fixed radius
+          if (!canDrawShape(configuration, ToolEnum.Point, shapes, notify, strings.cannotDrawMorePoints)) return
+          copy = copyPoint(editorId, canvas!, obj as fabric.Circle)
+          // @ts-expect-error id exists but his stupid ts does not know
+          Dispatcher.emit(`canvas:${editorId}:selectShape`, copy.id)
+          break
         case ToolEnum.Polygon:
           if (!canDrawShape(configuration, ToolEnum.Polygon, shapes, notify, strings.cannotDrawMorePolygons)) return
           copy = copyPolygon(editorId, canvas!, obj as fabric.Polygon)

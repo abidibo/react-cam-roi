@@ -22,13 +22,15 @@ const isAllowed = (role: string, multiplicity: { operator: string; threshold: nu
 
 const RoleField: React.FC<RoleFieldProps> = ({ onChange, value, required, shapeType, ...props }) => {
   const { strings, EnumField } = useContext(UiContext)
-  const { configuration, metadata } = useEditorContext()
+  const { configuration/*, metadata*/ } = useEditorContext()
   const options: string[] = []
   const rois = configuration.rois || []
   rois
     .filter((r) => r.type === shapeType)
     .forEach((r) => {
-      if (!options.includes(r.role) && (!r.multiplicity || isAllowed(r.role, r.multiplicity!, metadata))) {
+      // the following causes problems with initial data when all shapes are drawn, no roles appear in the edit dropdown
+      // if (!options.includes(r.role) && (!r.multiplicity || isAllowed(r.role, r.multiplicity!, metadata))) {
+      if (!options.includes(r.role)) {
         options.push(r.role)
       }
     })

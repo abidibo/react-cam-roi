@@ -41,6 +41,7 @@ type UiContextType = {
   notify: INotify,
   strings: {
     cancel: string
+    cannotDrawMorePoints: string
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
@@ -56,6 +57,8 @@ type UiContextType = {
     roiMultiplicityLteRule: string
     roiMultiplicityNoRule: string
     name: string
+    point: string
+    pointHelpText: string
     polygon: string
     polygonHelpText: string
     polyline: string
@@ -100,6 +103,7 @@ export const DefaultUiContext: UiContextType = { // eslint-disable-line
   notify,
   strings: {
     cancel: 'Cancel',
+    cannotDrawMorePoints: 'You cannot draw more points',
     cannotDrawMorePolygons: 'You cannot draw more polygons',
     cannotDrawMorePolylines: 'You cannot draw more polylines',
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
@@ -109,6 +113,8 @@ export const DefaultUiContext: UiContextType = { // eslint-disable-line
     missingRequiredValuesInMainParameters: 'Missing required values in main parameters',
     missingRequiredValuesInShapeParameters: 'Missing required values in shape {id} parameters',
     name: 'Name',
+    point: 'Point',
+    pointHelpText: 'click to draw the point',
     polygon: 'Polygon',
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { css, humanize } from '../../Utils'
+import { css } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
 import ParametersModalForm from './ParametersModalForm'
 import styles from './ShapesList.module.css'

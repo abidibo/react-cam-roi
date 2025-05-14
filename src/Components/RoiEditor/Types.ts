@@ -2,13 +2,14 @@ import * as fabric from 'fabric'
 
 export const enum ToolEnum {
   Pointer = 'pointer',
+  Point = 'point',
   Polyline = 'polyline',
   Polygon = 'polygon',
   Rectangle = 'rect',
 }
 
-export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle
-export type Shape = (fabric.Rect | fabric.Polygon | fabric.Polyline) & { id?: string }
+export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle | ToolEnum.Point
+export type Shape = (fabric.Rect | fabric.Polygon | fabric.Polyline | fabric.Circle) & { id?: string }
 export type Shapes = Record<string, { type: ShapeType, shape: Shape }>
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>
 export type FabricSelectionEvent = Partial<fabric.TEvent> & { selected: fabric.Object[] }
@@ -91,6 +92,17 @@ export type OutputShapeRect = {
   color: string
 }
 
+export type OutputShapePoint = {
+  angle: number
+  scaleX: number
+  scaleY: number
+  skewX: number
+  skewY: number
+  top: number
+  left: number
+  color: string
+}
+
 export type OutputShapePolyline = {
   angle: number
   scaleX: number
@@ -119,6 +131,11 @@ export type OutputRectCoords = {
   points: { x: number; y: number }[]
 }
 
+export type OutputPointCoords = {
+  x: number
+  y: number
+}
+
 export type OutputPolylineCoords = {
   points: { x: number; y: number }[]
 }
@@ -138,8 +155,8 @@ export interface OutputRoi {
   name: string
   role: string
   id: string
-  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon
-  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords
+  shape: OutputShapeRect | OutputShapePolyline | OutputShapePolygon | OutputShapePoint
+  coords: OutputRectCoords | OutputPolylineCoords | OutputPolygonCoords | OutputPointCoords
 }
 export interface Output {
   parameters: OutputParameter[]
