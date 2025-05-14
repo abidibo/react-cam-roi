@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/abidibo/react-cam-roi/compare/v0.4.0...v0.5.0) (2025-05-14)
+
+
+### Features
+
+* add point tool ([c4cebe3](https://github.com/abidibo/react-cam-roi/commit/c4cebe3ea3afafbd349a20ffc3cd1a66b65ac8e3))
+
 # [0.4.0](https://github.com/abidibo/react-cam-roi/compare/v0.3.0...v0.4.0) (2025-05-07)
 
 
