@@ -1,3 +1,10 @@
+# [0.6.0](https://github.com/abidibo/react-cam-roi/compare/v0.5.0...v0.6.0) (2025-05-16)
+
+
+### Features
+
+* fill transparent point tool ([bba36d6](https://github.com/abidibo/react-cam-roi/commit/bba36d66502d0ee9f8c0dd316675514fdc24ea9c))
+
 # [0.5.0](https://github.com/abidibo/react-cam-roi/compare/v0.4.0...v0.5.0) (2025-05-14)
 
 
