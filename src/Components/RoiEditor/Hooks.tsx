@@ -98,7 +98,7 @@ export const initCanvasData = (
             originX: 'center',
             originY: 'center',
             radius: 6,
-            fill: r.shape.color,
+            fill: 'transparent',
             stroke: r.shape.color,
             strokeWidth: 2,
             strokeUniform: true,
