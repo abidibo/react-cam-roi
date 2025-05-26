@@ -4,14 +4,14 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { Checkbox, FormControlLabel, IconButton, TextField, Typography } from '@mui/material'
+import { useArgs } from '@storybook/preview-api'
 import type { Meta, StoryObj } from '@storybook/react'
-import { useArgs } from '@storybook/preview-api';
 import React from 'react'
 
 import RoiEditor from '../Components/RoiEditor'
 import { Output } from '../Components/RoiEditor/Types'
 import UiProvider from '../Providers/UiProvider'
-import { configuration, initialData } from './Fixtures'
+import { configuration, initialData, noRoiConfiguration } from './Fixtures'
 
 type RoiEditorProps = React.ComponentProps<typeof RoiEditor>
 const meta: Meta<RoiEditorProps> = {
@@ -63,8 +63,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: function Render (args) {
-    const [{ imageUrl }, updateArgs] = useArgs();
+  render: function Render(args) {
+    const [{ imageUrl }, updateArgs] = useArgs()
 
     const handleUpdate = () => {
       updateArgs({ imageUrl: `https://picsum.photos/800/600/?${new Date().getTime()}` })
@@ -119,6 +119,41 @@ export const Mui: Story = {
   ],
   args: {
     editorId: 'mui',
+  },
+  tags: ['autodocs'],
+}
+
+export const NoRoi: Story = {
+  decorators: [
+    (Story, context) => {
+      return (
+        <div>
+          <h3>Example of configuration with no ROIs</h3>
+          <UiProvider
+            themeMode={context.globals.theme}
+            IconButton={IconButton}
+            Typography={Typography}
+            TextField={CustomTextField}
+            NumberField={CustomNumberField}
+            BoolField={CustomBoolField}
+          >
+            <Story />
+          </UiProvider>
+        </div>
+      )
+    },
+  ],
+  args: {
+    editorId: 'noRoi',
+    imageUrl: 'https://placecats.com/800/600',
+    configuration: noRoiConfiguration,
+    initialData: initialData as Output,
+    onSubmit: (data) => {
+      console.log('output', data)
+    },
+    onUpdate: (data) => {
+      console.log('update', data)
+    },
   },
   tags: ['autodocs'],
 }

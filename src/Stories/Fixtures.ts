@@ -219,3 +219,44 @@ export const initialData = {
     // },
   ],
 }
+
+export const noRoiConfiguration: Configuration = {
+  parameters: [
+    {
+      codename: 'analytics_1', // internal code
+      label: 'Analytics param 1', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.Integer, // int, float, string, bool
+      options: [
+        // if filled -> enum of types type
+        {
+          value: 7,
+          label: 'Seven',
+        },
+        {
+          value: 10,
+          label: 'Ten',
+        },
+      ],
+      multiple: true,
+      required: true, // true | false,
+      value: 10, // default value
+    },
+    {
+      codename: 'analytics_2', // internal code
+      label: 'Analytics param 2', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.Boolean, // int, float, string, bool
+      options: [],
+      required: true, // true | false,
+      value: null, // default value
+    },
+  ],
+  rois: [],
+  options: {
+    hideForbiddenTools: false,
+    viewMainParameters: true,
+  },
+}

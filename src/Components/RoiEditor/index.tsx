@@ -1,6 +1,6 @@
+import * as fabric from 'fabric'
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
-import * as fabric from 'fabric'
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css, log } from '../../Utils'
@@ -146,19 +146,23 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     >
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <TopBar />
-        <Header />
-        <Toolbar />
-        <div
-          className={css('canvas-wrapper', styles, themeMode)}
-          style={{
-            width: `${canvasSize.width}px`,
-            height: `${canvasSize.height}px`,
-            backgroundImage: `url(${imageUrl})`,
-          }}
-        >
-          <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
-        </div>
-        <ShapesList />
+        {configuration.rois && configuration.rois.length > 0 && (
+          <>
+            <Header />
+            <Toolbar />
+            <div
+              className={css('canvas-wrapper', styles, themeMode)}
+              style={{
+                width: `${canvasSize.width}px`,
+                height: `${canvasSize.height}px`,
+                backgroundImage: `url(${imageUrl})`,
+              }}
+            >
+              <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
+            </div>
+            <ShapesList />
+          </>
+        )}
       </div>
     </EditorProvider>
   )
