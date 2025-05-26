@@ -260,3 +260,35 @@ export const noRoiConfiguration: Configuration = {
     viewMainParameters: true,
   },
 }
+
+export const noMainParametersConfiguration: Configuration = {
+  parameters: [],
+  rois: [
+    {
+      role: 'invasion_area', // analytics role, do not show in interface
+      label: 'Invasion area',
+      type: ToolEnum.Rectangle,
+      multiplicity: {
+        // how many rois of this type can/should be created
+        operator: OperatorEnum.Eq, // lt | lte | gt | gte | eq
+        threshold: 1,
+      },
+      parameters: [
+        {
+          codename: 'threshold', // internal code
+          label: 'Alert threshold', // to be shown in interface
+          description: 'Threshold used for triggering alarms', // tooltip
+          unit: '%', // unit
+          type: DataTypeEnum.Integer, // int, float, string, bool
+          options: [],
+          required: true, // true / false,
+          value: null, // default value
+        },
+      ],
+    },
+  ],
+  options: {
+    hideForbiddenTools: false,
+    viewMainParameters: true,
+  },
+}

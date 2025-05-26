@@ -11,7 +11,7 @@ import React from 'react'
 import RoiEditor from '../Components/RoiEditor'
 import { Output } from '../Components/RoiEditor/Types'
 import UiProvider from '../Providers/UiProvider'
-import { configuration, initialData, noRoiConfiguration } from './Fixtures'
+import { configuration, initialData, noMainParametersConfiguration, noRoiConfiguration } from './Fixtures'
 
 type RoiEditorProps = React.ComponentProps<typeof RoiEditor>
 const meta: Meta<RoiEditorProps> = {
@@ -147,6 +147,41 @@ export const NoRoi: Story = {
     editorId: 'noRoi',
     imageUrl: 'https://placecats.com/800/600',
     configuration: noRoiConfiguration,
+    initialData: initialData as Output,
+    onSubmit: (data) => {
+      console.log('output', data)
+    },
+    onUpdate: (data) => {
+      console.log('update', data)
+    },
+  },
+  tags: ['autodocs'],
+}
+
+export const NoMainParameters: Story = {
+  decorators: [
+    (Story, context) => {
+      return (
+        <div>
+          <h3>Example of configuration with no Main parameters</h3>
+          <UiProvider
+            themeMode={context.globals.theme}
+            IconButton={IconButton}
+            Typography={Typography}
+            TextField={CustomTextField}
+            NumberField={CustomNumberField}
+            BoolField={CustomBoolField}
+          >
+            <Story />
+          </UiProvider>
+        </div>
+      )
+    },
+  ],
+  args: {
+    editorId: 'noMainParameters',
+    imageUrl: 'https://placecats.com/800/600',
+    configuration: noMainParametersConfiguration,
     initialData: initialData as Output,
     onSubmit: (data) => {
       console.log('output', data)
