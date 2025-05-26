@@ -260,6 +260,19 @@ export const noRoiConfiguration: Configuration = {
     viewMainParameters: true,
   },
 }
+export const initialDataNoRoi = {
+  parameters: [
+    {
+      codename: 'analytics_1',
+      value: [10, 7],
+    },
+    {
+      codename: 'analytics_2',
+      value: false,
+    },
+  ],
+  rois: [],
+}
 
 export const noMainParametersConfiguration: Configuration = {
   parameters: [],
@@ -291,4 +304,74 @@ export const noMainParametersConfiguration: Configuration = {
     hideForbiddenTools: false,
     viewMainParameters: true,
   },
+}
+
+export const initialDataNoParameters = {
+  parameters: [],
+  rois: [
+    {
+      parameters: [
+        {
+          codename: 'threshold',
+          value: 9,
+        },
+      ],
+      name: 'Pub',
+      role: 'invasion_area',
+      type: 'polygon',
+      id: 'acbe5d5d-8a5d-4e9f-9e8f-5c4d3b2a1e9d',
+      shape: {
+        points: [
+          {
+            x: 0,
+            y: 0,
+          },
+          {
+            x: 36.5,
+            y: 58.37,
+          },
+          {
+            x: 42.25,
+            y: 18.37,
+          },
+          {
+            x: 27.63,
+            y: 17.53,
+          },
+          {
+            x: 27.63,
+            y: 17.53,
+          },
+        ],
+        top: 0,
+        left: 0,
+        color: '#ffffff',
+        angle: 0,
+        scaleX: 1,
+        scaleY: 1,
+        skewX: 0,
+        skewY: 0,
+      },
+      coords: {
+        points: [
+          {
+            x: 0.13,
+            y: 0.17,
+          },
+          {
+            x: 36.63,
+            y: 58.54,
+          },
+          {
+            x: 42.38,
+            y: 18.54,
+          },
+          {
+            x: 27.75,
+            y: 17.7,
+          },
+        ],
+      },
+    },
+  ],
 }
