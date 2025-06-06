@@ -1,3 +1,15 @@
+# [0.9.0](https://github.com/abidibo/react-cam-roi/compare/v0.8.1...v0.9.0) (2025-06-06)
+
+
+### Bug Fixes
+
+* change light theme backgrounds ([a75d50c](https://github.com/abidibo/react-cam-roi/commit/a75d50c827211794ea615f96691241b786c80bdd))
+
+
+### Features
+
+* add above rois slot ([fce4628](https://github.com/abidibo/react-cam-roi/commit/fce46284783cc8287aa0389aeed28723af703aa5))
+
 ## [0.8.1](https://github.com/abidibo/react-cam-roi/compare/v0.8.0...v0.8.1) (2025-06-06)
 
 
