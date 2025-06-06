@@ -1,3 +1,10 @@
+## [0.8.1](https://github.com/abidibo/react-cam-roi/compare/v0.8.0...v0.8.1) (2025-06-06)
+
+
+### Bug Fixes
+
+* preset description not updated when saving ([1aa7724](https://github.com/abidibo/react-cam-roi/commit/1aa772436e78989d8c9c8e036329e35f559632f1))
+
 # [0.8.0](https://github.com/abidibo/react-cam-roi/compare/v0.7.0...v0.8.0) (2025-06-06)
 
 
