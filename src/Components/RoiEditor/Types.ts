@@ -10,7 +10,7 @@ export const enum ToolEnum {
 
 export type ShapeType = ToolEnum.Polyline | ToolEnum.Polygon | ToolEnum.Rectangle | ToolEnum.Point
 export type Shape = (fabric.Rect | fabric.Polygon | fabric.Polyline | fabric.Circle) & { id?: string }
-export type Shapes = Record<string, { type: ShapeType, shape: Shape }>
+export type Shapes = Record<string, { type: ShapeType; shape: Shape }>
 export type FabricEvent = fabric.TPointerEventInfo<fabric.TPointerEvent>
 export type FabricSelectionEvent = Partial<fabric.TEvent> & { selected: fabric.Object[] }
 export type IAddShape = (id: string, type: ShapeType, shape: Shape) => void
@@ -48,13 +48,13 @@ export type RoiConfiguration = {
   multiplicity: {
     operator: OperatorEnum
     threshold: number
-  },
-  parameters: ConfigurationParameter[],
+  }
+  parameters: ConfigurationParameter[]
 }
 
 export type Configuration = {
-  parameters: ConfigurationParameter[],
-  rois: RoiConfiguration[],
+  parameters: ConfigurationParameter[]
+  rois: RoiConfiguration[]
   options?: {
     hideForbiddenTools?: boolean
     description?: string
@@ -72,8 +72,8 @@ export interface INotify {
 export type Metadata = {
   parameters: OutputParameter[]
   rois: {
-    id: string,
-    parameters: OutputParameter[],
+    id: string
+    parameters: OutputParameter[]
     name: string
     role: string
   }[]
@@ -160,6 +160,8 @@ export interface OutputRoi {
 }
 export interface Output {
   parameters: OutputParameter[]
+  presetName: string
+  presetDescription: string
   rois: OutputRoi[]
 }
 

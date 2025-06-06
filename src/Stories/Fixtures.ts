@@ -121,6 +121,8 @@ export const initialData = {
       value: false,
     },
   ],
+  presetName: 'Some ptz info',
+  presetDescription: 'Some text',
   rois: [
     {
       parameters: [

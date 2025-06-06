@@ -1,12 +1,14 @@
 .header {
   align-items: flex-start;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  padding: .5rem;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .header-light {
-  background-color: #ddd;;
+  background-color: #ddd;
 }
 
 .header-dark {
@@ -14,10 +16,11 @@
 }
 
 .header-info {
-  padding: .5rem;
+  padding: 0.5rem;
+  width: 100%;
 }
 .header-info-light {
-  background-color: #ddd;;
+  background-color: #ddd;
   color: #000;
 }
 .header-info-dark {

@@ -16,13 +16,13 @@ import { Configuration, Metadata, Output, Shape, Shapes, ShapeType, ToolEnum } f
 import { fabricShapeToOutputCoords, fabricShapeToOutputShape, validate } from './Utils'
 
 export type RoiEditorProps = {
+  editorId: string
   // the url of the image we want to annotate
   imageUrl: string
   configuration: Configuration
   onSubmit: (data: Output) => void
   onUpdate?: (data: Output) => void
   initialData?: Output
-  editorId: string
 }
 
 // https://github.com/n-mazaheri/image-editor
@@ -39,6 +39,8 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   const canvasRef = useRef<fabric.Canvas | null>(null)
   const { themeMode, enableLogs, pickerColors, strings, notify } = useContext(UiContext)
   const { imageSize, canvasSize, wrapperRef, isReady } = useCanvasSize(imageUrl)
+  const [presetName, setPresetName] = useState(initialData?.presetName ?? '')
+  const [presetDescription, setPresetDescription] = useState(initialData?.presetDescription ?? '')
 
   const [activeTool, setActiveTool] = useState(ToolEnum.Pointer)
   const [activeColor, setActiveColor] = useState(pickerColors[0])
@@ -79,9 +81,11 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   )
 
   const prepareOutput = useCallback(
-    (metadata: Metadata, shapes: Shapes) => {
+    (metadata: Metadata, shapes: Shapes, presetName: string, presetDescription: string) => {
       return {
         parameters: metadata.parameters?.map((p) => ({ codename: p.codename, value: p.value })) ?? [],
+        presetName,
+        presetDescription,
         rois: Object.keys(shapes).map((shapeId) => ({
           parameters:
             metadata.rois
@@ -106,18 +110,19 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       return
     } else if (onUpdate) {
       // notify every update
-      onUpdate(prepareOutput(metadata, shapes))
+      onUpdate(prepareOutput(metadata, shapes, presetName, presetDescription))
     }
   }, [metadata, shapes, onUpdate, prepareOutput])
 
   const handleSubmit = useCallback(() => {
-    const [isValid, errors] = validate(configuration, shapes, metadata, strings)
+    const [isValid, errors] = validate(configuration, presetName, shapes, metadata, strings)
+    console.log('CAZZ', errors, presetName)
     if (isValid) {
-      onSubmit(prepareOutput(metadata, shapes))
+      onSubmit(prepareOutput(metadata, shapes, presetName, presetDescription))
     } else {
       notify.error(strings.invalidSubmission + '\n' + errors.map((e) => `- ${e}`).join('\n'))
     }
-  }, [onSubmit, configuration, shapes, metadata, prepareOutput, strings, notify])
+  }, [onSubmit, configuration, shapes, metadata, prepareOutput, strings, notify, presetName])
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
@@ -134,6 +139,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       setActiveTool={setActiveTool}
       activeColor={activeColor}
       setActiveColor={setActiveColor}
+      presetName={presetName}
+      setPresetName={setPresetName}
+      presetDescription={presetDescription}
+      setPresetDescription={setPresetDescription}
       shapes={shapes}
       setShapes={setShapes}
       addShape={addShape}
@@ -147,7 +156,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <TopBar />
         {configuration.rois && configuration.rois.length > 0 && (
-          <>
+          <div className={css('rois-wrapper', styles, themeMode)}>
             <Header />
             <Toolbar />
             <div
@@ -161,7 +170,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
               <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
             </div>
             <ShapesList />
-          </>
+          </div>
         )}
       </div>
     </EditorProvider>

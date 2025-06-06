@@ -1,11 +1,11 @@
 # React Cam ROI
 
-This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.    
+This is a react component which lets you draw regions of interest (ROI) over images, manage metadata and import/export everything.  
 Metadata are dynamic information that can be attached to the whole image and/or to each ROI. The number of drawable ROIs can also be configured.
 
 ![Screenshot](./react-cam-roi-s.png)
 
-It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached.    
+It provides one component: `RoiEditor` and one provider: `UiProvider`. The editor lets you draw regions of interest over a given image (url). Each ROI can have dynamic metadata attached.
 
 Export and import functionality is also provided.
 
@@ -21,7 +21,7 @@ Features:
 
 ## Installation
 
-``` bash
+```bash
 npm install @abidibo/react-cam-roi
 ```
 
@@ -49,7 +49,7 @@ const MyComponent: React.FC = () => {
 
 The `RoiEditor` props and the `Output` interface used both in import and export:
 
-``` ts 
+```ts
 export type RoiEditorProps = {
   // id of this editor instance, should be unique
   editorId: string
@@ -61,6 +61,7 @@ export type RoiEditorProps = {
   onSubmit: (data: Output) => void
   // initial imported data
   initialData?: Output
+  // default preset name
 }
 
 export const enum ToolEnum {
@@ -153,6 +154,8 @@ export interface OutputRoi {
 }
 export interface Output {
   parameters: OutputParameter[]
+  presetName: string
+  presetDescription: string
   rois: OutputRoi[]
 }
 ```
@@ -297,7 +300,7 @@ You can customize many aspects of this library by using the `UiProvider`.
 - You can define custom strings used here and there (some strings require one or more placeholders).
 - You can enable logs in the console by setting the `enableLogs` option to `true`.
 
-``` tsx
+```tsx
 import IconButton from '@mui/material/IconButton'
 import { UiProvider, RoiEditor } from 'react-cam-roi'
 
@@ -335,7 +338,8 @@ type UiContextType = {
   EnumField: typeof EnumField // field used for enum input (options filled in parameter definition)
   Button: typeof Button // button
   notify: INotify // function used to display notifications
-  strings: { // strings used here and there
+  strings: {
+    // strings used here and there
     cancel: string
     cannotDrawMorePoints: string
     cannotDrawMorePolygons: string
@@ -344,15 +348,10 @@ type UiContextType = {
     id: string
     invalidSubmission: string
     mainParametersMetadata: string
+    missingPresetName: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string // with {id} placeholder
     mainParametersMetadata: strings
-    roiMultiplicityEqRule: string // with {role}, {type} and {threshold} placeholder
-    roiMultiplicityGtRule: string // with {role}, {type} and {threshold} placeholder
-    roiMultiplicityGteRule: string // with {role}, {type} and {threshold} placeholder
-    roiMultiplicityLtRule: string // with {role}, {type} and {threshold} placeholder
-    roiMultiplicityLteRule: string // with {role}, {type} and {threshold} placeholder
-    roiMultiplicityNoRule: string // with {role}, {type}
     name: string
     point: string
     pointHelpText: string
@@ -362,9 +361,17 @@ type UiContextType = {
     polylineHelpText: string
     pointer: string
     pointerHelpText: string
+    presetDescription: string
+    presetName: string
     rect: string
     rectHelpText: string
     requiredField: string
+    roiMultiplicityEqRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityGtRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityGteRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityLtRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityLteRule: string // with {role}, {type} and {threshold} placeholder
+    roiMultiplicityNoRule: string // with {role}, {type}
     roisToBeDrawn: string
     role: string
     save: string
@@ -505,6 +512,7 @@ type AnnotateIconProps = {
   style?: React.CSSProperties
 }
 ```
+
 #### SaveIcon
 
 ##### Interface
@@ -531,11 +539,11 @@ type TextFieldProps = {
   required?: boolean
   readOnly?: boolean
   disabled?: boolean
+  fullWidth?: boolean
 }
 ```
 
 ##### Classes
-
 
 - `react-cam-roi-text-field-wrapper`
 - `react-cam-roi-text-field-wrapper-light`
@@ -658,7 +666,6 @@ type EnumFieldProps = {
 - `react-cam-roi-enum-field-helper-text-dark`
 - `react-cam-roi-enum-field-helper-text-error`
 
-
 #### Button
 
 ##### Interface
@@ -682,8 +689,9 @@ type ButtonProps = {
 
 ### Functions
 
-``` ts
-type INotify = { // compatible with toast (react-toastify)
+```ts
+type INotify = {
+  // compatible with toast (react-toastify)
   info: (message: string) => void
   warn: (message: string) => void
   error: (message: string) => void
@@ -709,6 +717,12 @@ There are components that cannot be overridden. But still you can use classes to
 - `react-cam-roi-main-parameters-button`
 - `react-cam-roi-main-parameters-button-light`
 - `react-cam-roi-main-parameters-button-dark`
+
+#### ROIs editor wrapper
+
+- `react-cam-roi-rois-wrapper`
+- `react-cam-roi-rois-wrapper-light`
+- `react-cam-roi-rois-wrapper-dark`
 
 #### Canvas wrapper
 
@@ -783,16 +797,16 @@ In order to start developing just run the storybook, then make changes to code a
 In order to test the library in onother local react project you can:
 
 ```bash
-$ cd react-cam-roi
-$ yarn link
-$ cd ../my-project
-$ yarn link @abidibo/react-cam-roi
+cd react-cam-roi
+yarn link
+cd ../my-project
+yarn link @abidibo/react-cam-roi
 ```
 
 Then rebuild this library to see your changes in the project.
 
 ## CI
 
-A github action pipeline is provided, which is triggered by every push to the main branch.    
-The pipeline will publish the package to npm and update the CHANGELOG following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).    
+A github action pipeline is provided, which is triggered by every push to the main branch.  
+The pipeline will publish the package to npm and update the CHANGELOG following the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).  
 You need to add the `NODE_AUTH_TOKEN` and `GH_TOKEN` secrets to your repository settings, see [semantic-release](https://github.com/semantic-release/semantic-release) for more information.

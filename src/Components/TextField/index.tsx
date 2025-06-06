@@ -1,12 +1,13 @@
 import { useContext } from 'react'
 
 import { UiContext } from '../../Providers/UiProvider'
+import { FieldProps } from '../../Types'
 import { css } from '../../Utils'
 import styles from './TextField.module.css'
-import { FieldProps } from '../../Types'
 
 export interface TextFieldProps extends FieldProps<string> {
   type?: 'text' | 'email' | 'password'
+  fullWidth?: boolean
 }
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -19,6 +20,7 @@ const TextField: React.FC<TextFieldProps> = ({
   required = false,
   readOnly = false,
   disabled = false,
+  fullWidth = false,
 }) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +28,17 @@ const TextField: React.FC<TextFieldProps> = ({
   }
 
   return (
-    <div className={css('text-field-wrapper', styles, themeMode)}>
-      <label
-        className={`${css('text-field-label', styles, themeMode)} ${error ? css('text-field-label-error', styles, null) : ''}`}
-      >
-        <Typography>{label}{required && ' *'}</Typography>
-      </label>
+    <div className={css('text-field-wrapper', styles, themeMode)} style={{ width: fullWidth ? '100%' : 'auto' }}>
+      {label && (
+        <label
+          className={`${css('text-field-label', styles, themeMode)} ${error ? css('text-field-label-error', styles, null) : ''}`}
+        >
+          <Typography>
+            {label}
+            {required && ' *'}
+          </Typography>
+        </label>
+      )}
       <input
         type={type}
         className={`${css('text-field', styles, themeMode)} ${error ? css('text-field-error', styles, null) : ''}`}

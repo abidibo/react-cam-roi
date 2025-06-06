@@ -8,10 +8,14 @@ type EditorContextType = {
   setActiveTool: (tool: ToolEnum) => void
   activeColor: string
   setActiveColor: (color: string) => void
+  presetName: string
+  setPresetName: (name: string) => void
+  presetDescription: string
+  setPresetDescription: (name: string) => void
   shapes: Shapes
   setShapes: (shapes: Shapes) => void
   addShape: (id: string, type: ShapeType, shape: Shape) => void
-  addShapes: (shapes: {id: string, type: ShapeType, shape: Shape}[]) => void
+  addShapes: (shapes: { id: string; type: ShapeType; shape: Shape }[]) => void
   removeShape: (id: string) => void
   configuration: Configuration
   metadata: Metadata
@@ -39,6 +43,10 @@ const EditorProvider = ({
   setActiveTool,
   activeColor,
   setActiveColor,
+  presetName,
+  setPresetName,
+  presetDescription,
+  setPresetDescription,
   shapes,
   setShapes,
   addShape,
@@ -58,6 +66,10 @@ const EditorProvider = ({
         setActiveTool,
         activeColor,
         setActiveColor,
+        presetName,
+        setPresetName,
+        presetDescription,
+        setPresetDescription,
         shapes,
         setShapes,
         addShape,

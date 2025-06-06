@@ -102,11 +102,16 @@ const isEmpty = (v: string | number | boolean | string[] | number[] | null | und
 
 export const validate = (
   configuration: Configuration,
+  presetName: string,
   shapes: Shapes,
   metadata: Metadata,
   strings: Record<string, string>,
 ): [boolean, string[]] => {
   const errors = []
+  // check presetName
+  if (configuration.rois.length > 0 && !presetName) {
+    errors.push(strings.missingPresetName)
+  }
   // check main parameters
   if (configuration.parameters.length) {
     if (
@@ -242,46 +247,45 @@ export const fabricShapeToOutputShape = (
 }
 
 export function getAbsoluteRectData(rect: fabric.Rect) {
-  const points: { x: number; y: number }[] = [];
-  const matrix = rect.calcTransformMatrix();
+  const points: { x: number; y: number }[] = []
+  const matrix = rect.calcTransformMatrix()
 
   // Define the local coordinates of the rectangle's vertices, relative to its center
   const localPoints = [
-    new fabric.Point(-rect.width / 2, -rect.height / 2),       // top-left
-    new fabric.Point(rect.width / 2, -rect.height / 2),  // top-right
+    new fabric.Point(-rect.width / 2, -rect.height / 2), // top-left
+    new fabric.Point(rect.width / 2, -rect.height / 2), // top-right
     new fabric.Point(rect.width / 2, rect.height / 2), // bottom-right
-    new fabric.Point(-rect.width / 2, rect.height / 2)  // bottom-left
-  ];
+    new fabric.Point(-rect.width / 2, rect.height / 2), // bottom-left
+  ]
 
   // Transform each local point to global coordinates
-  localPoints.forEach(function(point) {
-    const transformedPoint = point.transform(matrix);
-    points.push(transformedPoint);
-  });
+  localPoints.forEach(function (point) {
+    const transformedPoint = point.transform(matrix)
+    points.push(transformedPoint)
+  })
 
-  return points;
+  return points
 }
 
 function getAbsolutePoints(shape: fabric.Polygon | fabric.Polyline) {
- if (!shape.points || !shape.calcTransformMatrix) return [];
+  if (!shape.points || !shape.calcTransformMatrix) return []
 
-  const matrix = shape.calcTransformMatrix();
+  const matrix = shape.calcTransformMatrix()
 
-  const prevPoints: string[] = [];
-  return shape.points.filter(point => {
-    if (!prevPoints.includes(JSON.stringify(point))) {
-      prevPoints.push(JSON.stringify(point));
-      return true;
-    }
-    return false;
-  }).map(point => {
-    const localPoint = new fabric.Point(
-      point.x - shape.pathOffset.x,
-      point.y - shape.pathOffset.y
-    );
-    const transformedPoint = localPoint.transform(matrix);
-    return { x: transformedPoint.x, y: transformedPoint.y };
-  });
+  const prevPoints: string[] = []
+  return shape.points
+    .filter((point) => {
+      if (!prevPoints.includes(JSON.stringify(point))) {
+        prevPoints.push(JSON.stringify(point))
+        return true
+      }
+      return false
+    })
+    .map((point) => {
+      const localPoint = new fabric.Point(point.x - shape.pathOffset.x, point.y - shape.pathOffset.y)
+      const transformedPoint = localPoint.transform(matrix)
+      return { x: transformedPoint.x, y: transformedPoint.y }
+    })
 }
 
 export const fabricShapeToOutputCoords = (
@@ -295,7 +299,7 @@ export const fabricShapeToOutputCoords = (
         points: getAbsoluteRectData(shape as fabric.Rect).map(({ x, y }: { x: number; y: number }) => ({
           x: abs2Perc(x, imageSize.width),
           y: abs2Perc(y, imageSize.height),
-        }))
+        })),
       }
     case ToolEnum.Point:
       return {
@@ -305,10 +309,12 @@ export const fabricShapeToOutputCoords = (
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
-        points: getAbsolutePoints(shape as fabric.Polyline | fabric.Polygon).map(({ x, y }: { x: number; y: number }) => ({
-          x: abs2Perc(x, imageSize.width),
-          y: abs2Perc(y, imageSize.height),
-        }))
+        points: getAbsolutePoints(shape as fabric.Polyline | fabric.Polygon).map(
+          ({ x, y }: { x: number; y: number }) => ({
+            x: abs2Perc(x, imageSize.width),
+            y: abs2Perc(y, imageSize.height),
+          }),
+        ),
       }
   }
 }

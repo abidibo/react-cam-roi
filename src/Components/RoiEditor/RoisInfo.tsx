@@ -6,13 +6,25 @@ import { formatString } from '../../Utils'
 import { OperatorEnum } from './Types'
 
 const RoisInfo = () => {
-  const { strings, Typography } = useContext(UiContext)
-  const { configuration } = useEditorContext()
+  const { strings, Typography, TextField } = useContext(UiContext)
+  const { configuration, presetName, setPresetName, presetDescription, setPresetDescription } = useEditorContext()
 
   if (!configuration.rois?.length) return null
 
   return (
     <div>
+      <div style={{ marginBottom: '1rem' }}>
+        <TextField required value={presetName} onChange={setPresetName} label={strings.presetName} fullWidth />
+      </div>
+      <div style={{ marginBottom: '1rem' }}>
+        <TextField
+          value={presetDescription}
+          onChange={setPresetDescription}
+          label={strings.presetDescription}
+          fullWidth
+        />
+      </div>
+      {configuration.options?.description && <Typography>{configuration.options.description}</Typography>}
       <Typography component="div">{strings.roisToBeDrawn}:</Typography>
       <ul>
         {configuration.rois.map((r) => {

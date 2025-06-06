@@ -1,20 +1,20 @@
 import { createContext, PropsWithChildren } from 'react'
 
-import Typography from '../Components/Typography'
+import BoolField from '../Components/BoolField'
+import Button from '../Components/Button'
+import EnumField from '../Components/EnumField'
 import IconButton from '../Components/IconButton'
-import DeleteIcon from '../Icons/DeleteIcon'
-import EditIcon from '../Icons/EditIcon'
+import Modal from '../Components/Modal'
+import NumberField from '../Components/NumberField'
 import { INotify } from '../Components/RoiEditor/Types'
 import { notify } from '../Components/RoiEditor/Utils'
-import CopyIcon from '../Icons/CopyIcon'
-import AnnotateIcon from '../Icons/AnnotateIcon'
-import Modal from '../Components/Modal'
-import CloseIcon from '../Icons/CloseIcon'
 import TextField from '../Components/TextField'
-import NumberField from '../Components/NumberField'
-import BoolField from '../Components/BoolField'
-import EnumField from '../Components/EnumField'
-import Button from '../Components/Button'
+import Typography from '../Components/Typography'
+import AnnotateIcon from '../Icons/AnnotateIcon'
+import CloseIcon from '../Icons/CloseIcon'
+import CopyIcon from '../Icons/CopyIcon'
+import DeleteIcon from '../Icons/DeleteIcon'
+import EditIcon from '../Icons/EditIcon'
 import SaveIcon from '../Icons/SaveIcon'
 
 type UiContextType = {
@@ -38,7 +38,7 @@ type UiContextType = {
   EnumField: typeof EnumField
   Button: typeof Button
   pickerColors: string[]
-  notify: INotify,
+  notify: INotify
   strings: {
     cancel: string
     cannotDrawMorePoints: string
@@ -48,14 +48,9 @@ type UiContextType = {
     id: string
     invalidSubmission: string
     mainParametersMetadata: string
+    missingPresetName: string
     missingRequiredValuesInMainParameters: string
     missingRequiredValuesInShapeParameters: string
-    roiMultiplicityEqRule: string
-    roiMultiplicityGtRule: string
-    roiMultiplicityGteRule: string
-    roiMultiplicityLtRule: string
-    roiMultiplicityLteRule: string
-    roiMultiplicityNoRule: string
     name: string
     point: string
     pointHelpText: string
@@ -63,10 +58,18 @@ type UiContextType = {
     polygonHelpText: string
     polyline: string
     polylineHelpText: string
-    rect: string
-    rectHelpText: string
+    presetDescription: string
+    presetName: string
     pointer: string
     pointerHelpText: string
+    rect: string
+    rectHelpText: string
+    roiMultiplicityEqRule: string
+    roiMultiplicityGtRule: string
+    roiMultiplicityGteRule: string
+    roiMultiplicityLtRule: string
+    roiMultiplicityLteRule: string
+    roiMultiplicityNoRule: string
     roisToBeDrawn: string
     role: string
     requiredField: string
@@ -80,7 +83,8 @@ type UiContextType = {
     type: string
   }
 }
-export const DefaultUiContext: UiContextType = { // eslint-disable-line
+export const DefaultUiContext: UiContextType = {
+  // eslint-disable-line
   enableLogs: true,
   themeMode: 'light',
   primaryColor: '#1976d2',
@@ -110,6 +114,7 @@ export const DefaultUiContext: UiContextType = { // eslint-disable-line
     id: 'ID',
     invalidSubmission: 'Invalid submission',
     mainParametersMetadata: 'Main parameters',
+    missingPresetName: 'Missing preset name',
     missingRequiredValuesInMainParameters: 'Missing required values in main parameters',
     missingRequiredValuesInShapeParameters: 'Missing required values in shape {id} parameters',
     name: 'Name',
@@ -119,6 +124,8 @@ export const DefaultUiContext: UiContextType = { // eslint-disable-line
     polygonHelpText: 'click to draw all the polygon points, double click on the last point to close the polygon',
     polyline: 'Polyline',
     polylineHelpText: 'click to draw all the polyline points, double click on the last point to stop drawing',
+    presetDescription: 'Preset description',
+    presetName: 'Image preset',
     rect: 'Rectangle',
     rectHelpText: 'click and drag to draw the rectangle',
     pointer: 'Selection',
@@ -136,7 +143,8 @@ export const DefaultUiContext: UiContextType = { // eslint-disable-line
     shapeParametersMetadata: 'Shape parameters',
     shapesOfRoleShouldBeEqualToThreshold: 'Shapes of role {role} should be equal to {threshold}',
     shapesOfRoleShouldBeGreaterThanThreshold: 'Shapes of role {role} should be greater than {threshold}',
-    shapesOfRoleShouldBeGreaterThanOrEqualToThreshold: 'Shapes of role {role} should be greater than or equal to {threshold}',
+    shapesOfRoleShouldBeGreaterThanOrEqualToThreshold:
+      'Shapes of role {role} should be greater than or equal to {threshold}',
     shapesOfRoleShouldBeLessThanThreshold: 'Shapes of role {role} should be less than {threshold}',
     shapesOfRoleShouldBeLessThanOrEqualToThreshold: 'Shapes of role {role} should be less than or equal to {threshold}',
     type: 'Type',
