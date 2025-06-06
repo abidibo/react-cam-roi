@@ -24,6 +24,9 @@ export type RoiEditorProps = {
   onUpdate?: (data: Output) => void
   initialData?: Output
   allowPartialSave?: boolean
+  slots?: {
+    roiAbove?: React.ReactNode
+  }
 }
 
 // https://github.com/n-mazaheri/image-editor
@@ -35,6 +38,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   initialData,
   editorId,
   allowPartialSave,
+  slots,
 }) => {
   log('info', true, 'react-cam-roi', 'React', React)
   const firstUpdate = useRef(0)
@@ -159,21 +163,24 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
       <div style={{ maxWidth: '100%', width: `${imageSize.width}px` }} ref={wrapperRef}>
         <TopBar />
         {configuration.rois && configuration.rois.length > 0 && (
-          <div className={css('rois-wrapper', styles, themeMode)}>
-            <Header />
-            <Toolbar />
-            <div
-              className={css('canvas-wrapper', styles, themeMode)}
-              style={{
-                width: `${canvasSize.width}px`,
-                height: `${canvasSize.height}px`,
-                backgroundImage: `url(${imageUrl})`,
-              }}
-            >
-              <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
+          <>
+            {slots?.roiAbove && slots.roiAbove}
+            <div className={css('rois-wrapper', styles, themeMode)}>
+              <Header />
+              <Toolbar />
+              <div
+                className={css('canvas-wrapper', styles, themeMode)}
+                style={{
+                  width: `${canvasSize.width}px`,
+                  height: `${canvasSize.height}px`,
+                  backgroundImage: `url(${imageUrl})`,
+                }}
+              >
+                <Canvas canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} initialData={initialData} />
+              </div>
+              <ShapesList />
             </div>
-            <ShapesList />
-          </div>
+          </>
         )}
       </div>
     </EditorProvider>

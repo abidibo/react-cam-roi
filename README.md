@@ -63,6 +63,11 @@ export type RoiEditorProps = {
   initialData?: Output
   // allow partial save: no error notified but errors are returned
   allowPartialSave?: boolean
+  // slots for injecting components
+  slots?: {
+    // injected above ROIs section
+    roiAbove?: React.ReactNode
+  }
 }
 
 export const enum ToolEnum {
