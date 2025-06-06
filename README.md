@@ -61,7 +61,8 @@ export type RoiEditorProps = {
   onSubmit: (data: Output) => void
   // initial imported data
   initialData?: Output
-  // default preset name
+  // allow partial save: no error notified but errors are returned
+  allowPartialSave?: boolean
 }
 
 export const enum ToolEnum {
@@ -157,6 +158,7 @@ export interface Output {
   presetName: string
   presetDescription: string
   rois: OutputRoi[]
+  errors?: string[]
 }
 ```
 

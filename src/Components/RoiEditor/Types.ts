@@ -163,6 +163,7 @@ export interface Output {
   presetName: string
   presetDescription: string
   rois: OutputRoi[]
+  errors?: string[]
 }
 
 export enum UpdateEventType {

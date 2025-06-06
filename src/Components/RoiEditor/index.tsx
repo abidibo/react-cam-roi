@@ -23,6 +23,7 @@ export type RoiEditorProps = {
   onSubmit: (data: Output) => void
   onUpdate?: (data: Output) => void
   initialData?: Output
+  allowPartialSave?: boolean
 }
 
 // https://github.com/n-mazaheri/image-editor
@@ -33,6 +34,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   onUpdate,
   initialData,
   editorId,
+  allowPartialSave,
 }) => {
   log('info', true, 'react-cam-roi', 'React', React)
   const firstUpdate = useRef(0)
@@ -116,9 +118,10 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
 
   const handleSubmit = useCallback(() => {
     const [isValid, errors] = validate(configuration, presetName, shapes, metadata, strings)
-    console.log('CAZZ', errors, presetName)
     if (isValid) {
       onSubmit(prepareOutput(metadata, shapes, presetName, presetDescription))
+    } else if (allowPartialSave) {
+      onSubmit({ ...prepareOutput(metadata, shapes, presetName, presetDescription), errors })
     } else {
       notify.error(strings.invalidSubmission + '\n' + errors.map((e) => `- ${e}`).join('\n'))
     }
