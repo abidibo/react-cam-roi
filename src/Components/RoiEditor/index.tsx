@@ -125,7 +125,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
     } else {
       notify.error(strings.invalidSubmission + '\n' + errors.map((e) => `- ${e}`).join('\n'))
     }
-  }, [onSubmit, configuration, shapes, metadata, prepareOutput, strings, notify, presetName])
+  }, [onSubmit, configuration, shapes, metadata, prepareOutput, strings, notify, presetName, presetDescription])
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
