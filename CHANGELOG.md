@@ -1,3 +1,10 @@
+# [0.8.0](https://github.com/abidibo/react-cam-roi/compare/v0.7.0...v0.8.0) (2025-06-06)
+
+
+### Features
+
+* allow partial saving ([087fc55](https://github.com/abidibo/react-cam-roi/commit/087fc55420f8517ffa23f7e4189138b0ccf09556))
+
 # [0.7.0](https://github.com/abidibo/react-cam-roi/compare/v0.6.0...v0.7.0) (2025-06-06)
 
 
