@@ -1,3 +1,15 @@
+# [0.7.0](https://github.com/abidibo/react-cam-roi/compare/v0.6.0...v0.7.0) (2025-06-06)
+
+
+### Bug Fixes
+
+* editor with no rois ([517b30d](https://github.com/abidibo/react-cam-roi/commit/517b30d3bd3751762c6e3b35324c3b35b5fa1128))
+
+
+### Features
+
+* add preset name and description fields ([43739b4](https://github.com/abidibo/react-cam-roi/commit/43739b49e318cacaedcbc2bc794c051d36ed15b1))
+
 # [0.6.0](https://github.com/abidibo/react-cam-roi/compare/v0.5.0...v0.6.0) (2025-05-16)
 
 
