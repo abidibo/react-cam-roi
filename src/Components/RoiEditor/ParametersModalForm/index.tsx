@@ -74,8 +74,8 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
             required
             value={role}
             onChange={setRole}
-            error={!!errors.name}
-            helperText={errors.name}
+            error={!!errors.role}
+            helperText={errors.role}
             shapeType={shapeType}
             readOnly={readOnly}
             disabled={readOnly}
@@ -125,7 +125,13 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
     </div>
   )
 
-  return noModal ? form : <Modal onClose={onClose} title={title} isOpen maxWidth="sm" onSubmit={handleSubmit}>{form}</Modal>
+  return noModal ? (
+    form
+  ) : (
+    <Modal onClose={onClose} title={title} isOpen maxWidth="sm" onSubmit={handleSubmit}>
+      {form}
+    </Modal>
+  )
 }
 
 export default ParametersModalForm
