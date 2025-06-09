@@ -1,3 +1,10 @@
+## [0.9.1](https://github.com/abidibo/react-cam-roi/compare/v0.9.0...v0.9.1) (2025-06-09)
+
+
+### Bug Fixes
+
+* parameters form role field error ([eab145e](https://github.com/abidibo/react-cam-roi/commit/eab145e66956097a2a51c4cf66004feb0edf22e5))
+
 # [0.9.0](https://github.com/abidibo/react-cam-roi/compare/v0.8.1...v0.9.0) (2025-06-06)
 
 
