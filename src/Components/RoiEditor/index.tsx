@@ -167,7 +167,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
             {slots?.roiAbove && slots.roiAbove}
             <div className={css('rois-wrapper', styles, themeMode)}>
               <Header />
-              <Toolbar />
+              <Toolbar canvasRef={canvasRef} imageSize={imageSize} />
               <div
                 className={css('canvas-wrapper', styles, themeMode)}
                 style={{

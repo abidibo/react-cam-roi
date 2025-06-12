@@ -1,8 +1,8 @@
-import * as fabric from 'fabric';
-import { v4 as uuidv4 } from 'uuid';
+import * as fabric from 'fabric'
+import { v4 as uuidv4 } from 'uuid'
 
-import { FabricEvent, ToolEnum } from './Types';
-import Dispatcher from '../../Utils/Dispatcher';
+import Dispatcher from '../../Utils/Dispatcher'
+import { FabricEvent, ToolEnum } from './Types'
 
 const addPoint = (
   event: FabricEvent,
@@ -97,6 +97,34 @@ export const handleDoubleClickPolygon = (
     setLines([])
     setIsDrawing(false)
   }
+}
+
+export const renderFullImagePolygon = (
+  editorId: string,
+  canvas: fabric.Canvas,
+  activeColor: string,
+  imageSize: { width: number; height: number },
+) => {
+  const id = uuidv4()
+  const points = [
+    { x: 1, y: 1 },
+    { x: imageSize.width - 1, y: 0 },
+    { x: imageSize.width - 1, y: imageSize.height - 1 },
+    { x: 0, y: imageSize.height - 1 },
+  ]
+  const polygon = new fabric.Polygon(points, {
+    fill: 'transparent',
+    stroke: activeColor,
+    strokeWidth: 2,
+    strokeUniform: true,
+    selectable: false,
+    hasControls: true,
+    hoverCursor: 'default',
+    // @ts-expect-error id is not included in types but the property is added and it works
+    id,
+  })
+  canvas.add(polygon)
+  Dispatcher.emit(`canvas:${editorId}:shapeAdded`, { id, type: ToolEnum.Polygon, shape: polygon })
 }
 
 export const copyPolygon = (editorId: string, canvas: fabric.Canvas, polygon: fabric.Polygon) => {
