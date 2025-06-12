@@ -372,7 +372,7 @@ var t = {
     "resetComponents",
     "withReset"
   ],
-  "@storybook/components": [
+  "storybook/internal/components": [
     "A",
     "ActionBar",
     "AddonPanel",
@@ -548,7 +548,7 @@ var t = {
     "useStorybookApi",
     "useStorybookState"
   ],
-  "@storybook/manager-api": [
+  "storybook/manager-api": [
     "ActiveTabs",
     "Consumer",
     "ManagerContext",
@@ -632,7 +632,7 @@ var t = {
     "stringifyQuery",
     "useNavigate"
   ],
-  "@storybook/router": [
+  "storybook/internal/router": [
     "BaseLocationProvider",
     "DEEPLY_EQUAL",
     "Link",
@@ -690,7 +690,7 @@ var t = {
     "useTheme",
     "withTheme"
   ],
-  "@storybook/theming": [
+  "storybook/theming": [
     "CacheProvider",
     "ClassNames",
     "Global",
@@ -743,7 +743,7 @@ var t = {
     "withTheme"
   ],
   "storybook/internal/theming/create": ["create", "themes"],
-  "@storybook/theming/create": ["create", "themes"],
+  "storybook/theming/create": ["create", "themes"],
   "@storybook/core/theming/create": ["create", "themes"],
   "storybook/internal/channels": [
     "Channel",
@@ -751,7 +751,7 @@ var t = {
     "WebsocketTransport",
     "createBrowserChannel"
   ],
-  "@storybook/channels": [
+  "storybook/internal/channels": [
     "Channel",
     "PostMessageTransport",
     "WebsocketTransport",
@@ -829,7 +829,7 @@ var t = {
     "UPDATE_QUERY_PARAMS",
     "UPDATE_STORY_ARGS"
   ],
-  "@storybook/core-events": [
+  "storybook/internal/core-events": [
     "ARGTYPES_INFO_REQUEST",
     "ARGTYPES_INFO_RESPONSE",
     "CHANNEL_CREATED",
@@ -962,14 +962,14 @@ var t = {
     "UPDATE_STORY_ARGS"
   ],
   "storybook/internal/types": ["Addon_TypesEnum"],
-  "@storybook/types": ["Addon_TypesEnum"],
+  "storybook/internal/types": ["Addon_TypesEnum"],
   "@storybook/core/types": ["Addon_TypesEnum"],
   "storybook/internal/manager-errors": [
     "Category",
     "ProviderDoesNotExtendBaseProviderError",
     "UncaughtManagerError"
   ],
-  "@storybook/core-events/manager-errors": [
+  "storybook/internal/core-events/manager-errors": [
     "Category",
     "ProviderDoesNotExtendBaseProviderError",
     "UncaughtManagerError"
@@ -980,7 +980,7 @@ var t = {
     "UncaughtManagerError"
   ],
   "storybook/internal/client-logger": ["deprecate", "logger", "once", "pretty"],
-  "@storybook/client-logger": ["deprecate", "logger", "once", "pretty"],
+  "storybook/internal/client-logger": ["deprecate", "logger", "once", "pretty"],
   "@storybook/core/client-logger": ["deprecate", "logger", "once", "pretty"]
 };
 
@@ -991,34 +991,34 @@ var e = {
   "react-dom/client": "__REACT_DOM_CLIENT__",
   "@storybook/icons": "__STORYBOOK_ICONS__",
   "storybook/internal/manager-api": "__STORYBOOK_API__",
-  "@storybook/manager-api": "__STORYBOOK_API__",
+  "storybook/manager-api": "__STORYBOOK_API__",
   "@storybook/core/manager-api": "__STORYBOOK_API__",
   "storybook/internal/components": "__STORYBOOK_COMPONENTS__",
-  "@storybook/components": "__STORYBOOK_COMPONENTS__",
+  "storybook/internal/components": "__STORYBOOK_COMPONENTS__",
   "@storybook/core/components": "__STORYBOOK_COMPONENTS__",
   "storybook/internal/channels": "__STORYBOOK_CHANNELS__",
-  "@storybook/channels": "__STORYBOOK_CHANNELS__",
+  "storybook/internal/channels": "__STORYBOOK_CHANNELS__",
   "@storybook/core/channels": "__STORYBOOK_CHANNELS__",
   "storybook/internal/core-errors": "__STORYBOOK_CORE_EVENTS__",
-  "@storybook/core-events": "__STORYBOOK_CORE_EVENTS__",
+  "storybook/internal/core-events": "__STORYBOOK_CORE_EVENTS__",
   "@storybook/core/core-events": "__STORYBOOK_CORE_EVENTS__",
   "storybook/internal/manager-errors": "__STORYBOOK_CORE_EVENTS_MANAGER_ERRORS__",
-  "@storybook/core-events/manager-errors": "__STORYBOOK_CORE_EVENTS_MANAGER_ERRORS__",
+  "storybook/internal/core-events/manager-errors": "__STORYBOOK_CORE_EVENTS_MANAGER_ERRORS__",
   "@storybook/core/manager-errors": "__STORYBOOK_CORE_EVENTS_MANAGER_ERRORS__",
   "storybook/internal/router": "__STORYBOOK_ROUTER__",
-  "@storybook/router": "__STORYBOOK_ROUTER__",
+  "storybook/internal/router": "__STORYBOOK_ROUTER__",
   "@storybook/core/router": "__STORYBOOK_ROUTER__",
   "storybook/internal/theming": "__STORYBOOK_THEMING__",
-  "@storybook/theming": "__STORYBOOK_THEMING__",
+  "storybook/theming": "__STORYBOOK_THEMING__",
   "@storybook/core/theming": "__STORYBOOK_THEMING__",
   "storybook/internal/theming/create": "__STORYBOOK_THEMING_CREATE__",
-  "@storybook/theming/create": "__STORYBOOK_THEMING_CREATE__",
+  "storybook/theming/create": "__STORYBOOK_THEMING_CREATE__",
   "@storybook/core/theming/create": "__STORYBOOK_THEMING_CREATE__",
   "storybook/internal/client-logger": "__STORYBOOK_CLIENT_LOGGER__",
-  "@storybook/client-logger": "__STORYBOOK_CLIENT_LOGGER__",
+  "storybook/internal/client-logger": "__STORYBOOK_CLIENT_LOGGER__",
   "@storybook/core/client-logger": "__STORYBOOK_CLIENT_LOGGER__",
   "storybook/internal/types": "__STORYBOOK_TYPES__",
-  "@storybook/types": "__STORYBOOK_TYPES__",
+  "storybook/internal/types": "__STORYBOOK_TYPES__",
   "@storybook/core/types": "__STORYBOOK_TYPES__"
 }, n = Object.keys(e);
 

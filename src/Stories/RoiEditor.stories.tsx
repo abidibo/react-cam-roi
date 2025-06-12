@@ -4,9 +4,9 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { Checkbox, FormControlLabel, IconButton, TextField, Typography } from '@mui/material'
-import { useArgs } from '@storybook/preview-api'
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
+import { useArgs } from 'storybook/preview-api'
 
 import RoiEditor from '../Components/RoiEditor'
 import { Output } from '../Components/RoiEditor/Types'
@@ -38,7 +38,7 @@ const meta: Meta<RoiEditorProps> = {
   ],
   args: {
     editorId: 'meow',
-    imageUrl: 'https://placecats.com/800/600',
+    imageUrl: 'https://picsum.photos/800/600',
     configuration: configuration,
     initialData: initialData as Output,
     onSubmit: (data) => {
@@ -152,7 +152,7 @@ export const NoRoi: Story = {
   ],
   args: {
     editorId: 'noRoi',
-    imageUrl: 'https://placecats.com/800/600',
+    imageUrl: 'https://picsum.photos/800/600',
     configuration: noRoiConfiguration,
     initialData: initialDataNoRoi as Output,
     onSubmit: (data) => {
@@ -187,7 +187,7 @@ export const NoMainParameters: Story = {
   ],
   args: {
     editorId: 'noMainParameters',
-    imageUrl: 'https://placecats.com/800/600',
+    imageUrl: 'https://picsum.photos/800/600',
     configuration: noMainParametersConfiguration,
     initialData: initialDataNoParameters as Output,
     onSubmit: (data) => {
