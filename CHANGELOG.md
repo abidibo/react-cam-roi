@@ -1,3 +1,11 @@
+# [0.10.0](https://github.com/abidibo/react-cam-roi/compare/v0.9.1...v0.10.0) (2025-06-12)
+
+
+### Features
+
+* add insert full image polygon shortcut ([701e400](https://github.com/abidibo/react-cam-roi/commit/701e4004ecd45ed6360217e5fa0c0af36c8e4f3d))
+* update storybook ([170f372](https://github.com/abidibo/react-cam-roi/commit/170f37229425b6a283a38ba5266c1fea094b7f3a))
+
 ## [0.9.1](https://github.com/abidibo/react-cam-roi/compare/v0.9.0...v0.9.1) (2025-06-09)
 
 
