@@ -801,7 +801,7 @@ After cloning the repository and install dependencies (`yarn install`), you can 
 
 In order to start developing just run the storybook, then make changes to code and the storybook will be updated.
 
-In order to test the library in onother local react project you can:
+In order to test the library in another local react project you can:
 
 ```bash
 cd react-cam-roi
