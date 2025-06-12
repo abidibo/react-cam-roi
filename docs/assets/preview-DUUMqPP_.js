@@ -1,1 +1,0 @@
-const e={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}},globalTypes:{theme:{description:"Global theme for components",toolbar:{title:"Theme",icon:"circlehollow",items:["light","dark"],dynamicTitle:!0}}},initialGlobals:{theme:"light"}};export{e as default};
