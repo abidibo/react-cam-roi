@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { UiContext } from '../../../Providers/UiProvider'
 import { css } from '../../../Utils'
@@ -41,10 +41,17 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   const { fields, setField, errors, setErrors } = useParametersForm(data)
   const readonlyFields: Record<string, unknown> = data.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {})
 
+  // if not in modal we save at every field change
+  useEffect(() => {
+    if (noModal) {
+      handleSubmit()
+    }
+  }, [fields])
+
   const handleSubmit = () => {
     if (shapeType && name === '') {
       setErrors({ name: strings.requiredField })
-    } else if (validateParametersForm(parameters, fields, setErrors, strings)) {
+    } else if (!noModal || validateParametersForm(parameters, fields, setErrors, strings)) {
       const data = [
         ...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] })),
       ] as OutputParameter[]

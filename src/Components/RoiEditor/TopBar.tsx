@@ -47,18 +47,12 @@ const TopBar = () => {
       </div>
       {enableMainMetadata(configuration) && configuration.options?.viewMainParameters && (
         <div className={css('main-parameters-view', styles, themeMode)}>
-          <div className={css('main-parameters-button', styles, themeMode)}>
-            <Button onClick={() => setForm({ isOpen: true })}>
-              <AnnotateIcon color={iconColor} /> {strings.mainParametersMetadata}
-            </Button>
-          </div>
           <ParametersModalForm
             parameters={configuration.parameters}
             data={metadata.parameters}
             title={strings.mainParametersMetadata}
             onClose={() => setForm({ isOpen: false })}
             onSubmit={handleSubmitMetadata}
-            readOnly
             noModal
           />
         </div>
