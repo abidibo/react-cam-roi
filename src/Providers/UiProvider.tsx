@@ -9,6 +9,7 @@ import NumberField from '../Components/NumberField'
 import { INotify } from '../Components/RoiEditor/Types'
 import { notify } from '../Components/RoiEditor/Utils'
 import TextField from '../Components/TextField'
+import Tooltip from '../Components/Tooltip'
 import Typography from '../Components/Typography'
 import AnnotateIcon from '../Icons/AnnotateIcon'
 import CloseIcon from '../Icons/CloseIcon'
@@ -24,6 +25,7 @@ type UiContextType = {
   primaryColor: string
   primaryFgColor: string
   Typography: typeof Typography
+  Tooltip: typeof Tooltip
   IconButton: typeof IconButton
   Modal: typeof Modal
   DeleteIcon: typeof DeleteIcon
@@ -47,6 +49,7 @@ type UiContextType = {
     cannotDrawMoreRectangles: string
     id: string
     invalidSubmission: string
+    fullImage: string
     mainParametersMetadata: string
     missingPresetName: string
     missingRequiredValuesInMainParameters: string
@@ -63,6 +66,7 @@ type UiContextType = {
     pointer: string
     pointerHelpText: string
     rect: string
+    rectangle: string
     rectHelpText: string
     roiMultiplicityEqRule: string
     roiMultiplicityGtRule: string
@@ -74,6 +78,7 @@ type UiContextType = {
     role: string
     requiredField: string
     save: string
+    selection: string
     shapeParametersMetadata: string
     shapesOfRoleShouldBeEqualToThreshold: string
     shapesOfRoleShouldBeGreaterThanThreshold: string
@@ -90,6 +95,7 @@ export const DefaultUiContext: UiContextType = {
   primaryColor: '#1976d2',
   primaryFgColor: '#fff',
   Typography,
+  Tooltip,
   IconButton,
   Modal,
   DeleteIcon,
@@ -111,6 +117,7 @@ export const DefaultUiContext: UiContextType = {
     cannotDrawMorePolygons: 'You cannot draw more polygons',
     cannotDrawMorePolylines: 'You cannot draw more polylines',
     cannotDrawMoreRectangles: 'You cannot draw more rectangles',
+    fullImage: 'Full image',
     id: 'ID',
     invalidSubmission: 'Invalid submission',
     mainParametersMetadata: 'Main parameters',
@@ -126,10 +133,10 @@ export const DefaultUiContext: UiContextType = {
     polylineHelpText: 'click to draw all the polyline points, double click on the last point to stop drawing',
     presetDescription: 'Preset description',
     presetName: 'Image preset',
-    rect: 'Rectangle',
-    rectHelpText: 'click and drag to draw the rectangle',
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
+    rect: 'Rectangle',
+    rectHelpText: 'click and drag to draw the rectangle',
     requiredField: 'This field is required',
     roiMultiplicityEqRule: 'a number of "{role}" ({type}) equal to {threshold}',
     roiMultiplicityGtRule: 'a number of "{role}" ({type}) greater than {threshold}',
@@ -140,6 +147,7 @@ export const DefaultUiContext: UiContextType = {
     roisToBeDrawn: 'ROIs to be drawn',
     role: 'Role',
     save: 'Save',
+    selection: 'Selection',
     shapeParametersMetadata: 'Shape parameters',
     shapesOfRoleShouldBeEqualToThreshold: 'Shapes of role {role} should be equal to {threshold}',
     shapesOfRoleShouldBeGreaterThanThreshold: 'Shapes of role {role} should be greater than {threshold}',
@@ -160,6 +168,7 @@ const UiProvider = ({
   primaryColor,
   primaryFgColor,
   Typography,
+  Tooltip,
   Modal,
   IconButton,
   DeleteIcon,
@@ -180,6 +189,7 @@ const UiProvider = ({
   const ctx: UiContextType = {
     enableLogs: enableLogs ?? DefaultUiContext.enableLogs,
     Typography: Typography ?? DefaultUiContext.Typography,
+    Tooltip: Tooltip ?? DefaultUiContext.Tooltip,
     Modal: Modal ?? DefaultUiContext.Modal,
     IconButton: IconButton ?? DefaultUiContext.IconButton,
     DeleteIcon: DeleteIcon ?? DefaultUiContext.DeleteIcon,

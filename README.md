@@ -332,6 +332,7 @@ type UiContextType = {
   primaryColor: string // primary color for internal components
   primaryFgColor: string // text color above primary bg for internal components
   Typography: React.FC<TypographyProps> // component used to surround text
+  Tooltip: React.FC<TooltipProps> // component used to show tooltips
   Modal: React.FC<ModalProps> // modal dialog component (it displays metadata forms)
   IconButton: React.FC<IconButtonProps> // wrapper for icon buttons
   DeleteIcon: React.FC<DeleteIconProps> // delete icon
@@ -352,6 +353,7 @@ type UiContextType = {
     cannotDrawMorePolygons: string
     cannotDrawMorePolylines: string
     cannotDrawMoreRectangles: string
+    fullImage: string
     id: string
     invalidSubmission: string
     mainParametersMetadata: string
@@ -382,6 +384,7 @@ type UiContextType = {
     roisToBeDrawn: string
     role: string
     save: string
+    selection: string
     shapeParametersMetadata: string
     shapesOfRoleShouldBeEqualToThreshold: string // with {role} and {threshold} placeholders
     shapesOfRoleShouldBeGreaterThanThreshold: string // with {role} and {threshold} placeholders
@@ -454,6 +457,17 @@ type TypographyProps = {
   component?: any // compatible with mui
   className?: string
   style?: React.CSSProperties
+}
+```
+
+#### Tooltip
+
+##### Interface
+
+```ts
+type TooltipProps = {
+  children?: React.ReactNode
+  title: string
 }
 ```
 
