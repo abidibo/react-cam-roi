@@ -105,12 +105,13 @@ export const renderFullImagePolygon = (
   activeColor: string,
   imageSize: { width: number; height: number },
 ) => {
+  const OFFSET = 5
   const id = uuidv4()
   const points = [
-    { x: 1, y: 1 },
-    { x: imageSize.width - 1, y: 0 },
-    { x: imageSize.width - 1, y: imageSize.height - 1 },
-    { x: 0, y: imageSize.height - 1 },
+    { x: OFFSET, y: OFFSET },
+    { x: imageSize.width - OFFSET, y: OFFSET },
+    { x: imageSize.width - OFFSET, y: imageSize.height - OFFSET },
+    { x: OFFSET, y: imageSize.height - OFFSET },
   ]
   const polygon = new fabric.Polygon(points, {
     fill: 'transparent',
