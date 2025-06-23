@@ -1,3 +1,10 @@
+# [0.12.0](https://github.com/abidibo/react-cam-roi/compare/v0.11.0...v0.12.0) (2025-06-23)
+
+
+### Features
+
+* add tools tooltips ([2b962e0](https://github.com/abidibo/react-cam-roi/commit/2b962e0391d5c5b1e2870f4e6d9fd9842308a9fa))
+
 # [0.11.0](https://github.com/abidibo/react-cam-roi/compare/v0.10.0...v0.11.0) (2025-06-23)
 
 
