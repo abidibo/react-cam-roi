@@ -1,3 +1,15 @@
+# [0.11.0](https://github.com/abidibo/react-cam-roi/compare/v0.10.0...v0.11.0) (2025-06-23)
+
+
+### Bug Fixes
+
+* full image polygon position ([c8b6042](https://github.com/abidibo/react-cam-roi/commit/c8b6042fc094851ff5d87397bc58bae5ca12cc2b))
+
+
+### Features
+
+* edit main params form in place ([3915956](https://github.com/abidibo/react-cam-roi/commit/391595608805832281cf7e887cac828b4aebb337))
+
 # [0.10.0](https://github.com/abidibo/react-cam-roi/compare/v0.9.1...v0.10.0) (2025-06-12)
 
 
