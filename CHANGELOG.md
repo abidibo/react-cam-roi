@@ -1,3 +1,10 @@
+## [0.12.1](https://github.com/abidibo/react-cam-roi/compare/v0.12.0...v0.12.1) (2025-06-23)
+
+
+### Bug Fixes
+
+* tooltip props ([6c174f0](https://github.com/abidibo/react-cam-roi/commit/6c174f09677e6f9773b250ae0b9f590c5f65c6f0))
+
 # [0.12.0](https://github.com/abidibo/react-cam-roi/compare/v0.11.0...v0.12.0) (2025-06-23)
 
 
