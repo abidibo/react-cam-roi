@@ -1,5 +1,5 @@
 export interface FieldProps<T> {
-  onChange: (value: T) => void
+  onChange: (value: T | null) => void
   value: T
   label?: string
   helperText?: string
