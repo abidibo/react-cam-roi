@@ -1,3 +1,10 @@
+# [0.13.0](https://github.com/abidibo/react-cam-roi/compare/v0.12.1...v0.13.0) (2025-06-26)
+
+
+### Features
+
+* add null as onChange field type ([b7f5208](https://github.com/abidibo/react-cam-roi/commit/b7f52081a0dcb5106b3efd39da694fcc6f1de2ab))
+
 ## [0.12.1](https://github.com/abidibo/react-cam-roi/compare/v0.12.0...v0.12.1) (2025-06-23)
 
 
