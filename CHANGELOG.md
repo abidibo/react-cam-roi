@@ -1,3 +1,10 @@
+## [0.13.1](https://github.com/abidibo/react-cam-roi/compare/v0.13.0...v0.13.1) (2025-08-06)
+
+
+### Bug Fixes
+
+* types errors ([ced2a56](https://github.com/abidibo/react-cam-roi/commit/ced2a5655bdf77df7f1ebbe6033498d53144aaee))
+
 # [0.13.0](https://github.com/abidibo/react-cam-roi/compare/v0.12.1...v0.13.0) (2025-06-26)
 
 
