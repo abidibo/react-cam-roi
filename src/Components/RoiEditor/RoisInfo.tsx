@@ -2,7 +2,7 @@ import { useContext } from 'react'
 
 import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
-import { formatString } from '../../Utils'
+import { compose, defaultTo, formatString } from '../../Utils'
 import { OperatorEnum } from './Types'
 
 const RoisInfo = () => {
@@ -14,12 +14,18 @@ const RoisInfo = () => {
   return (
     <div>
       <div style={{ marginBottom: '1rem' }}>
-        <TextField required value={presetName} onChange={setPresetName} label={strings.presetName} fullWidth />
+        <TextField
+          required
+          value={presetName}
+          onChange={compose(setPresetName, defaultTo(''))}
+          label={strings.presetName}
+          fullWidth
+        />
       </div>
       <div style={{ marginBottom: '1rem' }}>
         <TextField
           value={presetDescription}
-          onChange={setPresetDescription}
+          onChange={compose(setPresetDescription, defaultTo(''))}
           label={strings.presetDescription}
           fullWidth
         />

@@ -1,3 +1,4 @@
+import * as fabric from 'fabric'
 import { useContext } from 'react'
 
 import FullRoiIcon from '../../Icons/FullRoiIcon'
@@ -39,6 +40,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ canvasRef, imageSize }) => {
     canDrawShape(configuration, ToolEnum.Rectangle, shapes)
 
   const handleRenderFullImagePolygon = () => {
+    if (!canvasRef.current) return
     renderFullImagePolygon(editorId, canvasRef.current, activeColor, imageSize)
   }
 

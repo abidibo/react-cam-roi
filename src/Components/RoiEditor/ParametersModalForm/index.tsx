@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
 import { UiContext } from '../../../Providers/UiProvider'
-import { css } from '../../../Utils'
+import { compose, css, defaultTo } from '../../../Utils'
 import RoleField from '../../RoleField'
 import { useParametersForm } from '../Hooks'
 import ParameterField from '../ParameterField'
@@ -72,7 +72,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
             label={strings.name}
             type="text"
             value={name}
-            onChange={setName}
+            onChange={compose(setName, defaultTo(''))}
             error={!!errors.name}
             helperText={errors.name}
             readOnly={readOnly}
@@ -80,7 +80,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
           <RoleField
             required
             value={role}
-            onChange={setRole}
+            onChange={compose(setRole, defaultTo(''))}
             error={!!errors.role}
             helperText={errors.role}
             shapeType={shapeType}

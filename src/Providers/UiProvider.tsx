@@ -136,6 +136,7 @@ export const DefaultUiContext: UiContextType = {
     pointer: 'Selection',
     pointerHelpText: 'click a shape to select it',
     rect: 'Rectangle',
+    rectangle: 'Rectangle',
     rectHelpText: 'click and drag to draw the rectangle',
     requiredField: 'This field is required',
     roiMultiplicityEqRule: 'a number of "{role}" ({type}) equal to {threshold}',
