@@ -213,10 +213,11 @@ export type ConfigurationParameter = {
   description: string // helper text
   unit: string // postponed to the label
   type: DataTypeEnum // value type
-  options: { value: number | string | boolean; label: string }[] // if filled the component will be a dropdown
+  options?: { value: number | string | boolean; label: string }[] // if filled the component will be a dropdown
   multiple?: boolean // for multiple selection
   required: boolean // required parameter
   value: number | string | boolean | string[] | number[] | null // default value
+  fieldSet?: string // fieldset for grouping fields
 }
 
 // Configuration of ROIs
@@ -802,6 +803,14 @@ There are components that cannot be overridden. But still you can use classes to
 #### Form
 
 - `react-cam-roi-form`
+
+- `react-cam-roi-fieldset`
+- `react-cam-roi-fieldset-light`
+- `react-cam-roi-fieldset-dark`
+
+- `react-cam-roi-legend`
+- `react-cam-roi-legend-light`
+- `react-cam-roi-legend-dark`
 
 ## Development
 

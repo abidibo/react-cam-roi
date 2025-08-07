@@ -35,7 +35,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   noModal,
   readOnly,
 }) => {
-  const { Modal, TextField, strings } = useContext(UiContext)
+  const { Modal, TextField, strings, themeMode, Typography } = useContext(UiContext)
   const [name, setName] = useState(shapeName ?? '')
   const [role, setRole] = useState(shapeRole ?? '')
   const { fields, setField, errors, setErrors } = useParametersForm(data)
@@ -63,6 +63,19 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
     }
   }
 
+  // group parameters by fieldset
+  const groupedParameters = parameters.reduce(
+    (acc, p) => {
+      if (acc[p.fieldSet || '']) {
+        acc[p.fieldSet || ''].push(p)
+      } else {
+        acc[p.fieldSet || ''] = [p]
+      }
+      return acc
+    },
+    {} as Record<string, ConfigurationParameter[]>,
+  )
+
   const form = (
     <div className={css('form', styles, null)}>
       {shapeType && (
@@ -89,46 +102,57 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
           />
         </>
       )}
-      {parameters.map((parameter: ConfigurationParameter) => {
-        switch (parameter.type) {
-          case 'string':
-            return (
-              <ParameterField<string>
-                key={parameter.codename}
-                value={String((readOnly ? readonlyFields : fields)[parameter.codename])}
-                onChange={setField<string>(parameter.codename)}
-                parameter={parameter}
-                errors={errors}
-                readOnly={readOnly}
-              />
-            )
-          case 'int':
-          case 'float':
-            return (
-              <ParameterField<number>
-                key={parameter.codename}
-                value={(readOnly ? readonlyFields : fields)[parameter.codename] as number}
-                onChange={setField<number>(parameter.codename)}
-                parameter={parameter}
-                errors={errors}
-                readOnly={readOnly}
-              />
-            )
-          case 'bool':
-            return (
-              <ParameterField<boolean>
-                key={parameter.codename}
-                value={(readOnly ? readonlyFields : fields)[parameter.codename] as boolean}
-                onChange={setField<boolean>(parameter.codename)}
-                parameter={parameter}
-                errors={errors}
-                readOnly={readOnly}
-              />
-            )
-          default:
-            return null
-        }
-      })}
+      {Object.keys(groupedParameters)
+        .sort()
+        .map((fieldSet) => (
+          <div className={css('fieldset', styles, themeMode)} key={fieldSet}>
+            {fieldSet && (
+              <Typography component="div" className={css('legend', styles, themeMode)}>
+                {fieldSet}
+              </Typography>
+            )}
+            {groupedParameters[fieldSet].map((parameter: ConfigurationParameter) => {
+              switch (parameter.type) {
+                case 'string':
+                  return (
+                    <ParameterField<string>
+                      key={parameter.codename}
+                      value={String((readOnly ? readonlyFields : fields)[parameter.codename])}
+                      onChange={setField<string>(parameter.codename)}
+                      parameter={parameter}
+                      errors={errors}
+                      readOnly={readOnly}
+                    />
+                  )
+                case 'int':
+                case 'float':
+                  return (
+                    <ParameterField<number>
+                      key={parameter.codename}
+                      value={(readOnly ? readonlyFields : fields)[parameter.codename] as number}
+                      onChange={setField<number>(parameter.codename)}
+                      parameter={parameter}
+                      errors={errors}
+                      readOnly={readOnly}
+                    />
+                  )
+                case 'bool':
+                  return (
+                    <ParameterField<boolean>
+                      key={parameter.codename}
+                      value={(readOnly ? readonlyFields : fields)[parameter.codename] as boolean}
+                      onChange={setField<boolean>(parameter.codename)}
+                      parameter={parameter}
+                      errors={errors}
+                      readOnly={readOnly}
+                    />
+                  )
+                default:
+                  return null
+              }
+            })}
+          </div>
+        ))}
     </div>
   )
 

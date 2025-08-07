@@ -3,3 +3,23 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.legend {
+  background: #e0e0e0;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.2rem !important;
+}
+
+.legend-light {
+  background: #e0e0e0;
+}
+
+.legend-dark {
+  background: #232323;
+}

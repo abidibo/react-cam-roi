@@ -8,6 +8,7 @@ export const configuration: Configuration = {
       description: 'This is some descriptive text', // tooltip
       unit: 's', // unit
       type: DataTypeEnum.Integer, // int, float, string, bool
+      fieldSet: 'Main parameters',
       options: [
         // if filled -> enum of types type
         {
@@ -29,9 +30,29 @@ export const configuration: Configuration = {
       description: 'This is some descriptive text', // tooltip
       unit: 's', // unit
       type: DataTypeEnum.Boolean, // int, float, string, bool
+      fieldSet: 'Internal parameters',
       options: [],
       required: true, // true | false,
       value: null, // default value
+    },
+    {
+      codename: 'analytics_3', // internal code
+      label: 'Analytics param 3', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.String, // int, float, string, bool
+      fieldSet: 'Internal parameters',
+      required: true, // true | false,
+      value: '', // default value
+    },
+    {
+      codename: 'analytics_4', // internal code
+      label: 'Analytics param 4', // to be shown in interface
+      description: 'This is some descriptive text', // tooltip
+      unit: 's', // unit
+      type: DataTypeEnum.String, // int, float, string, bool
+      required: false, // true | false,
+      value: '', // default value
     },
   ],
   rois: [
