@@ -1,3 +1,10 @@
+# [0.14.0](https://github.com/abidibo/react-cam-roi/compare/v0.13.1...v0.14.0) (2025-08-07)
+
+
+### Features
+
+* add fieldset support ([2308aa5](https://github.com/abidibo/react-cam-roi/commit/2308aa5ae14d4b3fdcd889b38753bac54dc427ac))
+
 ## [0.13.1](https://github.com/abidibo/react-cam-roi/compare/v0.13.0...v0.13.1) (2025-08-06)
 
 
