@@ -1,3 +1,10 @@
+## [0.14.1](https://github.com/abidibo/react-cam-roi/compare/v0.14.0...v0.14.1) (2025-08-08)
+
+
+### Bug Fixes
+
+* css utility function ([97f1427](https://github.com/abidibo/react-cam-roi/commit/97f1427438307a69816746c17dc716a06afb095a))
+
 # [0.14.0](https://github.com/abidibo/react-cam-roi/compare/v0.13.1...v0.14.0) (2025-08-07)
 
 
