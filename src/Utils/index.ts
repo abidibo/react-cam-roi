@@ -1,7 +1,14 @@
 export const log = (level: 'log' | 'info' | 'warn' | 'error', enable: boolean, ...args: unknown[]) =>
   enable && console[level](...args)
-export const css = (name: string, styles: Record<string, string>, themeMode: 'light' | 'dark' | null) =>
-  `${styles[name]} ${styles[`${name}-${themeMode}`]} react-cam-roi-${name}${themeMode ? `react-cam-roi-${name}-${themeMode}` : ''}`
+export const css = (name: string, styles: Record<string, string>, themeMode: 'light' | 'dark' | null) => {
+  const parts = []
+  if (styles[name]) parts.push(styles[name])
+  if (styles[`${name}-${themeMode}`]) parts.push(styles[`${name}-${themeMode}`])
+  parts.push(`react-cam-roi-${name}`)
+  if (themeMode) parts.push(`react-cam-roi-${name}-${themeMode}`)
+
+  return parts.join(' ')
+}
 
 export const humanize = (str: string) => {
   return str
