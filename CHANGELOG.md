@@ -1,3 +1,10 @@
+## [0.14.2](https://github.com/abidibo/react-cam-roi/compare/v0.14.1...v0.14.2) (2025-09-04)
+
+
+### Bug Fixes
+
+* use canvas size for full rectangle ([19e3997](https://github.com/abidibo/react-cam-roi/commit/19e3997be39075543f51f5c1e079a6c277300649))
+
 ## [0.14.1](https://github.com/abidibo/react-cam-roi/compare/v0.14.0...v0.14.1) (2025-08-08)
 
 
