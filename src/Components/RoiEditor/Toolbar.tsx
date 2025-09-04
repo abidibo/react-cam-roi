@@ -18,9 +18,10 @@ import { canDrawShape, enableRois } from './Utils'
 
 type ToolbarProps = {
   imageSize: { width: number; height: number }
+  canvasSize: { width: number; height: number }
   canvasRef: React.MutableRefObject<fabric.Canvas | null>
 }
-const Toolbar: React.FC<ToolbarProps> = ({ canvasRef, imageSize }) => {
+const Toolbar: React.FC<ToolbarProps> = ({ canvasRef, imageSize, canvasSize }) => {
   const { IconButton, themeMode, primaryColor, Typography, strings, Tooltip } = useContext(UiContext)
   const { activeTool, setActiveTool, configuration, shapes, editorId, activeColor } = useEditorContext()
 
@@ -41,7 +42,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ canvasRef, imageSize }) => {
 
   const handleRenderFullImagePolygon = () => {
     if (!canvasRef.current) return
-    renderFullImagePolygon(editorId, canvasRef.current, activeColor, imageSize)
+    renderFullImagePolygon(editorId, canvasRef.current, activeColor, canvasSize)
   }
 
   return (
