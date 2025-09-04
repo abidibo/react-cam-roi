@@ -133,6 +133,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
 
   log('info', enableLogs, 'react-cam-roi', 'active tool', activeTool)
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
+  log('info', enableLogs, 'react-cam-roi', 'image size', imageSize)
   log('info', enableLogs, 'react-cam-roi', 'metadata', metadata)
 
   if (!isReady) {
@@ -167,7 +168,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
             {slots?.roiAbove && slots.roiAbove}
             <div className={css('rois-wrapper', styles, themeMode)}>
               <Header />
-              <Toolbar canvasRef={canvasRef} imageSize={imageSize} canvasSize={canvasSize} />
+              <Toolbar canvasRef={canvasRef} canvasSize={canvasSize} />
               <div
                 className={css('canvas-wrapper', styles, themeMode)}
                 style={{
