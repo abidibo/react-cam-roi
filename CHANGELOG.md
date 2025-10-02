@@ -1,3 +1,11 @@
+## [0.14.3](https://github.com/abidibo/react-cam-roi/compare/v0.14.2...v0.14.3) (2025-10-02)
+
+
+### Bug Fixes
+
+* different roles with same type parameters validation ([63a43ed](https://github.com/abidibo/react-cam-roi/commit/63a43edbfa4f9d64c977fa0019917ed78642852b))
+* shapes coordinates abs to perc and wrong fabric disposal in effect ([864d356](https://github.com/abidibo/react-cam-roi/commit/864d356e149f676cbb3294d774ffef0e3464accd))
+
 ## [0.14.2](https://github.com/abidibo/react-cam-roi/compare/v0.14.1...v0.14.2) (2025-09-04)
 
 
