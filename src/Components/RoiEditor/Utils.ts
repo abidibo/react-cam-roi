@@ -209,7 +209,7 @@ export const validate = (
 export const fabricShapeToOutputShape = (
   shape: Shape,
   type: ShapeType,
-  imageSize: { width: number; height: number },
+  canvasSize: { width: number; height: number },
 ) => {
   switch (type) {
     case ToolEnum.Rectangle:
@@ -219,10 +219,10 @@ export const fabricShapeToOutputShape = (
         scaleY: shape.scaleY,
         skewX: shape.skewX,
         skewY: shape.skewY,
-        top: abs2Perc(shape.top, imageSize.height),
-        left: abs2Perc(shape.left, imageSize.width),
-        width: abs2Perc(shape.width, imageSize.width),
-        height: abs2Perc(shape.height, imageSize.height),
+        top: abs2Perc(shape.top, canvasSize.height),
+        left: abs2Perc(shape.left, canvasSize.width),
+        width: abs2Perc(shape.width, canvasSize.width),
+        height: abs2Perc(shape.height, canvasSize.height),
         color: shape.stroke as string,
       }
     case ToolEnum.Point:
@@ -232,19 +232,19 @@ export const fabricShapeToOutputShape = (
         scaleY: shape.scaleY,
         skewX: shape.skewX,
         skewY: shape.skewY,
-        top: abs2Perc(shape.top, imageSize.height),
-        left: abs2Perc(shape.left, imageSize.width),
+        top: abs2Perc(shape.top, canvasSize.height),
+        left: abs2Perc(shape.left, canvasSize.width),
         color: shape.stroke as string,
       }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
         points: shape.get('points').map(({ x, y }: { x: number; y: number }) => ({
-          x: abs2Perc(x, imageSize.width),
-          y: abs2Perc(y, imageSize.height),
+          x: abs2Perc(x, canvasSize.width),
+          y: abs2Perc(y, canvasSize.height),
         })),
-        top: abs2Perc(shape.top, imageSize.height),
-        left: abs2Perc(shape.left, imageSize.width),
+        top: abs2Perc(shape.top, canvasSize.height),
+        left: abs2Perc(shape.left, canvasSize.width),
         color: shape.stroke as string,
         angle: shape.angle,
         scaleX: shape.scaleX,
@@ -300,28 +300,28 @@ function getAbsolutePoints(shape: fabric.Polygon | fabric.Polyline) {
 export const fabricShapeToOutputCoords = (
   shape: Shape,
   type: ShapeType,
-  imageSize: { width: number; height: number },
+  canvasSize: { width: number; height: number },
 ) => {
   switch (type) {
     case ToolEnum.Rectangle:
       return {
         points: getAbsoluteRectData(shape as fabric.Rect).map(({ x, y }: { x: number; y: number }) => ({
-          x: abs2Perc(x, imageSize.width),
-          y: abs2Perc(y, imageSize.height),
+          x: abs2Perc(x, canvasSize.width),
+          y: abs2Perc(y, canvasSize.height),
         })),
       }
     case ToolEnum.Point:
       return {
-        x: abs2Perc(shape.left, imageSize.width),
-        y: abs2Perc(shape.top, imageSize.height),
+        x: abs2Perc(shape.left, canvasSize.width),
+        y: abs2Perc(shape.top, canvasSize.height),
       }
     case ToolEnum.Polygon:
     case ToolEnum.Polyline:
       return {
         points: getAbsolutePoints(shape as fabric.Polyline | fabric.Polygon).map(
           ({ x, y }: { x: number; y: number }) => ({
-            x: abs2Perc(x, imageSize.width),
-            y: abs2Perc(y, imageSize.height),
+            x: abs2Perc(x, canvasSize.width),
+            y: abs2Perc(y, canvasSize.height),
           }),
         ),
       }

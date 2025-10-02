@@ -102,12 +102,12 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
           role: metadata.rois.find((r) => r.id === shapeId)?.role ?? '',
           type: shapes[shapeId].type,
           id: shapeId,
-          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].type as ShapeType, imageSize),
-          coords: fabricShapeToOutputCoords(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, imageSize),
+          shape: fabricShapeToOutputShape(shapes[shapeId].shape, shapes[shapeId].type as ShapeType, canvasSize),
+          coords: fabricShapeToOutputCoords(shapes[shapeId].shape, shapes[shapeId].shape.type as ShapeType, canvasSize),
         })),
       }
     },
-    [imageSize.width, imageSize.height, canvasRef], // eslint-disable-line
+    [canvasSize.width, canvasSize.height, canvasRef], // eslint-disable-line
   )
 
   useEffect(() => {
@@ -137,6 +137,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   log('info', enableLogs, 'react-cam-roi', 'canvas size', canvasSize)
   log('info', enableLogs, 'react-cam-roi', 'image size', imageSize)
   log('info', enableLogs, 'react-cam-roi', 'metadata', metadata)
+  log('info', enableLogs, 'react-cam-roi', 'shapes', shapes)
 
   if (!isReady) {
     return <Loader />

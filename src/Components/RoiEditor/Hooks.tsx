@@ -70,7 +70,7 @@ export const useCanvasSize = (imageUrl: string) => {
 
 export const initCanvasData = (
   canvasRef: React.MutableRefObject<fabric.Canvas | null>,
-  imageSize: { width: number; height: number },
+  canvasSize: { width: number; height: number },
   addShapes: (shapes: { id: string; type: ShapeType; shape: Shape }[]) => void,
   metadata: Metadata,
   setMetadata: (v: Metadata) => void,
@@ -93,8 +93,8 @@ export const initCanvasData = (
             scaleY: r.shape.scaleY || 1,
             skewX: r.shape.skewX || 0,
             skewY: r.shape.skewY || 0,
-            left: perc2Abs(r.shape.left, imageSize.width),
-            top: perc2Abs(r.shape.top, imageSize.height),
+            left: perc2Abs(r.shape.left, canvasSize.width),
+            top: perc2Abs(r.shape.top, canvasSize.height),
             originX: 'center',
             originY: 'center',
             radius: 6,
@@ -116,12 +116,12 @@ export const initCanvasData = (
             scaleY: r.shape.scaleY || 1,
             skewX: r.shape.skewX || 0,
             skewY: r.shape.skewY || 0,
-            left: perc2Abs(r.shape.left, imageSize.width),
-            top: perc2Abs(r.shape.top, imageSize.height),
+            left: perc2Abs(r.shape.left, canvasSize.width),
+            top: perc2Abs(r.shape.top, canvasSize.height),
             originX: 'left',
             originY: 'top',
-            width: perc2Abs((r.shape as OutputShapeRect).width, imageSize.width),
-            height: perc2Abs((r.shape as OutputShapeRect).height, imageSize.height),
+            width: perc2Abs((r.shape as OutputShapeRect).width, canvasSize.width),
+            height: perc2Abs((r.shape as OutputShapeRect).height, canvasSize.height),
             fill: 'transparent',
             stroke: r.shape.color,
             strokeWidth: 2,
@@ -136,8 +136,8 @@ export const initCanvasData = (
         case ToolEnum.Polygon:
           shape = new fabric.Polygon(
             (r.shape as OutputShapePolygon).points.map(({ x, y }: { x: number; y: number }) => ({
-              x: perc2Abs(x, imageSize.width),
-              y: perc2Abs(y, imageSize.height),
+              x: perc2Abs(x, canvasSize.width),
+              y: perc2Abs(y, canvasSize.height),
             })),
             {
               angle: r.shape.angle || 0,
@@ -145,8 +145,8 @@ export const initCanvasData = (
               scaleY: r.shape.scaleY || 1,
               skewX: r.shape.skewX || 0,
               skewY: r.shape.skewY || 0,
-              top: perc2Abs(r.shape.top, imageSize.height),
-              left: perc2Abs(r.shape.left, imageSize.width),
+              top: perc2Abs(r.shape.top, canvasSize.height),
+              left: perc2Abs(r.shape.left, canvasSize.width),
               fill: 'transparent',
               stroke: r.shape.color,
               strokeWidth: 2,
@@ -163,8 +163,8 @@ export const initCanvasData = (
         case ToolEnum.Polyline:
           shape = new fabric.Polyline(
             (r.shape as OutputShapePolyline).points.map(({ x, y }: { x: number; y: number }) => ({
-              x: perc2Abs(x, imageSize.width),
-              y: perc2Abs(y, imageSize.height),
+              x: perc2Abs(x, canvasSize.width),
+              y: perc2Abs(y, canvasSize.height),
             })),
             {
               angle: r.shape.angle || 0,
@@ -172,8 +172,8 @@ export const initCanvasData = (
               scaleY: r.shape.scaleY || 1,
               skewX: r.shape.skewX || 0,
               skewY: r.shape.skewY || 0,
-              top: perc2Abs(r.shape.top, imageSize.height),
-              left: perc2Abs(r.shape.left, imageSize.width),
+              top: perc2Abs(r.shape.top, canvasSize.height),
+              left: perc2Abs(r.shape.left, canvasSize.width),
               fill: 'transparent',
               stroke: r.shape.color,
               strokeWidth: 2,

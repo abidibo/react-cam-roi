@@ -24,17 +24,22 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef, canvasSize, imageSize, initi
     if (canvasSize.width !== 0 && canvasSize.height !== 0 && !initialized) {
       canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${editorId}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
-      initCanvasData(canvasRef, imageSize, addShapes, metadata, setMetadata, initialData, enableLogs)
+      initCanvasData(canvasRef, canvasSize, addShapes, metadata, setMetadata, initialData, enableLogs)
       setInitialized(true)
     }
 
     return () => {
-      canvasRef.current?.dispose()
+      if (initialized) {
+        canvasRef.current?.dispose()
+      }
     }
   }, [canvasSize.width, canvasSize.height]) // eslint-disable-line
 
   return (
-    <canvas id={`react-cam-roi-canvas-${editorId}`} style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }} />
+    <canvas
+      id={`react-cam-roi-canvas-${editorId}`}
+      style={{ width: `${canvasSize.width}px`, height: `${canvasSize.height}px` }}
+    />
   )
 }
 export default Canvas
