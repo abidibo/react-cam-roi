@@ -5,6 +5,7 @@ import { useEditorContext } from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { log, perc2Abs } from '../../Utils'
 import Dispatcher from '../../Utils/Dispatcher'
+import { copyPoint, handleMouseDownPoint } from './Point'
 import { copyPolygon, handleDoubleClickPolygon, handleMouseDownPolygon, handleMouseMovePolygon } from './Polygon'
 import { copyPolyline, handleDoubleClickPolyline, handleMouseDownPolyline, handleMouseMovePolyline } from './Polyline'
 import { copyRectangle, handleMouseDownRect, handleMouseMoveRect, handleMouseUpRect } from './Rectangle'
@@ -22,7 +23,6 @@ import {
   ToolEnum,
 } from './Types'
 import { canDrawShape } from './Utils'
-import { copyPoint, handleMouseDownPoint } from './Point'
 
 export const useImageSize = (imageUrl: string) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
@@ -86,7 +86,7 @@ export const initCanvasData = (
       const id = r.id
       let shape: Shape
       switch (r.type) {
-       case ToolEnum.Point:
+        case ToolEnum.Point:
           shape = new fabric.Circle({
             angle: r.shape.angle || 0,
             scaleX: r.shape.scaleX || 1,
@@ -421,9 +421,18 @@ export const useParametersForm = (parameters: OutputParameter[]) => {
   )
   const setField =
     <T,>(key: string) =>
-      (value: T) => {
-        setFields({ ...fields, [key]: value })
-      }
+    (value: T) => {
+      setFields({ ...fields, [key]: value })
+    }
+
+  const resetErrors = () => {
+    setErrors({})
+  }
+
+  const reset = () => {
+    setFields(parameters.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {}))
+    setErrors({})
+  }
 
   return {
     fields,
@@ -431,5 +440,7 @@ export const useParametersForm = (parameters: OutputParameter[]) => {
     setFields,
     errors,
     setErrors,
+    resetErrors,
+    reset,
   }
 }

@@ -73,12 +73,18 @@ export const validateParametersForm = (
   parameters: ConfigurationParameter[],
   fields: Record<string, unknown>,
   setErrors: (errors: Record<string, string>) => void,
-  strings: Record<string, string>,
+  resetErrors: () => void,
 ) => {
+  console.log('RESET ERRORS')
+  resetErrors()
   const err: Record<string, string> = {}
   parameters.forEach((p) => {
-    if (p.required && isEmpty(fields[p.codename] as string | number | boolean | string[] | number[])) {
-      err[p.codename] = strings.requiredField
+    if (
+      p.required &&
+      (isEmpty(fields[p.codename] as string | number | boolean | string[] | number[]) ||
+        isNil(fields[p.codename] as string | number | boolean | string[] | number[]))
+    ) {
+      err[p.codename] = 'requiredField'
     }
   })
 
@@ -97,6 +103,10 @@ const isEmpty = (v: string | number | boolean | string[] | number[] | null | und
   if (Array.isArray(v)) {
     return v.length === 0
   }
+  return v === null || v === undefined
+}
+
+const isNil = (v: string | number | boolean | string[] | number[] | null | undefined): boolean => {
   return v === null || v === undefined
 }
 
@@ -182,8 +192,8 @@ export const validate = (
 
   // check rois metadata
   Object.keys(shapes).forEach((shapeId) => {
-    const type = shapes[shapeId].type
-    const confParameters = configuration.rois.find((r) => r.type === type)?.parameters ?? []
+    const role = metadata.rois.find((r) => r.id === shapeId)?.role
+    const confParameters = configuration.rois.find((r) => r.role === role)?.parameters ?? []
     confParameters.forEach((p) => {
       if (
         p.required &&

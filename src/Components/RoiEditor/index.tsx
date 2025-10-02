@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import EditorProvider from '../../Providers/EditorProvider'
 import { UiContext } from '../../Providers/UiProvider'
 import { css, log } from '../../Utils'
+import Dispatcher from '../../Utils/Dispatcher'
 import { Loader } from '../Loader'
 import Canvas from './Canvas'
 import Header from './Header'
@@ -121,6 +122,7 @@ const RoiEditor: React.FC<RoiEditorProps> = ({
   }, [metadata, shapes, onUpdate, prepareOutput])
 
   const handleSubmit = useCallback(() => {
+    Dispatcher.emit('editor:save')
     const [isValid, errors] = validate(configuration, presetName, shapes, metadata, strings)
     if (isValid) {
       onSubmit(prepareOutput(metadata, shapes, presetName, presetDescription))

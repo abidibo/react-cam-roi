@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 
 import { UiContext } from '../../../Providers/UiProvider'
 import { compose, css, defaultTo } from '../../../Utils'
+import Dispatcher from '../../../Utils/Dispatcher'
 import RoleField from '../../RoleField'
 import { useParametersForm } from '../Hooks'
 import ParameterField from '../ParameterField'
@@ -12,7 +13,8 @@ import styles from './ParametersModalForm.module.css'
 export type ParametersModalFormProps = {
   onClose: () => void
   title: string
-  parameters: ConfigurationParameter[]
+  parameters?: ConfigurationParameter[]
+  rolesParameters?: Record<string, ConfigurationParameter[]>
   data: OutputParameter[]
   onSubmit: (data: OutputParameter[], properties?: { name: string; role: string }) => void
   shapeType?: ShapeType
@@ -27,6 +29,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   title,
   onClose,
   parameters,
+  rolesParameters,
   data,
   onSubmit,
   shapeType,
@@ -38,7 +41,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   const { Modal, TextField, strings, themeMode, Typography } = useContext(UiContext)
   const [name, setName] = useState(shapeName ?? '')
   const [role, setRole] = useState(shapeRole ?? '')
-  const { fields, setField, errors, setErrors } = useParametersForm(data)
+  const { fields, setField, errors, setErrors, resetErrors, reset } = useParametersForm(data)
   const readonlyFields: Record<string, unknown> = data.reduce((acc, p) => ({ ...acc, [p.codename]: p.value }), {})
 
   // if not in modal we save at every field change
@@ -48,12 +51,27 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
     }
   }, [fields])
 
+  const currentParameters = shapeType
+    ? defaultTo<ConfigurationParameter[]>([])(rolesParameters?.[role])
+    : defaultTo<ConfigurationParameter[]>([])(parameters)
+
+  // add a listener in order for general save to call validate
+  useEffect(() => {
+    const validate = () => {
+      validateParametersForm(currentParameters, fields, setErrors, resetErrors)
+    }
+    Dispatcher.register('editor:save', validate)
+    return () => {
+      Dispatcher.unregister('editor:save', validate)
+    }
+  }, [currentParameters, fields, setErrors, resetErrors])
+
   const handleSubmit = () => {
     if (shapeType && name === '') {
       setErrors({ name: strings.requiredField })
-    } else if (!noModal || validateParametersForm(parameters, fields, setErrors, strings)) {
+    } else if (noModal || validateParametersForm(currentParameters, fields, setErrors, resetErrors)) {
       const data = [
-        ...parameters.map((p) => ({ codename: p.codename, value: fields[p.codename] })),
+        ...currentParameters.map((p) => ({ codename: p.codename, value: fields[p.codename] })),
       ] as OutputParameter[]
       if (shapeType) {
         onSubmit(data, { name, role })
@@ -64,7 +82,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
   }
 
   // group parameters by fieldset
-  const groupedParameters = parameters.reduce(
+  const groupedParameters = currentParameters.reduce(
     (acc, p) => {
       if (acc[p.fieldSet || '']) {
         acc[p.fieldSet || ''].push(p)
@@ -93,7 +111,7 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
           <RoleField
             required
             value={role}
-            onChange={compose(setRole, defaultTo(''))}
+            onChange={compose(reset, setRole, defaultTo(''))}
             error={!!errors.role}
             helperText={errors.role}
             shapeType={shapeType}
@@ -127,10 +145,14 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
                 case 'int':
                 case 'float':
                   return (
-                    <ParameterField<number>
+                    <ParameterField<number | null>
                       key={parameter.codename}
-                      value={(readOnly ? readonlyFields : fields)[parameter.codename] as number}
-                      onChange={setField<number>(parameter.codename)}
+                      value={
+                        (readOnly ? readonlyFields : fields)[parameter.codename] === ''
+                          ? null
+                          : ((readOnly ? readonlyFields : fields)[parameter.codename] as number)
+                      }
+                      onChange={setField<number | null>(parameter.codename)}
                       parameter={parameter}
                       errors={errors}
                       readOnly={readOnly}

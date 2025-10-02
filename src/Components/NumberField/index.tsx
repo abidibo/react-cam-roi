@@ -8,7 +8,7 @@ import styles from './NumberField.module.css'
 const NumberField: React.FC<FieldProps<number | null>> = ({ onChange, value, label, required, helperText, error }) => {
   const { themeMode, Typography } = useContext(UiContext)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(parseFloat(e.target.value))
+    onChange(e.target.value === '' ? null : parseFloat(e.target.value))
   }
 
   return (

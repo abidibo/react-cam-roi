@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 
 import { UiContext } from '../../Providers/UiProvider'
-import { ConfigurationParameter } from './Types'
 import { EnumOption } from '../EnumField'
+import { ConfigurationParameter } from './Types'
 
 export type ParameterFieldProps<T> = {
   value: T
@@ -35,7 +35,13 @@ const ParameterField = <T,>({ value, onChange, parameter, errors, readOnly }: Pa
           {...props}
         />
       ) : (
-        <TextField type="text" readOnly={readOnly} value={value as string} onChange={(v) => onChange(v as T)} {...props} />
+        <TextField
+          type="text"
+          readOnly={readOnly}
+          value={value as string}
+          onChange={(v) => onChange(v as T)}
+          {...props}
+        />
       )
     case 'int':
     case 'float':

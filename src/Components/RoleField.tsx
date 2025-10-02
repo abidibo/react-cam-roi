@@ -22,7 +22,7 @@ const isAllowed = (role: string, multiplicity: { operator: string; threshold: nu
 
 const RoleField: React.FC<RoleFieldProps> = ({ onChange, value, required, shapeType, ...props }) => {
   const { strings, EnumField } = useContext(UiContext)
-  const { configuration/*, metadata*/ } = useEditorContext()
+  const { configuration /*, metadata*/ } = useEditorContext()
   const options: string[] = []
   const rois = configuration.rois || []
   rois
@@ -36,7 +36,7 @@ const RoleField: React.FC<RoleFieldProps> = ({ onChange, value, required, shapeT
     })
 
   useEffect(() => {
-    if (required) {
+    if (required && !value) {
       onChange(options[0])
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

@@ -9,8 +9,7 @@ import styles from './ShapesList.module.css'
 import { OutputParameter, Shape, ShapeType } from './Types'
 
 const ShapesList: React.FC = () => {
-  const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, CopyIcon, themeMode } =
-    useContext(UiContext)
+  const { strings, Typography, IconButton, DeleteIcon, AnnotateIcon, CopyIcon, themeMode } = useContext(UiContext)
   const { shapes, removeShape, configuration, metadata, setMetadata, addShape, editorId } = useEditorContext()
   const [selected, setSelected] = useState<string[]>([])
   const [form, setForm] = useState<{ isOpen: boolean; shapeId: string; type: ShapeType | null; shape: Shape | null }>({
@@ -126,7 +125,7 @@ const ShapesList: React.FC = () => {
                   </div>
                 </td>
                 <td>
-                  <Typography>{configuration.rois.find(r => r.role === m?.role)?.label}</Typography>
+                  <Typography>{configuration.rois.find((r) => r.role === m?.role)?.label}</Typography>
                 </td>
                 <td>
                   <Typography>{strings[shapes[id].type]}</Typography>
@@ -135,9 +134,7 @@ const ShapesList: React.FC = () => {
                   <IconButton onClick={handleCopyShape(id)}>
                     <CopyIcon color={iconColor} />
                   </IconButton>
-                  <IconButton
-                    onClick={handleEditShapeMetadata(id)}
-                  >
+                  <IconButton onClick={handleEditShapeMetadata(id)}>
                     <AnnotateIcon color={iconColor} />
                   </IconButton>
                   <IconButton onClick={handleRemoveShape(id)}>
@@ -155,9 +152,9 @@ const ShapesList: React.FC = () => {
           shapeName={metadata.rois.find((roi) => roi.id === form.shapeId)?.name ?? ''}
           shapeRole={metadata.rois.find((roi) => roi.id === form.shapeId)?.role ?? ''}
           shapeId={form.shapeId}
-          parameters={
-            configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ?? []
-          }
+          rolesParameters={configuration.rois
+            .filter((roi) => roi.type === (form.type || shapes[form.shapeId].type))
+            .reduce((acc, p) => ({ ...acc, [p.role]: p.parameters }), {})}
           data={
             metadata.rois.find((roi) => roi.id === form.shapeId)?.parameters ??
             configuration.rois.find((roi) => roi.type === (form.type || shapes[form.shapeId].type))?.parameters ??

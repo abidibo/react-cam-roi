@@ -79,6 +79,17 @@ export const configuration: Configuration = {
       ],
     },
     {
+      role: 'exclusion_area', // analytics role, do not show in interface
+      label: 'Exclusion area',
+      type: ToolEnum.Polygon,
+      multiplicity: {
+        // how many rois of this type can/should be created
+        operator: OperatorEnum.Gte, // lt | lte | gt | gte | eq
+        threshold: 0,
+      },
+      parameters: [],
+    },
+    {
       role: 'profile', // analytics role, do not show in interface
       label: 'Profile',
       type: ToolEnum.Point,

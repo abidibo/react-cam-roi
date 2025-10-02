@@ -28,7 +28,10 @@ export const formatString = (str: string, placeholders: Record<string, string | 
 export const abs2Perc = (value: number, ref: number) => Math.round((value / ref) * 100 * 100) / 100
 export const perc2Abs = (value: number, ref: number) => Math.round((ref * value * 100) / 100) / 100
 
-export const defaultTo = (dft: unknown) => (value: unknown) => value ?? dft
+export const defaultTo =
+  <T>(dft: T) =>
+  (value: T | undefined | null) =>
+    value ?? dft
 export const compose =
   (...fns: Function[]) =>
   (x: any) =>

@@ -154,7 +154,7 @@ export const NoRoi: Story = {
     editorId: 'noRoi',
     imageUrl: 'https://picsum.photos/800/600',
     configuration: noRoiConfiguration,
-    initialData: initialDataNoRoi as Output,
+    initialData: initialDataNoRoi as unknown as Output,
     onSubmit: (data) => {
       console.log('output', data)
     },
