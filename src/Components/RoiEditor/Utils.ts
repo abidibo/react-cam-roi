@@ -75,7 +75,6 @@ export const validateParametersForm = (
   setErrors: (errors: Record<string, string>) => void,
   resetErrors: () => void,
 ) => {
-  console.log('RESET ERRORS')
   resetErrors()
   const err: Record<string, string> = {}
   parameters.forEach((p) => {
