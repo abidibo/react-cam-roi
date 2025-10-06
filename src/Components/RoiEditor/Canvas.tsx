@@ -21,7 +21,6 @@ const Canvas: React.FC<CanvasProps> = ({ canvasRef, canvasSize, imageSize, initi
   useDispatcherEvents(canvasRef.current)
 
   useEffect(() => {
-    console.log('EFFECT XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
     if (canvasSize.width !== 0 && canvasSize.height !== 0) {
       canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${editorId}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
