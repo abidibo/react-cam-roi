@@ -1,3 +1,10 @@
+## [0.14.4](https://github.com/abidibo/react-cam-roi/compare/v0.14.3...v0.14.4) (2025-10-06)
+
+
+### Bug Fixes
+
+* remove initialized logic in canvas fabric ([2268d55](https://github.com/abidibo/react-cam-roi/commit/2268d557562b2dcdf4bdda4cb3ca81c6f1fc1dc1))
+
 ## [0.14.3](https://github.com/abidibo/react-cam-roi/compare/v0.14.2...v0.14.3) (2025-10-02)
 
 
