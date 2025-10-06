@@ -15,23 +15,21 @@ type CanvasProps = {
 const Canvas: React.FC<CanvasProps> = ({ canvasRef, canvasSize, imageSize, initialData }) => {
   const { metadata, setMetadata, addShapes, editorId } = useEditorContext()
   const { enableLogs } = useContext(UiContext)
-  const [initialized, setInitialized] = useState(false)
+  // const [initialized, setInitialized] = useState(false)
 
   useTool(canvasRef.current)
   useDispatcherEvents(canvasRef.current)
 
   useEffect(() => {
-    if (canvasSize.width !== 0 && canvasSize.height !== 0 && !initialized) {
+    console.log('EFFECT XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    if (canvasSize.width !== 0 && canvasSize.height !== 0) {
       canvasRef.current = new fabric.Canvas(`react-cam-roi-canvas-${editorId}`)
       canvasRef.current.setDimensions({ width: canvasSize.width, height: canvasSize.height })
       initCanvasData(canvasRef, canvasSize, addShapes, metadata, setMetadata, initialData, enableLogs)
-      setInitialized(true)
     }
 
     return () => {
-      if (initialized) {
-        canvasRef.current?.dispose()
-      }
+      canvasRef.current?.dispose()
     }
   }, [canvasSize.width, canvasSize.height]) // eslint-disable-line
 
