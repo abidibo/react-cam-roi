@@ -41,7 +41,7 @@ export const configuration: Configuration = {
       description: 'This is some descriptive text', // tooltip
       unit: 's', // unit
       type: DataTypeEnum.String, // int, float, string, bool
-      fieldSet: 'Internal parameters',
+      fieldSet: 'Main parameters',
       required: true, // true | false,
       value: '', // default value
     },
