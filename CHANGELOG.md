@@ -1,3 +1,10 @@
+# [0.15.0](https://github.com/abidibo/react-cam-roi/compare/v0.14.4...v0.15.0) (2025-12-18)
+
+
+### Features
+
+* keep fieldSet order as defined ([533b1a8](https://github.com/abidibo/react-cam-roi/commit/533b1a8c184f67ef305735ee89f6ec218b024005))
+
 ## [0.14.4](https://github.com/abidibo/react-cam-roi/compare/v0.14.3...v0.14.4) (2025-10-06)
 
 
