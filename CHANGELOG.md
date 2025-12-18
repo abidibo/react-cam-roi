@@ -1,3 +1,10 @@
+## [0.15.1](https://github.com/abidibo/react-cam-roi/compare/v0.15.0...v0.15.1) (2025-12-18)
+
+
+### Bug Fixes
+
+* crash when there are no parameters with no fieldSet ([06f4b4e](https://github.com/abidibo/react-cam-roi/commit/06f4b4e3d878f5bfb0e404034d7fb28a55574163))
+
 # [0.15.0](https://github.com/abidibo/react-cam-roi/compare/v0.14.4...v0.15.0) (2025-12-18)
 
 
