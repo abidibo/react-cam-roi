@@ -120,7 +120,10 @@ const ParametersModalForm: React.FC<ParametersModalFormProps> = ({
           />
         </>
       )}
-      {['', ...Object.keys(groupedParameters).filter((k) => k !== '')].map((fieldSet) => (
+      {[
+        ...Object.keys(groupedParameters).filter((k) => k === ''),
+        ...Object.keys(groupedParameters).filter((k) => k !== ''),
+      ].map((fieldSet) => (
         <div className={css('fieldset', styles, themeMode)} key={fieldSet}>
           {fieldSet && (
             <Typography component="div" className={css('legend', styles, themeMode)}>
